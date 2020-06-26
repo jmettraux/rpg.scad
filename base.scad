@@ -5,7 +5,7 @@ $fn=12;
 
 diameter = 25;
 thickness = 3;
-slit_width = 0.7;
+slit_width = 0.8;
 arrow_base = 7;
 support_height = 10;
 
@@ -24,20 +24,27 @@ difference() {
 
     // support
 
-    difference() {
+    translate([ 0, 0, 0 ]) difference() {
       translate([ 0, 0, -0.7 * diameter_2 + support_height  ])
         rotate([ 45, 0, 0 ])
           cube([ thickness, diameter_2, diameter_2 ], center=true);
       translate([ 0, 0, -diameter_2 ])
         cube([ diameter, diameter, diameter ], center=true);
     }
+    //translate([ thickness, 0, 0 ]) difference() {
+    //  translate([ 0, 0, -0.7 * diameter_2 + support_height  ])
+    //    rotate([ 45, 0, 0 ])
+    //      cube([ thickness, diameter_2, diameter_2 ], center=true);
+    //  translate([ 0, 0, -diameter_2 ])
+    //    cube([ diameter, diameter, diameter ], center=true);
+    //}
   }
 
   union() {
 
     // slit
 
-    translate([ 0, 0, diameter_2 + 0.1 * thickness ])
+    #translate([ 0, 0, diameter_2 + 0.0 * thickness ])
       cube([ diameter, slit_width, diameter ], center=true);
 
     // arrow
