@@ -3,10 +3,11 @@ $fn=12;
 
 // unit is mm
 
-diameter = 23;
+diameter = 25;
 thickness = 3;
-slit_width = 0.8;
+slit_width = 0.7;
 arrow_base = 7;
+support_height = 10;
 
 ab_2 = arrow_base / 2;
 thickness12 = 1.2 * thickness;
@@ -16,13 +17,30 @@ diameter_2 = diameter / 2;
 difference() {
 
   union() {
+
+    // base
+
     cylinder(d=diameter, h=thickness, center=true);
+
+    // support
+
+    difference() {
+      translate([ 0, 0, -0.7 * diameter_2 + support_height  ])
+        rotate([ 45, 0, 0 ])
+          cube([ thickness, diameter_2, diameter_2 ], center=true);
+      translate([ 0, 0, -diameter_2 ])
+        cube([ diameter, diameter, diameter ], center=true);
+    }
   }
 
   union() {
 
-    translate([ thickness, 0, 0 ])
-      cube([ diameter, slit_width, thickness12 ], center=true);
+    // slit
+
+    translate([ 0, 0, diameter_2 + 0.1 * thickness ])
+      cube([ diameter, slit_width, diameter ], center=true);
+
+    // arrow
 
     translate([ 0, diameter_2 - 1.2 * ab_2, -0.5 * thickness12 ])
       linear_extrude(thickness12)
