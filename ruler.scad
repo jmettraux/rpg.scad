@@ -7,12 +7,14 @@ itmm = 25.4;
 thickness = 2.8;
 width = 24;
 //lsq = 16; // squares
-lsq = 11; // squares
+lsq = 10; // squares
 length = lsq * itmm;
 tthick = 0.8;
 
 //  - 10 sq
 //  / 12 sq
+
+fs = 6;
 
 
 translate([ -length / 2, 0, 0 ]) difference() {
@@ -21,7 +23,6 @@ translate([ -length / 2, 0, 0 ]) difference() {
 
     cube([ length, width, thickness ]);
 
-    fs = 6;
     //fs1 = 7;
 
     d = 1.16 * fs;
@@ -93,7 +94,7 @@ translate([ -length / 2, 0, 0 ]) difference() {
       x = (lsq - j) * itmm;
 
       translate([ x, -0.1, -0.1 * thickness ])
-        cube([ 2, width / 3.5, 1.2 * thickness ]);
+        cube([ 2, width / 6.5, 1.2 * thickness ]);
 
       translate([ x, 0.95 * width, -0.1 * thickness ])
         cube([ 2, width / 2, 1.2 * thickness ]);
@@ -107,18 +108,36 @@ translate([ -length / 2, 0, 0 ]) difference() {
           cube([ 2, width / 2, 1.2 * thickness ]);
       }
 
-      //if (j == 4 || j == 10 || j == 16) {
-      //  translate([ x, 0.85 * width, -0.1 * thickness ])
-      //    cube([ 2, width / 2, 1.2 * thickness ]);
-      //}
-      //else if (j == 5) {
-      //  translate([ x, 0.68 * width, -0.1 * thickness ])
-      //    cube([ 2, width / 2, 1.2 * thickness ]);
-      //}
-      //else if (j == 6 || j == 12) {
-      //  translate([ x, 0.54 * width, -0.1 * thickness ])
-      //    cube([ 2, width / 2, 1.2 * thickness ]);
-      //}
+      y0 = 0.34 * width;
+      y1 = 0.60 * width;
+      y2 = 0.87 * width;
+
+      if (j == 4) {
+        translate([ x + 1, y1, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+          linear_extrude(tthick)
+            text("< dagger, dart, lt hammer,", size=fs);
+        translate([ x + 1, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+          linear_extrude(tthick)
+            text("           h axe, spear, trident", size=fs);
+      }
+      else if (j == 5) {
+        translate([ x + 1, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+          linear_extrude(tthick)
+            text("< blowgun", size=fs);
+      }
+      else if (j == 6) {
+        translate([ x + 1, y0, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+          linear_extrude(tthick)
+            text("< javelin, sling, hd xbow / mage hand 0", size=fs);
+      }
+      else if (j == 10) {
+        translate([ x + 2, y1, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+          linear_extrude(tthick)
+            text("80ft 24m 16 : l xbow, s bow", size=fs);
+        translate([ x + 2, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+          linear_extrude(tthick)
+            text("100ft 30m 20 : hvy xbow", size=fs);
+      }
     }
   }
 }
