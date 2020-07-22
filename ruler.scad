@@ -7,7 +7,7 @@ itmm = 25.4;
 thickness = 2.8;
 width = 24;
 //lsq = 16; // squares
-lsq = 10; // squares
+lsq = 6; // squares
 length = lsq * itmm;
 tthick = 0.8;
 
@@ -108,36 +108,36 @@ translate([ -length / 2, 0, 0 ]) difference() {
           cube([ 2, width / 2, 1.2 * thickness ]);
       }
 
-      y0 = 0.34 * width;
-      y1 = 0.60 * width;
-      y2 = 0.87 * width;
-
-      if (j == 4) {
-        translate([ x + 1, y1, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
-          linear_extrude(tthick)
-            text("< dagger, dart, lt hammer,", size=fs);
-        translate([ x + 1, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
-          linear_extrude(tthick)
-            text("           h axe, spear, trident", size=fs);
-      }
-      else if (j == 5) {
-        translate([ x + 1, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
-          linear_extrude(tthick)
-            text("< blowgun", size=fs);
-      }
-      else if (j == 6) {
-        translate([ x + 1, y0, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
-          linear_extrude(tthick)
-            text("< javelin, sling, hd xbow / mage hand 0", size=fs);
-      }
-      else if (j == 10) {
-        translate([ x + 2, y1, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
-          linear_extrude(tthick)
-            text("80ft 24m 16 : l xbow, s bow", size=fs);
-        translate([ x + 2, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
-          linear_extrude(tthick)
-            text("100ft 30m 20 : hvy xbow", size=fs);
-      }
+//      y0 = 0.34 * width;
+//      y1 = 0.60 * width;
+//      y2 = 0.87 * width;
+//
+//      if (j == 4) {
+//        translate([ x + 1, y1, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+//          linear_extrude(tthick)
+//            text("< dagger, dart, lt hammer,", size=fs);
+//        translate([ x + 1, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+//          linear_extrude(tthick)
+//            text("           h axe, spear, trident", size=fs);
+//      }
+//      else if (j == 5) {
+//        translate([ x + 1, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+//          linear_extrude(tthick)
+//            text("< blowgun", size=fs);
+//      }
+//      else if (j == 6) {
+//        translate([ x + 1, y0, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+//          linear_extrude(tthick)
+//            text("< javelin, sling, hd xbow / mage hand 0", size=fs);
+//      }
+//      else if (j == 10) {
+//        translate([ x + 2, y1, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+//          linear_extrude(tthick)
+//            text("80ft 24m 16 : l xbow, s bow", size=fs);
+//        translate([ x + 2, y2, tthick - 0.1 ]) rotate([ 180, 0, 0 ])
+//          linear_extrude(tthick)
+//            text("100ft 30m 20 : hvy xbow", size=fs);
+//      }
     }
   }
 }
