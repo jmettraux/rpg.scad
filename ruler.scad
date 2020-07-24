@@ -7,7 +7,7 @@ itmm = 25.4;
 thickness = 2.8;
 width = 24;
 //lsq = 16; // squares
-lsq = 6; // squares
+lsq = 7; // squares
 length = lsq * itmm;
 tthick = 0.8;
 
@@ -36,6 +36,7 @@ translate([ -length / 2, 0, 0 ]) difference() {
         linear_extrude(tthick) union() {
           if (j == 5) text(str(j, "   dh"), size=fs);
           if (j == 6) text(str(j, "   he"), size=fs);
+          if (j == 7) text(str(j, "   we"), size=fs);
           if (j == 10) text(str(j, "  w"), size=fs);
           if (j == 12) text(str(j, "  h"), size=fs);
           else text(str(j), size=fs);
