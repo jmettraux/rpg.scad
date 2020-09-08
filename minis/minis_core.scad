@@ -158,12 +158,20 @@ module leg_norman(leg_diameter, waist_diameter) {
       }
 }
 
+module round_foot(length, height) {
+
+  hull() {
+    translate([ 0, 0, 0 ]) sphere(d=height * 2);
+    translate([ length, 0, 0 ]) sphere(d=height * 2);
+  }
+};
+
 module leg_norman_short(leg_diameter, waist_diameter) {
 
   ld = leg_diameter;
   wd = waist_diameter;
 
-  fh = head_height * 0.7;
+  fh = head_height * 0.62;
   sh = leg_height - fh - head_height; // skirt height
   fl = head_height * 0.8; // foot length
 
@@ -174,7 +182,7 @@ module leg_norman_short(leg_diameter, waist_diameter) {
       translate([ ld / 3, 0, leg_height - sh / 2 ])
         cylinder(d1=ld, d2=wd, h=sh, center=true);
     };
-    translate([ 0, 0, head_height * 1.7 ])
+    translate([ 0, 0, head_height * 1.3 ])
       rotate([ 0, 45, 0 ])
         cube([ head_height, base_diameter, head_height ], center=true);
   }
@@ -186,16 +194,18 @@ module leg_norman_short(leg_diameter, waist_diameter) {
 
   translate([ fh * 1.4, -fh * 0.1, -fh * 0.1 ])
     rotate([ 0, 0, 70 ])
-      hull() {
-        translate([ 0, 0, 0 ]) sphere(d=fh * 2);
-        translate([ fl, 0, 0 ]) sphere(d=fh * 2);
-      }
+      round_foot(fl, fh);
   translate([ -fh * 1.4, -fh * 0.1, -fh * 0.1 ])
     rotate([ 0, 0, 30 - 270 ])
-      hull() {
-        translate([ 0, 0, 0 ]) sphere(d=fh * 2);
-        translate([ fl, 0, 0 ]) sphere(d=fh * 2);
-      }
+      round_foot(fl, fh);
+}
+
+module leg_norman_guard_short(leg_diameter, waist_diameter) {
+
+  ld = leg_diameter;
+  wd = waist_diameter;
+
+  // TODO
 }
 
 // helmets

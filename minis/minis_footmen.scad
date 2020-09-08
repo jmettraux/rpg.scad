@@ -5,6 +5,7 @@ height = 33;
 
 //use <minis_core.scad>;
 include <minis_core.scad>;
+  // so that vars in minis_core.scad are brought in
 
 $fn = 24;
 
@@ -12,6 +13,7 @@ base();
 //leg_robe(10, 7);
 //leg_norman(9, 7);
 leg_norman_short(8, 7);
+//leg_norman_guard_short(8, 7);
 torso_robe(10, 7, 8);
 //#neck_robe(5, 5);
 //head_robe(head_height * 1.3);
@@ -29,9 +31,9 @@ translate([ -5, 3.7, sh * 0.85 ])
 
 //translate([ 4, 3.9, height * 0.5 ])
 //  long_sword(head_height * 7);
-translate([ 5, 3.9, 2.1 ])
-  rotate([ 0, 0, 90 + 45 - 10 ])
-    housekarl_axe(head_height * 6.7);
+translate([ 5, 3.9, 1.8 ])
+  rotate([ 0, 0, 90 + 45 + 2 ])
+    housekarl_axe(head_height * 6.0);
 
 // arms
 translate([ 8 * 0.7 , 0, height * 0.75 ])
