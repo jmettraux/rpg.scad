@@ -122,14 +122,53 @@ module big_helm(head_diameter) {
   hd = head_diameter;
 
   difference() {
-    translate([ 0, 0, leg_height + torso_height + h / 2 ])
-      cylinder(d1=hd, d2=hd * 1.1, h=h, center=true);
+    union() {
+      translate([ 0, 0, leg_height + torso_height + h / 2 ])
+        cylinder(d1=hd, d2=hd * 1.1, h=h, center=true);
+    }
+    union() {
+      translate([ 0, hd * 0.5, leg_height + torso_height + h * 0.6 ])
+        cube([ 3, 1, 1 ], center=true);
+      translate([ 0, hd * 0.5, leg_height + torso_height + h * 0.3 ])
+        cube([ 1, 1, 3 ], center=true);
+    }
   }
 }
 
 // shields
 
 // swords
+
+module long_sword(length) {
+
+  l = length;
+  hl = head_height / 1.4; // handle length
+  hd = hl / 2; // handle diameter
+  gh = hl / 4; // guard height
+  tl = length / 10; // tip length
+  bl = l - tl - hl - gh; // blade length
+  bw = hl * 0.7; // blade width
+  bd = hd * 0.7; // blade depth, well
+
+  union() {
+    // handle
+    translate([ 0, 0, -hl / 2 - gh / 2 ])
+      cylinder(d1=hd, d2=hd, h=hl, center=true);
+    // guard
+    translate([ 0, 0, 0 ])
+      cube([ hl, hd, gh ], center=true);
+    // blade
+    translate([ 0, 0, gh / 2 + bl / 2 ])
+      linear_extrude(bl, center=true)
+        polygon(
+          [ [ -bw / 2, 0 ], [ 0, bd / 2 ], [ bw / 2, 0 ], [ 0, -bd / 2 ] ]);
+    // tip
+    translate([ 0, 0, gh / 2 + bl + tl / 2 ])
+      linear_extrude(tl, scale=0, center=true)
+        polygon(
+          [ [ -bw / 2, 0 ], [ 0, bd / 2 ], [ bw / 2, 0 ], [ 0, -bd / 2 ] ]);
+  }
+};
 
 // spears
 
@@ -139,8 +178,11 @@ $fn = 24;
 
 base();
 #leg_robe(10, 7);
-torso_robe(10, 7, 9);
+torso_robe(10, 7, 8);
 //#neck_robe(5, 5);
 //head_robe(head_height * 1.3);
 big_helm(6);
+
+translate([ 4, 3.9, height * 0.5 ])
+  long_sword(head_height * 5);
 
