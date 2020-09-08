@@ -136,13 +136,53 @@ module leg_norman(leg_diameter, waist_diameter) {
   }
 
   translate([ fh * 1.1, -fh * 0.4, fh * 0.2 ])
-    rotate([ 0, 0, 50 ])
+    rotate([ 0, 0, 70 ])
       hull() {
         translate([ 0, 0, 0 ]) sphere(d=fh * 2);
         translate([ fl, 0, 0 ]) sphere(d=fh * 2);
       }
   translate([ -fh * 1.1, -fh * 0.4, fh * 0.2 ])
-    rotate([ 0, 0, 50 - 270 ])
+    rotate([ 0, 0, 30 - 270 ])
+      hull() {
+        translate([ 0, 0, 0 ]) sphere(d=fh * 2);
+        translate([ fl, 0, 0 ]) sphere(d=fh * 2);
+      }
+}
+
+module leg_norman_short(leg_diameter, waist_diameter) {
+
+  ld = leg_diameter;
+  wd = waist_diameter;
+
+  fh = head_height * 0.7;
+  sh = leg_height - fh - head_height; // skirt height
+  fl = head_height * 0.8; // foot length
+
+  difference() {
+    hull() {
+      translate([ -ld / 3, 0, leg_height - sh / 2 ])
+        cylinder(d1=ld, d2=wd, h=sh, center=true);
+      translate([ ld / 3, 0, leg_height - sh / 2 ])
+        cylinder(d1=ld, d2=wd, h=sh, center=true);
+    };
+    translate([ 0, 0, head_height * 1.7 ])
+      rotate([ 0, 45, 0 ])
+        cube([ head_height, base_diameter, head_height ], center=true);
+  }
+
+  translate([ fh * 1.4, 0, fh ])
+    cylinder(d1=fh, d2=fh * 1.6, h=10, center=true);
+  translate([ - fh * 1.4, 0, fh ])
+    cylinder(d1=fh, d2=fh * 1.6, h=10, center=true);
+
+  translate([ fh * 1.4, -fh * 0.1, fh * 0.1 ])
+    rotate([ 0, 0, 70 ])
+      hull() {
+        translate([ 0, 0, 0 ]) sphere(d=fh * 2);
+        translate([ fl, 0, 0 ]) sphere(d=fh * 2);
+      }
+  translate([ -fh * 1.4, -fh * 0.1, fh * 0.1 ])
+    rotate([ 0, 0, 30 - 270 ])
       hull() {
         translate([ 0, 0, 0 ]) sphere(d=fh * 2);
         translate([ fl, 0, 0 ]) sphere(d=fh * 2);
@@ -262,8 +302,8 @@ module long_sword(length) {
 module housekarl_axe(length) {
 
   l = length;
-  d = head_height / 3;
-  bd = l / 5; // blade diameter
+  d = head_height / 2.5;
+  bd = l / 4; // blade diameter
   dp = 1;
 
   cylinder(d=d, h=l);
@@ -289,7 +329,8 @@ $fn = 24;
 
 base();
 //leg_robe(10, 7);
-leg_norman(9, 7);
+//leg_norman(9, 7);
+leg_norman_short(8, 7);
 torso_robe(10, 7, 8);
 //#neck_robe(5, 5);
 //head_robe(head_height * 1.3);
@@ -301,13 +342,13 @@ sh = leg_height + torso_height - head_height;
 //translate([ -5, 4.1, sh * 1.1 ])
 //  rotate([ 0, 0, 30 ])
 //    tear_shield(sh, sh / 2);
-translate([ -5, 4.1, sh * 0.85 ])
-  rotate([ 0, 0, 30 ])
+translate([ -5, 3.7, sh * 0.85 ])
+  rotate([ -2, 0, 30 ])
     round_shield(base_diameter * 0.75);
 
-translate([ 4, 3.9, height * 0.5 ])
-  long_sword(head_height * 7);
-//translate([ 5, 3.9, 3 ])
-//  rotate([ 0, 0, 90 + 45 ])
-//    housekarl_axe(head_height * 6);
+//translate([ 4, 3.9, height * 0.5 ])
+//  long_sword(head_height * 7);
+translate([ 5, 3.9, 2.9 ])
+  rotate([ 0, 0, 90 + 45 - 10 ])
+    housekarl_axe(head_height * 6.1);
 
