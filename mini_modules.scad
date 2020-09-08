@@ -128,7 +128,7 @@ module big_helm(head_diameter) {
     }
     union() {
       translate([ 0, hd * 0.5, leg_height + torso_height + h * 0.6 ])
-        cube([ 3, 1, 1 ], center=true);
+        cube([ 3.5, 1, 1 ], center=true);
       translate([ 0, hd * 0.5, leg_height + torso_height + h * 0.3 ])
         cube([ 1, 1, 3 ], center=true);
     }
@@ -136,6 +136,19 @@ module big_helm(head_diameter) {
 }
 
 // shields
+
+module tear_shield(height, width) {
+
+  d = 1; // depth
+
+  rotate([ 270, 0, 0 ])
+    hull() {
+      translate([ 0, 0, 0 ])
+        cylinder(d=width, h=d, center=true);
+      translate([ 0, height, 0 ])
+        cylinder(d=d, h=d, center=true);
+    }
+};
 
 // swords
 
@@ -183,6 +196,11 @@ torso_robe(10, 7, 8);
 //head_robe(head_height * 1.3);
 big_helm(6);
 
+sh = leg_height + torso_height - head_height;
+
+translate([ -5, 4.1, sh * 1.1 ])
+  rotate([ 0, 0, 30 ])
+    tear_shield(sh, sh / 2);
 translate([ 4, 3.9, height * 0.5 ])
   long_sword(head_height * 5);
 
