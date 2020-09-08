@@ -135,6 +135,29 @@ module big_helm(head_diameter) {
   }
 }
 
+module hastings_helmet(head_diameter) {
+
+  d = head_diameter;
+  nh = neck_height * 1.8;
+
+  difference() {
+    union() {
+      translate([ 0, 0, leg_height + torso_height + nh / 2 ])
+        cylinder(d=d, h=nh, center=true);
+      translate([ 0, 0, leg_height + torso_height + neck_height + head_height / 2 ])
+        sphere(d=d);
+    }
+    union() {
+      translate([ -1, d * 0.45, leg_height + torso_height + 3 / 2 ])
+        cube([ 1.5, 1, 3 ], center=true);
+      translate([ 1, d * 0.45, leg_height + torso_height + 3 / 2 ])
+        cube([ 1.5, 1, 3 ], center=true);
+      translate([ 0, d * 0.45, leg_height + torso_height + 1 / 2 ])
+        cube([ 3, 1, 1 ], center=true);
+    }
+  }
+}
+
 // shields
 
 module tear_shield(height, width) {
@@ -160,7 +183,7 @@ module round_shield(diameter) {
       cylinder(d=dm, h=dp, center=true);
       translate([ 0, 0, -0.5 ])
       difference() {
-        sphere(dm / 10, center=true);
+        sphere(dm / 10);
         translate([ 0, 0, -dm / 8 ]) cube(dm / 3, center=true);
       }
     }
@@ -199,6 +222,30 @@ module long_sword(length) {
   }
 };
 
+// axes
+
+module housekarl_axe(length) {
+
+  l = length;
+  d = head_height / 3;
+  bd = l / 5; // blade diameter
+  dp = 1;
+
+  cylinder(d=d, h=l);
+
+  translate([ -bd / 2, 0, l * 0.96 ])
+    rotate([ 90, 0, 0 ])
+      difference() {
+        cylinder(d=bd, h=dp, center=true);
+        union() {
+          translate([ bd / 2.7,   bd / 1.9, dp * 0.05 ])
+            cylinder(d=bd / 1.1, h=dp * 1.2, center=true);
+          translate([ bd / 2.7, - bd / 1.9, dp * 0.05 ])
+            cylinder(d=bd / 1.1, h=dp * 1.2, center=true);
+        }
+      }
+};
+
 // spears
 
 // ...
@@ -210,17 +257,20 @@ base();
 torso_robe(10, 7, 8);
 //#neck_robe(5, 5);
 //head_robe(head_height * 1.3);
-big_helm(6);
+//big_helm(6);
+hastings_helmet(6);
 
 
 sh = leg_height + torso_height - head_height;
 //translate([ -5, 4.1, sh * 1.1 ])
 //  rotate([ 0, 0, 30 ])
 //    tear_shield(sh, sh / 2);
-translate([ -5, 4.1, sh * 0.8 ])
+translate([ -5, 4.1, sh * 0.85 ])
   rotate([ 0, 0, 30 ])
     round_shield(base_diameter * 0.75);
 
-translate([ 4, 3.9, height * 0.5 ])
-  long_sword(head_height * 7);
+//translate([ 4, 3.9, height * 0.5 ])
+//  long_sword(head_height * 7);
+translate([ 5, 3.9, 3 ])
+  housekarl_axe(head_height * 6);
 
