@@ -175,13 +175,13 @@ module leg_norman_short(leg_diameter, waist_diameter) {
   translate([ - fh * 1.4, 0, fh ])
     cylinder(d1=fh, d2=fh * 1.6, h=10, center=true);
 
-  translate([ fh * 1.4, -fh * 0.1, fh * 0.1 ])
+  translate([ fh * 1.4, -fh * 0.1, -fh * 0.1 ])
     rotate([ 0, 0, 70 ])
       hull() {
         translate([ 0, 0, 0 ]) sphere(d=fh * 2);
         translate([ fl, 0, 0 ]) sphere(d=fh * 2);
       }
-  translate([ -fh * 1.4, -fh * 0.1, fh * 0.1 ])
+  translate([ -fh * 1.4, -fh * 0.1, -fh * 0.1 ])
     rotate([ 0, 0, 30 - 270 ])
       hull() {
         translate([ 0, 0, 0 ]) sphere(d=fh * 2);
@@ -348,7 +348,7 @@ translate([ -5, 3.7, sh * 0.85 ])
 
 //translate([ 4, 3.9, height * 0.5 ])
 //  long_sword(head_height * 7);
-translate([ 5, 3.9, 2.9 ])
+translate([ 5, 3.9, 2.1 ])
   rotate([ 0, 0, 90 + 45 - 10 ])
-    housekarl_axe(head_height * 6.1);
+    housekarl_axe(head_height * 6.7);
 
