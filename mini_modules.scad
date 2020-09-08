@@ -150,12 +150,28 @@ module tear_shield(height, width) {
     }
 };
 
+module round_shield(diameter) {
+
+  dm = diameter;
+  dp = 1; // depth
+
+  rotate([ 270, 0, 0 ])
+    union() {
+      cylinder(d=dm, h=dp, center=true);
+      translate([ 0, 0, -0.5 ])
+      difference() {
+        sphere(dm / 10, center=true);
+        translate([ 0, 0, -dm / 8 ]) cube(dm / 3, center=true);
+      }
+    }
+};
+
 // swords
 
 module long_sword(length) {
 
   l = length;
-  hl = head_height / 1.4; // handle length
+  hl = head_height / 1.1; // handle length
   hd = hl / 2; // handle diameter
   gh = hl / 4; // guard height
   tl = length / 10; // tip length
@@ -196,11 +212,15 @@ torso_robe(10, 7, 8);
 //head_robe(head_height * 1.3);
 big_helm(6);
 
-sh = leg_height + torso_height - head_height;
 
-translate([ -5, 4.1, sh * 1.1 ])
+sh = leg_height + torso_height - head_height;
+//translate([ -5, 4.1, sh * 1.1 ])
+//  rotate([ 0, 0, 30 ])
+//    tear_shield(sh, sh / 2);
+translate([ -5, 4.1, sh * 0.8 ])
   rotate([ 0, 0, 30 ])
-    tear_shield(sh, sh / 2);
+    round_shield(base_diameter * 0.75);
+
 translate([ 4, 3.9, height * 0.5 ])
-  long_sword(head_height * 5);
+  long_sword(head_height * 7);
 
