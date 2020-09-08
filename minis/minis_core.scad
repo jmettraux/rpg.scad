@@ -7,8 +7,7 @@ base_diameter = 25;
 base_thickness = 3;
 base_arrow_base = 7;
 
-//head_height = 7;
-height = 33;
+//height = 33; // now set in the including file
 head_height = height / 8;
 neck_height = head_height / 2;
 torso_height = head_height * 2;
@@ -34,6 +33,16 @@ module base() {
             [ -ab_2, 0 ], [ 0, ab_2 ], [ ab_2, 0 ] ]);
     }
 }
+
+// helpers
+
+module segment(diameter, length, angle) {
+  rotate([ angle, 0, 0 ])
+    hull() {
+      translate([ 0, 0, 0 ]) sphere(d=diameter);
+      translate([ 0, length, 0 ]) sphere(d=diameter);
+    }
+};
 
 // tube
 
@@ -324,31 +333,4 @@ module housekarl_axe(length) {
 // spears
 
 // ...
-
-$fn = 24;
-
-base();
-//leg_robe(10, 7);
-//leg_norman(9, 7);
-leg_norman_short(8, 7);
-torso_robe(10, 7, 8);
-//#neck_robe(5, 5);
-//head_robe(head_height * 1.3);
-//big_helm(6);
-hastings_helmet(6);
-
-
-sh = leg_height + torso_height - head_height;
-//translate([ -5, 4.1, sh * 1.1 ])
-//  rotate([ 0, 0, 30 ])
-//    tear_shield(sh, sh / 2);
-translate([ -5, 3.7, sh * 0.85 ])
-  rotate([ -2, 0, 30 ])
-    round_shield(base_diameter * 0.75);
-
-//translate([ 4, 3.9, height * 0.5 ])
-//  long_sword(head_height * 7);
-translate([ 5, 3.9, 2.1 ])
-  rotate([ 0, 0, 90 + 45 - 10 ])
-    housekarl_axe(head_height * 6.7);
 
