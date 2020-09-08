@@ -148,9 +148,9 @@ module hastings_helmet(head_diameter) {
         sphere(d=d);
     }
     union() {
-      translate([ -1, d * 0.45, leg_height + torso_height + 3 / 2 ])
+      translate([ -1.25, d * 0.45, leg_height + torso_height + 3 / 2 ])
         cube([ 1.5, 1, 3 ], center=true);
-      translate([ 1, d * 0.45, leg_height + torso_height + 3 / 2 ])
+      translate([ 1.25, d * 0.45, leg_height + torso_height + 3 / 2 ])
         cube([ 1.5, 1, 3 ], center=true);
       translate([ 0, d * 0.45, leg_height + torso_height + 1 / 2 ])
         cube([ 3, 1, 1 ], center=true);
