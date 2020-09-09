@@ -68,8 +68,8 @@ module spear(length) {
   hl = l * 0.2; // head length
   rl = l - hl; // rod length
   rd = head_height / 2.6; // rod diameter
-  hd1 = 1.8 * rd; // head width 1
-  hd2 = 1.4 * rd; // head width 2
+  hd1 = 2.1 * rd; // head width 1
+  hd2 = 1.7 * rd; // head width 2
 
   // rod
 
