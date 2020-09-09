@@ -36,13 +36,16 @@ module base() {
 
 // helpers
 
-module segment(diameter, length, angle) {
+module segment(diameter, length, angle, d2=0) {
   rotate([ angle, 0, 0 ])
     hull() {
-      translate([ 0, 0, 0 ]) sphere(d=diameter);
-      translate([ 0, length, 0 ]) sphere(d=diameter);
+      translate([ 0, 0, 0 ])
+        sphere(d=diameter);
+      translate([ 0, length, 0 ])
+        if (d2 == 0) sphere(d=diameter);
+        else sphere(d=d2);
     }
-};
+}
 
 // tube
 
@@ -208,6 +211,21 @@ module leg_norman_guard_short(leg_diameter, waist_diameter) {
   // TODO
 }
 
+module arm(diameter, angle) {
+
+  hh = 0.8 * head_height;
+  sd = diameter; // shoulder diameter
+  wd = 0.8 * diameter; // wrist diameter
+  al = 1.5 * hh; // arm length
+  fal = 2 * hh; // forearm (and hand) length
+
+  //module segment(diameter, length, angle) {
+  // arm
+  segment(sd, al, 90);
+  // forearm
+  segment(sd, d2=wd, fal, 90 - angle);
+}
+
 // helmets
 
 module big_helm(head_diameter) {
@@ -341,6 +359,16 @@ module housekarl_axe(length) {
 };
 
 // spears
+
+module spear(length) {
+
+  l = length;
+  hl = l * 0.1;
+  rl = l - hl;
+  d = head_height / 2.6;
+
+  cylinder(d=d, h=l);
+}
 
 // ...
 
