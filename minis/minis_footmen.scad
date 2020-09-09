@@ -1,11 +1,14 @@
 
-// minis_footman.scad
+//
+// minis_footmen.scad
+//
 
 height = 33;
 
 //use <minis_core.scad>;
 include <minis_core.scad>;
   // so that vars in minis_core.scad are brought in
+include <minis_weapons.scad>;
 
 $fn = 24;
 
