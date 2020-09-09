@@ -31,7 +31,7 @@ translate([ -6, -2.7, height * 0.55 ])
 //  rotate([ 0, 0, 90 + 45 + 2 ])
 //    housekarl_axe(head_height * 6.0);
 translate([ 7.7, 4.3, 0 ])
-  spear(height / 6 * 7); // 7ft vs 6ft
+  spear(height / 6 * 6.5);
   //spear(height / 6 * 8); // 8ft vs 6ft
 
 sh = leg_height + torso_height - head_height;
