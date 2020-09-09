@@ -65,10 +65,21 @@ module housekarl_axe(length) {
 module spear(length) {
 
   l = length;
-  hl = l * 0.1;
-  rl = l - hl;
-  d = head_height / 2.6;
+  hl = l * 0.2; // head length
+  rl = l - hl; // rod length
+  rd = head_height / 2.6; // rod diameter
+  hd1 = 1.8 * rd; // head width 1
+  hd2 = 1.4 * rd; // head width 2
 
-  cylinder(d=d, h=l);
+  // rod
+
+  cylinder(d=rd, h=rl * 1.1);
+
+  // spearhead
+
+  hl0 = 0.4 * hl;
+  hl1 = hl - hl0;
+  translate([ 0, 0, rl ]) pyramid(hd1, w2=hd2, hl0, inverted=true);
+  translate([ 0, 0, rl + hl0 ]) pyramid(hd1, w2=hd2, hl1);
 }
 

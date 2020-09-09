@@ -41,15 +41,26 @@ module base() {
 // helpers
 
 module segment(diameter, length, angle, d2=0) {
+
+  d2 = d2 == 0 ? diameter : d2;
+
   rotate([ angle, 0, 0 ])
     hull() {
-      translate([ 0, 0, 0 ])
-        sphere(d=diameter);
-      translate([ 0, length, 0 ])
-        if (d2 == 0) sphere(d=diameter);
-        else sphere(d=d2);
+      translate([ 0, 0, 0 ]) sphere(d=diameter);
+      translate([ 0, length, 0 ]) sphere(d=d2);
     }
 }
+
+module pyramid(width1, height, w2=0, inverted=false) {
+
+  w1 = width1 / 2;
+  w2 = w2 == 0 ? w1 / 2 : w2 / 2;
+
+  translate([ 0, 0, inverted ? height : 0 ])
+    rotate([ inverted ? 180 : 0, 0, 0 ])
+      linear_extrude(height, scale=0)
+        polygon([ [ -w1, 0 ], [ 0, w2 ], [ w1, 0 ], [ 0, -w2 ] ]);
+};
 
 // tube
 
@@ -223,7 +234,6 @@ module arm(diameter, angle) {
   al = 1.5 * hh; // arm length
   fal = 2 * hh; // forearm (and hand) length
 
-  //module segment(diameter, length, angle) {
   // arm
   segment(sd, al, 90);
   // forearm
