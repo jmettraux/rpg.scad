@@ -1,6 +1,6 @@
 
 //
-// minis_footmen.scad
+// footmen.scad
 //
 
 height = 33;
