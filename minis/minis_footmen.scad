@@ -24,12 +24,13 @@ torso_robe(10, 7, 8);
 //big_helm(6);
 hastings_helmet(6);
 
-//translate([ 4, 3.9, height * 0.5 ])
-//  long_sword(head_height * 7);
+translate([ -6, -2.7, height * 0.55 ])
+  rotate([ 180 + 3, 0, -47 ])
+    long_sword(head_height * 3.7); // scramax
 //translate([ 5, 3.9, 1.8 ])
 //  rotate([ 0, 0, 90 + 45 + 2 ])
 //    housekarl_axe(head_height * 6.0);
-translate([ 7.5, 4, 0 ])
+translate([ 7.7, 4.3, 0 ])
   spear(height / 6 * 7); // 7ft vs 6ft
   //spear(height / 6 * 8); // 8ft vs 6ft
 
