@@ -51,6 +51,15 @@ module segment(diameter, length, angle, d2=0) {
     }
 }
 
+// segment balanced
+module segbal(diameter, length, yangle=0, zangle=0) {
+  rotate([ 0, yangle, zangle ])
+    hull() {
+      translate([ -length * 0.5, 0, 0 ]) sphere(d=diameter);
+      translate([ length * 0.5, 0, 0 ]) sphere(d=diameter);
+    }
+}
+
 module pyramid(width1, height, w2=0, inverted=false) {
 
   w1 = width1 / 2;
