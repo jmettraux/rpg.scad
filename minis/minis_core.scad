@@ -53,26 +53,37 @@ module segment(diameter, length, angle, d2=0) {
 
   // segment balanced
   //
-module segbal(diameter, length, balratio=0.5, yangle=0, zangle=0) {
+module segbal(diameter, length, d2=0, balratio=0.5, yangle=0, zangle=0) {
 
   ll = length * balratio;
   rl = length - ll;
+  d2 = d2 == 0 ? diameter : d2;
 
   translate([ - length / 2 + ll, 0, 0 ])
     rotate([ 0, yangle, zangle ])
       hull() {
         translate([ -ll, 0, 0 ]) sphere(d=diameter);
-        translate([ rl, 0, 0 ]) sphere(d=diameter);
+        translate([ rl, 0, 0 ]) sphere(d=d2);
       }
 }
 
-module trapeze(bottom_d, bottom_l, top_d, top_l, h, balratio=0.5, yangle=0, zangle=0) {
+module trapeze(
+  bottom_d, bottom_l, top_d, top_l,
+  h,
+  bd2=0, td2=0,
+  balratio=0.5, yangle=0, zangle=0
+) {
+
+  bd2 = bd2 == 0 ? bottom_d : bd2;
+  td2 = td2 == 0 ? top_d : td2;
 
   hull() {
     translate([ 0, 0, 0 ])
-      segbal(bottom_d, bottom_l);
+      segbal(
+        bottom_d, bottom_l, d2=bd2);
     translate([ 0, 0, h ])
-      segbal(top_d, top_l, balratio=balratio, yangle=yangle, zangle=zangle);
+      segbal(
+        top_d, top_l, d2=td2, balratio=balratio, yangle=yangle, zangle=zangle);
   };
 }
 
