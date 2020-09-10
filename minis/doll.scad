@@ -14,8 +14,8 @@ $fn = 24;
 
 function body_points(
   height,
-  basin_width,
-  shoulder_width,
+  basin_ratio,
+  shoulder_ratio,
   spine_vectors=[],
   left_leg_vectors=[],
   right_leg_vectors=[],
@@ -23,10 +23,12 @@ function body_points(
   right_arm_vectors=[]
 ) =
   let(
-    head_height = height / 8
+    hh = height / 8, // head_height
+    bw2 = hh * basin_ratio / 2, // basin_width / 2
+    sw2 = hh * shoulder_ratio / 2 // shoulder_width / 2
   )
-    head_height;
+    [ hh, bw2, sw2 ];
 
 echo("=======================================================================");
-echo(body_points(33));
+echo(body_points(33, 3, 3.1));
 
