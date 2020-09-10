@@ -36,5 +36,14 @@ translate([ 0, 30, 0 ])
     head_height * 0.9, head_height * 2, // top
     torso_height); // bottom to top distance
 
-leg(10, 15, head_height / 4, knee_diameter = head_height / 3);
+base();
+
+translate([ -head_height * 0.7, 0, 0 ])
+  leg(
+    10, 15, head_height / 4,
+    knee_diameter = head_height / 3, leg_angle = 3);
+translate([ head_height * 0.7, 0, 0 ])
+  leg(
+    10, 15, head_height / 4,
+    knee_diameter = head_height / 3, leg_angle = -3);
 
