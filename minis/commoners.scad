@@ -30,20 +30,39 @@ $fn = 24;
 //        balratio=0.5, yangle=18); // shoulder
 //  };
 
-translate([ 0, 30, 0 ])
-  trapeze(
-    head_height * 0.7, head_height * 1.4, // bottom
-    head_height * 0.9, head_height * 2, // top
-    torso_height); // bottom to top distance
-
 base();
 
-translate([ -head_height * 0.7, 0, 0 ])
+  //module trapeze(
+  //  bottom_d, bottom_l, top_d, top_l,
+  //  h,
+  //  bd2=0, td2=0,
+  //  balratio=0.5, yangle=0, zangle=0)
+  //
+translate([ 0, -1.1, head_height * 3.1 ])
+  rotate([ 0, 0, 10 ])
+    trapeze(
+      head_height * 1.6, head_height * 1.3,
+      head_height * 1.4, head_height * 1.1,
+      head_height * 1.6,
+      zangle=10);
+
+translate([ 0, -0.4, 0 ])
+  rotate([ 0, 0, 10 ])
+    torso_robe(10, 6, 8);
+
+translate([ -head_height * 1.1, -2, 0 ])
   leg(
-    10, 15, head_height / 4,
-    knee_diameter = head_height / 3, leg_angle = 3);
-translate([ head_height * 0.7, 0, 0 ])
+    5, 1, head_height / 3,
+    knee_diameter = head_height / 2.2, leg_angle = 4);
+translate([ head_height * 1.1, 0, 0 ])
   leg(
-    10, 15, head_height / 4,
-    knee_diameter = head_height / 3, leg_angle = -3);
+    1, 0, head_height / 3,
+    knee_diameter = head_height / 2.2, leg_angle = -4);
+
+a = [ [ 1, 2 ] ];
+b = [ [ 3, 4 ] ];
+c = concat(a);
+echo(c);
+d = concat(c, b);
+echo(d);
 
