@@ -13,11 +13,6 @@ include <minis_weapons.scad>;
 
 $fn = 24;
 
-//trapeze([
-//  [ -head_height * 0.7, 0, 0 ], // waist
-//  [ head_height * 0.7, 0, 0 ],
-//  [ -head_height * 1.0, 0, torso_height ], // shoulder
-//  [ head_height * 1.0, 0, torso_height ] ])
 translate([ 0, 0, 0 ])
   segbal(head_height / 2, head_height * 6);
 translate([ 0, 10, 0 ])
@@ -35,7 +30,9 @@ translate([ 0, 20, 0 ])
         balratio=0.5, yangle=18); // shoulder
   };
 
-//translate([ 0, 30, 0 ])
-//  torso(head_height * 0.9, head_height * 2);
-
+translate([ 0, 30, 0 ])
+  trapeze(
+    head_height * 0.7, head_height * 1.4, // bottom
+    head_height * 0.9, head_height * 2, // top
+    torso_height); // bottom to top distance
 

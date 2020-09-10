@@ -66,6 +66,16 @@ module segbal(diameter, length, balratio=0.5, yangle=0, zangle=0) {
       }
 }
 
+module trapeze(bottom_d, bottom_l, top_d, top_l, h, balratio=0.5, yangle=0, zangle=0) {
+
+  hull() {
+    translate([ 0, 0, 0 ])
+      segbal(bottom_d, bottom_l);
+    translate([ 0, 0, h ])
+      segbal(top_d, top_l, balratio=balratio, yangle=yangle, zangle=zangle);
+  };
+}
+
 module pyramid(width1, height, w2=0, inverted=false) {
 
   w1 = width1 / 2;
