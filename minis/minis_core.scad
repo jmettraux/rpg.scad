@@ -276,6 +276,45 @@ module arm(diameter, angle) {
   segment(sd, d2=wd, fal, 90 - angle);
 }
 
+module leg(
+  ankle_angle, knee_angle,
+  ankle_diameter, knee_diameter=0, buttock_diameter=0, foot_diameter=0,
+  leg_angle=0
+) {
+  echo(knee_angle);
+
+  aa = ankle_angle;
+  ka = knee_angle;
+  la = leg_angle;
+
+  ad = ankle_diameter;
+  kd = knee_diameter == 0 ? ad : knee_diameter;
+  bd = buttock_diameter == 0 ? kd : buttock_diameter;
+  fd = foot_diameter == 0 ? ad * 1.4 : foot_diameter;
+
+  fl = head_height * 0.9; // foot length
+  ll = head_height * 2; // leg length
+  tl = head_height * 2; // thigh length
+
+  rotate([ 0, la, 0 ]) union() {
+    translate([ 0, -fl * 0.11, 0 ])
+      hull() { // foot
+        sphere(fd);
+        translate([ 0, fl, 0 ]) sphere(fd);
+      }
+    hull() { // leg
+      sphere(ad);
+      translate([ 0, sin(aa) * ll, cos(aa) * ll ]) sphere(kd);
+    }
+    hull() { // thigh
+      translate([ 0, sin(aa) * ll, cos(aa) * ll ])
+        sphere(kd);
+      translate([ 0, sin(aa) * ll - sin(ka) * tl, cos(aa) * ll + cos(ka) * tl ])
+        sphere(bd);
+    }
+  }
+}
+
 // helmets
 
 module big_helm(head_diameter) {
