@@ -51,13 +51,19 @@ module segment(diameter, length, angle, d2=0) {
     }
 }
 
-// segment balanced
-module segbal(diameter, length, yangle=0, zangle=0) {
-  rotate([ 0, yangle, zangle ])
-    hull() {
-      translate([ -length * 0.5, 0, 0 ]) sphere(d=diameter);
-      translate([ length * 0.5, 0, 0 ]) sphere(d=diameter);
-    }
+  // segment balanced
+  //
+module segbal(diameter, length, balratio=0.5, yangle=0, zangle=0) {
+
+  ll = length * balratio;
+  rl = length - ll;
+
+  translate([ - length / 2 + ll, 0, 0 ])
+    rotate([ 0, yangle, zangle ])
+      hull() {
+        translate([ -ll, 0, 0 ]) sphere(d=diameter);
+        translate([ rl, 0, 0 ]) sphere(d=diameter);
+      }
 }
 
 module pyramid(width1, height, w2=0, inverted=false) {
