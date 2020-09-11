@@ -26,6 +26,12 @@ function to_spherical(point) =
     dir = acos(point.x / (sqrt(pow(point.x, 2) + pow(point.y, 2))))
   ) [ l, [ ele, dir - 90 ] ];
 
+function midpoint(p0, p1, ratio=0.5) =
+  let(
+    s = to_spherical(p1 - p0)
+  )
+    to_xyz(ratio * s[0], s[1], p0);
+
 function vlen(vector) =
   sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
 
@@ -192,4 +198,7 @@ translate([ -25, 0, 0 ]) {
       bps);
   }
 }
+
+echo([ "midpoint", midpoint([ 0, 0, 0 ], [ 4, 2, 0 ], 0.5) ]);
+echo([ "midpoint", midpoint([ 1, 1, 2 ], [ 5, 3, 2 ], 0.5) ]);
 
