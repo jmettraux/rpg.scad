@@ -7,10 +7,18 @@ $fn = 24;
 
 //include <minis_core.scad>; #base();
 
-function to_xyz(length, angles, sp=[ 0, 0, 0 ]) = [
-  sp.x + length * cos(angles[0]) * cos(angles[1] + 90),
-  sp.y + length * cos(angles[0]) * sin(angles[1] + 90),
-  sp.z + length * sin(angles[0]) ];
+  // Accept a single angle instead of [ angle0, angle1 ]
+  //
+function to_xyz(length, angles, sp=[ 0, 0, 0 ]) =
+  let(
+    as = is_num(angles) ? [ angles, 0 ] : angles,
+    elevation = as[0],
+    direction = as[1] + 90
+  )
+    sp + [
+      length * cos(elevation) * cos(direction),
+      length * cos(elevation) * sin(direction),
+      length * sin(elevation) ];
 
 function vlen(vector) =
   sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
@@ -110,11 +118,11 @@ function body_points(
 echo("=======================================================================");
 bps = body_points(
   33,
-  [ [ 80, 0 ], [ 80, 0 ], [ 80, 0 ], [ 70, 0 ] ], // spine vectors
-  [ undef, [ -80, 0 ], [ -100, 0 ] ],
+  [ 80, 80, 80, 70 ], // spine vectors
+  [ undef, -80, -150, -45 ], // left leg vectors
   [],
   [],
-  [ undef, [ -80, 0 ], [ -50, 0 ], [ 45, 0 ] ]);
+  [ undef, -80, -50, 45 ]);
 echo(bps);
 
 sps = bps[0];
@@ -126,6 +134,7 @@ echo(concat("left leg points", llps));
 for (llp = llps) translate(llp) color("blue", 0.6) sphere(0.5);
 
 rlps = bps[2];
+echo(concat("right leg points", rlps));
 for (rlp = rlps) translate(rlp) color("red", 0.6) sphere(0.5);
 
 laps = bps[3];
