@@ -4,31 +4,33 @@
 //
 
 
-module tear_shield(height, width) {
+module tear_shield(height, width, thickness=1, fn=0) {
 
-  d = 1; // depth
+  t = thickness;
+  _fn = fn == 0 ? $fn : fn;
 
   rotate([ 270, 0, 0 ])
     hull() {
       translate([ 0, 0, 0 ])
-        cylinder(d=width, h=d, center=true);
+        cylinder(d=width, h=t, center=true, $fn=_fn);
       translate([ 0, height, 0 ])
-        cylinder(d=d, h=d, center=true);
+        cylinder(d=d, h=t, center=true, $fn=_fn);
     }
 };
 
-module round_shield(diameter) {
+module round_shield(diameter, thickness=1, fn=0) {
 
-  dm = diameter;
-  dp = 1; // depth
+  d = diameter;
+  t = thickness;
+  _fn = fn == 0 ? $fn : fn;
 
   rotate([ 270, 0, 0 ])
     union() {
-      cylinder(d=dm, h=dp, center=true);
+      cylinder(d=d, h=t, center=true, $fn=_fn);
       translate([ 0, 0, -0.5 ])
       difference() {
-        sphere(dm / 10);
-        translate([ 0, 0, -dm / 8 ]) cube(dm / 3, center=true);
+        sphere(d / 10, $fn=_fn);
+        translate([ 0, 0, -d / 8 ]) cube(d / 3, center=true);
       }
     }
 };
