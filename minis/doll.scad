@@ -12,6 +12,14 @@ $fn = 24;
 
 //#base();
 
+function to_xyz(length, angles) = [
+  length * cos(angles[0]) * cos(angles[1]),
+  length * cos(angles[0]) * sin(angles[1]),
+  length * sin(angles[0]) ];
+
+function vlen(vector) =
+  sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
+
 function body_points(
   height,
   basin_ratio,
@@ -32,7 +40,7 @@ function body_points(
       [ 0, 0, hh ],
       [ 0, 0, 2 * hh ],
       [ 0, 0, 3 * hh ],
-      [ 0, 0, 3.25 * hh ]
+      [ 0, 0, 3.5 * hh ]
     ], // spine points
     [], // left leg points
     [], // right leg points
@@ -46,4 +54,15 @@ bps = body_points(33, 3, 3.1);
 echo(bps);
 sps = bps[0];
 for (sp = sps) translate(sp) sphere(0.5);
+
+echo("-----------------------------------------------------------------------");
+
+echo(to_xyz(4, [ 0, 0 ]));
+echo(vlen(to_xyz(4, [ 0, 0 ])));
+
+echo(to_xyz(4, [ 45, 0 ]));
+echo(vlen(to_xyz(4, [ 45, 0 ])));
+
+echo(to_xyz(4, [ 45, 45 ]));
+echo(vlen(to_xyz(4, [ 45, 45 ])));
 
