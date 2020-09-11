@@ -60,7 +60,6 @@ function body_points(
       shoulder_ratio,
 
     hh = height / 8, // head height
-    hh2 = hh / 2,
     bw2 = hh * br / 2, // basin width / 2
     sw2 = hh * sr / 2, // shoulder width / 2
     ww2 = hh * wr / 2, // wast width / 2
@@ -70,14 +69,14 @@ function body_points(
     svs = spine_vectors,
     sp0 = [ 0, 0, 0 ],
     sp1 = to_xyz(hh, vor(svs, 0, [ 90, 0 ]), sp0),
-    sp2 = to_xyz(hh, vor(svs, 1, [ 90, 0 ]), sp1),
-    sp3 = to_xyz(hh2, vor(svs, 2, [ 90, 0 ]), sp2),
-    sp4 = to_xyz(hh2, vor(svs, 3, [ 90, 0 ]), sp3),
-    sp5 = to_xyz(hh2, vor(svs, 4, [ 90, 0 ]), sp4),
+    sp2 = to_xyz(1.5 * hh, vor(svs, 2, [ 90, 0 ]), sp1),
+    sp3 = to_xyz(0.5 * hh, vor(svs, 3, [ 90, 0 ]), sp2),
+    sp4 = to_xyz(0.5 * hh, vor(svs, 4, [ 90, 0 ]), sp3),
       //
-    sp1h = to_xyz(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
-    wal = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
-    war = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
+    //sp1h = to_xyz(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
+    //wal = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
+    //war = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
+      // TODO bring back somehow
 
     llvs = left_leg_vectors,
     llp0 = to_xyz(bw2, vor(llvs, 0, [ 0, 90 ]), sp0),
@@ -92,13 +91,13 @@ function body_points(
     rlp3 = to_xyz(fl, vor(rlvs, 3, [ 0, 0 ]), rlp2),
 
     lavs = left_arm_vectors,
-    lap0 = to_xyz(sw2, vor(lavs, 0, [ 0, 90 ]), sp3),
+    lap0 = to_xyz(sw2, vor(lavs, 0, [ 0, 90 ]), sp2),
     lap1 = to_xyz(1.5 * hh, vor(lavs, 1, [ -90, 0 ]), lap0),
     lap2 = to_xyz(1.5 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
     lap3 = to_xyz(hl, vor(lavs, 3, [ 0, 90 ]), lap2),
 
     ravs = right_arm_vectors,
-    rap0 = to_xyz(sw2, vor(ravs, 0, [ 0, -90 ]), sp3),
+    rap0 = to_xyz(sw2, vor(ravs, 0, [ 0, -90 ]), sp2),
     rap1 = to_xyz(1.5 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
     rap2 = to_xyz(1.5 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
     rap3 = to_xyz(hl, vor(ravs, 3, [ 0, -90 ]), rap2),
@@ -108,7 +107,7 @@ function body_points(
     z = - (z0 < z1 ? z0 : z1)
 
   ) [
-    [ sp0, wal, war, sp1, sp2, sp3, sp4, sp5 ], // spine points
+    [ sp0, sp1, sp2, sp3, sp4 ], // spine points
     [ llp0, llp1, llp2, llp3 ], // left leg points
     [ rlp0, rlp1, rlp2, rlp3 ], // right leg points
     [ lap0, lap1, lap2, lap3 ], // left arm points
