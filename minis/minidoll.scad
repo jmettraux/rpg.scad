@@ -109,6 +109,7 @@ function body_points(
     z0 = llp3.z,
     z1 = rlp3.z,
     z = - (z0 < z1 ? z0 : z1)
+
   ) [
     [ sp0, wal, war, sp1, sp2, sp3, sp4, sp5 ], // spine points
     [ llp0, llp1h, llp1, llp2h, llp2, llp3 ], // left leg points
@@ -120,7 +121,7 @@ function body_points(
   ];
 
 
-echo("=======================================================================");
+echo("======================================================================");
 
 #base();
 
@@ -154,27 +155,4 @@ for (lap = laps) translate(d + lap) color("red", 0.6) sphere(0.5);
 
 raps = bps[4];
 for (rap = raps) translate(d + rap) color("blue", 0.6) sphere(0.5);
-
-//echo("-----------------------------------------------------------------------");
-//
-//echo(to_xyz(4, [ 0, 0 ]));
-//echo(vlen(to_xyz(4, [ 0, 0 ])));
-//
-//echo(to_xyz(4, [ 45, 0 ]));
-//echo(vlen(to_xyz(4, [ 45, 0 ])));
-//
-//echo(to_xyz(4, [ 45, 45 ]));
-//echo(vlen(to_xyz(4, [ 45, 45 ])));
-
-//v0 =
-//  7;
-//v9 =
-//  //if (v0 == 0) "zero";
-//  //else if (v0 == 1) "one";
-//  //else "nine";
-//  v0 == 0 ? "zero" :
-//  v0 == 1 ? "one" :
-//  v0 == 2 ? "two" :
-//  "nine";
-//echo(v9);
 

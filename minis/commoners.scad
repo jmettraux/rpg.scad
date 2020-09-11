@@ -6,10 +6,10 @@
 height = 33;
 
 //use <minis_core.scad>;
-include <minis_core.scad>;
+include <mini_core.scad>;
   // so that vars in minis_core.scad are brought in
-include <minis_shields.scad>;
-include <minis_weapons.scad>;
+include <mini_shields.scad>;
+include <mini_weapons.scad>;
 
 $fn = 24;
 
@@ -59,10 +59,10 @@ translate([ head_height * 1.1, 0, 0 ])
     1, 0, head_height / 3,
     knee_diameter = head_height / 2.2, leg_angle = -4);
 
-a = [ [ 1, 2 ] ];
-b = [ [ 3, 4 ] ];
-c = concat(a);
-echo(c);
-d = concat(c, b);
-echo(d);
+//a = [ [ 1, 2 ] ];
+//b = [ [ 3, 4 ] ];
+//c = concat(a);
+//echo(c);
+//d = concat(c, b);
+//echo(d);
 
