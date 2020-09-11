@@ -20,22 +20,36 @@ function vor(vector, index, default) =
 
 function body_points(
   height,
-  basin_ratio,
-  waist_ratio,
-  shoulder_ratio,
   spine_vectors=[],
   left_leg_vectors=[],
   right_leg_vectors=[],
   left_arm_vectors=[],
-  right_arm_vectors=[]
+  right_arm_vectors=[],
+  basin_ratio=0,
+  waist_ratio=0,
+  shoulder_ratio=0
 ) =
   let(
 
+    br =
+      basin_ratio == 0 ? 1.2 :
+      basin_ratio == "male" ? 1.2 :
+      basin_ratio == "female" ? 1.7 :
+      basin_ratio,
+    wr =
+      waist_ratio == 0 ?  1.1 :
+      waist_ratio,
+    sr =
+      shoulder_ratio == 0 ?  2.1 :
+      shoulder_ratio == "male" ? 2.3 :
+      shoulder_ratio == "female" ? 2.1 :
+      shoulder_ratio,
+
     hh = height / 8, // head height
     hh2 = hh / 2,
-    bw2 = hh * basin_ratio / 2, // basin width / 2
-    sw2 = hh * shoulder_ratio / 2, // shoulder width / 2
-    ww2 = hh * waist_ratio / 2, // wast width / 2
+    bw2 = hh * br / 2, // basin width / 2
+    sw2 = hh * sr / 2, // shoulder width / 2
+    ww2 = hh * wr / 2, // wast width / 2
     fl = hh * 0.7, // foot length
     hl = hh * 0.6, // hand length
 
@@ -48,8 +62,8 @@ function body_points(
     sp5 = to_xyz(hh2, vor(svs, 4, [ 90, 0 ]), sp4),
       //
     sp1h = to_xyz(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
-    wl = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
-    wr = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
+    wal = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
+    war = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
 
     llvs = left_leg_vectors,
     llp0 = to_xyz(bw2, vor(llvs, 0, [ 0, 90 ]), sp0),
@@ -85,7 +99,7 @@ function body_points(
     rap2 = to_xyz(1.5 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
     rap3 = to_xyz(hl, vor(ravs, 3, [ 0, -90 ]), rap2)
   ) [
-    [ sp0, wl, wr, sp1, sp2, sp3, sp4, sp5 ], // spine points
+    [ sp0, wal, war, sp1, sp2, sp3, sp4, sp5 ], // spine points
     [ llp0, llp1h, llp1, llp2h, llp2, llp3 ], // left leg points
     [ rlp0, rlp1h, rlp1, rlp2h, rlp2, rlp3 ], // right leg points
     [ lap0h, lap0, lap1h, lap1, lap2h, lap2, lap3 ], // left arm points
@@ -95,7 +109,7 @@ function body_points(
 
 echo("=======================================================================");
 bps = body_points(
-  33, 1.6, 1.4, 2.5,
+  33,
   [ [ 80, 0 ], [ 80, 0 ], [ 80, 0 ], [ 70, 0 ] ], // spine vectors
   [ undef, [ -80, 0 ], [ -100, 0 ] ],
   [],
@@ -130,4 +144,16 @@ for (rap = raps) translate(rap) color("blue", 0.6) sphere(0.5);
 //
 //echo(to_xyz(4, [ 45, 45 ]));
 //echo(vlen(to_xyz(4, [ 45, 45 ])));
+
+//v0 =
+//  7;
+//v9 =
+//  //if (v0 == 0) "zero";
+//  //else if (v0 == 1) "one";
+//  //else "nine";
+//  v0 == 0 ? "zero" :
+//  v0 == 1 ? "one" :
+//  v0 == 2 ? "two" :
+//  "nine";
+//echo(v9);
 

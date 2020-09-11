@@ -5,7 +5,7 @@ $fn=12;
 
 diameter = 25;
 thickness = 3;
-slit_width = 0.8;
+slit_width = 1.1;
 arrow_base = 7;
 support_height = 9;
 
