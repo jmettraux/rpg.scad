@@ -81,35 +81,25 @@ function body_points(
 
     llvs = left_leg_vectors,
     llp0 = to_xyz(bw2, vor(llvs, 0, [ 0, 90 ]), sp0),
-    llp1h = to_xyz(hh, vor(llvs, 1, [ -90, 0 ]), llp0),
     llp1 = to_xyz(2 * hh, vor(llvs, 1, [ -90, 0 ]), llp0),
-    llp2h = to_xyz(hh, vor(llvs, 2, [ -90, 0 ]), llp1),
     llp2 = to_xyz(2 * hh, vor(llvs, 2, [ -90, 0 ]), llp1),
     llp3 = to_xyz(fl, vor(llvs, 3, [ 0, 0 ]), llp2),
 
     rlvs = right_leg_vectors,
     rlp0 = to_xyz(bw2, vor(rlvs, 0, [ 0, -90 ]), sp0),
-    rlp1h = to_xyz(hh, vor(rlvs, 1, [ -90, 0 ]), rlp0),
     rlp1 = to_xyz(2 * hh, vor(rlvs, 1, [ -90, 0 ]), rlp0),
-    rlp2h = to_xyz(hh, vor(rlvs, 2, [ -90, 0 ]), rlp1),
     rlp2 = to_xyz(2 * hh, vor(rlvs, 2, [ -90, 0 ]), rlp1),
     rlp3 = to_xyz(fl, vor(rlvs, 3, [ 0, 0 ]), rlp2),
 
     lavs = left_arm_vectors,
-    lap0h = to_xyz(sw2 / 2, vor(lavs, 0, [ 0, 90 ]), sp3),
     lap0 = to_xyz(sw2, vor(lavs, 0, [ 0, 90 ]), sp3),
-    lap1h = to_xyz(0.75 * hh, vor(lavs, 1, [ -90, 0 ]), lap0),
     lap1 = to_xyz(1.5 * hh, vor(lavs, 1, [ -90, 0 ]), lap0),
-    lap2h = to_xyz(0.75 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
     lap2 = to_xyz(1.5 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
     lap3 = to_xyz(hl, vor(lavs, 3, [ 0, 90 ]), lap2),
 
     ravs = right_arm_vectors,
-    rap0h = to_xyz(sw2 / 2, vor(ravs, 0, [ 0, -90 ]), sp3),
     rap0 = to_xyz(sw2, vor(ravs, 0, [ 0, -90 ]), sp3),
-    rap1h = to_xyz(0.75 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
     rap1 = to_xyz(1.5 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
-    rap2h = to_xyz(0.75 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
     rap2 = to_xyz(1.5 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
     rap3 = to_xyz(hl, vor(ravs, 3, [ 0, -90 ]), rap2),
 
@@ -119,10 +109,10 @@ function body_points(
 
   ) [
     [ sp0, wal, war, sp1, sp2, sp3, sp4, sp5 ], // spine points
-    [ llp0, llp1h, llp1, llp2h, llp2, llp3 ], // left leg points
-    [ rlp0, rlp1h, rlp1, rlp2h, rlp2, rlp3 ], // right leg points
-    [ lap0h, lap0, lap1h, lap1, lap2h, lap2, lap3 ], // left arm points
-    [ rap0h, rap0, rap1h, rap1, rap2h, rap2, rap3 ], // right arm points
+    [ llp0, llp1, llp2, llp3 ], // left leg points
+    [ rlp0, rlp1, rlp2, rlp3 ], // right leg points
+    [ lap0, lap1, lap2, lap3 ], // left arm points
+    [ rap0, rap1, rap2, rap3 ], // right arm points
     z, // ground to start z
     [ "hh", hh ] // debug
   ];
