@@ -3,9 +3,8 @@
 // doll.scad
 //
 
-$fn = 24;
+include <minilib.scad>;
 
-//include <minis_core.scad>; #base();
 
   // Accept a single angle instead of [ angle0, angle1 ]
   //
@@ -105,17 +104,28 @@ function body_points(
     rap1 = to_xyz(1.5 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
     rap2h = to_xyz(0.75 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
     rap2 = to_xyz(1.5 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
-    rap3 = to_xyz(hl, vor(ravs, 3, [ 0, -90 ]), rap2)
+    rap3 = to_xyz(hl, vor(ravs, 3, [ 0, -90 ]), rap2),
+
+    z0 = llp3.z,
+    z1 = rlp3.z,
+    z = - (z0 < z1 ? z0 : z1)
   ) [
     [ sp0, wal, war, sp1, sp2, sp3, sp4, sp5 ], // spine points
     [ llp0, llp1h, llp1, llp2h, llp2, llp3 ], // left leg points
     [ rlp0, rlp1h, rlp1, rlp2h, rlp2, rlp3 ], // right leg points
     [ lap0h, lap0, lap1h, lap1, lap2h, lap2, lap3 ], // left arm points
     [ rap0h, rap0, rap1h, rap1, rap2h, rap2, rap3 ], // right arm points
+    z, // ground to start z
     [ "hh", hh ] // debug
   ];
 
+
 echo("=======================================================================");
+
+#base();
+
+$fn = 24;
+
 bps = body_points(
   33,
   [ 80, 80, 80, 70 ], // spine vectors
@@ -125,23 +135,25 @@ bps = body_points(
   [ undef, -80, -50, 45 ]);
 echo(bps);
 
+d = [ 0, 0, bps[5] ];
+
 sps = bps[0];
 echo(concat("spine points", sps));
-for (sp = sps) translate(sp) sphere(0.7);
+for (sp = sps) translate(d + sp) sphere(0.7);
 
 llps = bps[1];
 echo(concat("left leg points", llps));
-for (llp = llps) translate(llp) color("blue", 0.6) sphere(0.5);
+for (llp = llps) translate(d + llp) color("blue", 0.6) sphere(0.5);
 
 rlps = bps[2];
 echo(concat("right leg points", rlps));
-for (rlp = rlps) translate(rlp) color("red", 0.6) sphere(0.5);
+for (rlp = rlps) translate(d + rlp) color("red", 0.6) sphere(0.5);
 
 laps = bps[3];
-for (lap = laps) translate(lap) color("red", 0.6) sphere(0.5);
+for (lap = laps) translate(d + lap) color("red", 0.6) sphere(0.5);
 
 raps = bps[4];
-for (rap = raps) translate(rap) color("blue", 0.6) sphere(0.5);
+for (rap = raps) translate(d + rap) color("blue", 0.6) sphere(0.5);
 
 //echo("-----------------------------------------------------------------------");
 //
