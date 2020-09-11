@@ -6,10 +6,10 @@
 height = 33;
 
 //use <minis_core.scad>;
-include <minis_core.scad>;
+include <mini_core.scad>;
   // so that vars in minis_core.scad are brought in
-include <minis_shields.scad>;
-include <minis_weapons.scad>;
+include <mini_shields.scad>;
+include <mini_weapons.scad>;
 
 $fn = 24;
 
@@ -26,12 +26,12 @@ hastings_helmet(6);
 
 translate([ -6, -2.7, height * 0.55 ])
   rotate([ 180 + 3, 0, -47 ])
-    long_sword(head_height * 3.7); // scramax
+    long_sword(head_height * 3.7, head_height / 1.1); // scramax
 //translate([ 5, 3.9, 1.8 ])
 //  rotate([ 0, 0, 90 + 45 + 2 ])
-//    housekarl_axe(head_height * 6.0);
+//    housekarl_axe(head_height * 6.0, head_height / 2.5);
 translate([ 7.7, 4.3, 0 ])
-  spear(height / 6 * 6.5);
+  spear(height / 6 * 6.5, head_height / 2.5);
   //spear(height / 6 * 8); // 8ft vs 6ft
 
 sh = leg_height + torso_height - head_height;

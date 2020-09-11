@@ -5,10 +5,10 @@
 
 // swords
 
-module long_sword(length) {
+module long_sword(length, handle_length) {
 
   l = length;
-  hl = head_height / 1.1; // handle length
+  hl = handle_length;
   hd = hl / 2; // handle diameter
   gh = hl / 4; // guard height
   tl = length / 10; // tip length
@@ -38,10 +38,10 @@ module long_sword(length) {
 
 // axes
 
-module housekarl_axe(length) {
+module housekarl_axe(length, diameter) {
 
   l = length;
-  d = head_height / 2.5;
+  d = diameter;
   bd = l / 4; // blade diameter
   dp = 1;
 
@@ -62,15 +62,15 @@ module housekarl_axe(length) {
 
 // spears
 
-module spear(length, rod_diameter=0) {
+module spear(length, rod_diameter, head_ratio=0.2, d1r=2.1, d2r=1.7) {
 
-  rd = rod_diameter == 0 ? head_height / 2.5 : rod_diameter;
+  rd = rod_diameter;
 
   l = length;
-  hl = l * 0.2; // head length
+  hl = l * head_ratio; // head length
   rl = l - hl; // rod length
-  hd1 = 2.1 * rd; // head width 1
-  hd2 = 1.7 * rd; // head width 2
+  hd1 = d1r * rd; // head width 1
+  hd2 = d2r * rd; // head width 2
 
   // rod
 
