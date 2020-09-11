@@ -19,6 +19,13 @@ function to_xyz(length, angles, sp=[ 0, 0, 0 ]) =
       length * cos(elevation) * sin(direction),
       length * sin(elevation) ];
 
+function to_spherical(point) =
+  let(
+    l = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2)),
+    ele = asin(point.z / l),
+    dir = acos(point.x / (sqrt(pow(point.x, 2) + pow(point.y, 2))))
+  ) [ l, [ ele, dir - 90 ] ];
+
 function vlen(vector) =
   sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
 
@@ -155,4 +162,10 @@ for (lap = laps) translate(d + lap) color("red", 0.6) sphere(0.5);
 
 raps = bps[4];
 for (rap = raps) translate(d + rap) color("blue", 0.6) sphere(0.5);
+
+//echo ("-------------------------------------------------------------------");
+//translate(d + sps[3]) color("black") sphere(1);
+//echo([ "hh", 33 / 8 ]);
+//echo([ "sp3", sps[3] ]);
+//echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
