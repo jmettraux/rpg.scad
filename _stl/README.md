@@ -1,5 +1,5 @@
 
 # jmettraux/rpg.scad/_stl/
 
-Click on any of the `.stl` file to let Github show you a rendering of the 3D model.
+Click on any of the `.stl` files to let Github show you a rendering of the contained 3D model.
 
