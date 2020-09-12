@@ -79,9 +79,9 @@ function body_points(
     sp3 = to_xyz(0.5 * hh, vor(svs, 3, [ 90, 0 ]), sp2),
     sp4 = to_xyz(0.5 * hh, vor(svs, 4, [ 90, 0 ]), sp3),
       //
-    //sp1h = to_xyz(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
-    //wal = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
-    //war = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
+    sp1h = to_xyz(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
+    wal = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
+    war = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
       // TODO bring back somehow
 
     llvs = left_leg_vectors,
@@ -114,6 +114,7 @@ function body_points(
 
   ) [
     [ sp0, sp1, sp2, sp3, sp4 ], // spine points
+    [ wal, sp1h, war ], // waist points
     [ llp0, llp1, llp2, llp3 ], // left leg points
     [ rlp0, rlp1, rlp2, rlp3 ], // right leg points
     [ lap0, lap1, lap2, lap3 ], // left arm points
@@ -136,16 +137,18 @@ module body(
   elbow_diameter=0,
   wrist_diameter=0,
   palm_diameter=0,
-  fn=0) {
+  fn=0
+) {
 
   _fn = fn == 0 ? $fn : fn;
   sps = body_points[0]; // spine points
-  llps = body_points[1]; // left leg points
-  rlps = body_points[2]; // right leg points
-  laps = body_points[3]; // left arm points
-  raps = body_points[4]; // right arm points
-  z = body_points[5]; // foot to start point (basin) z distance
-  hh = body_points[6]; // head height
+  wps = body_points[1]; // waist points
+  llps = body_points[2]; // left leg points
+  rlps = body_points[3]; // right leg points
+  laps = body_points[4]; // left arm points
+  raps = body_points[5]; // right arm points
+  z = body_points[6]; // foot to start point (basin) z distance
+  hh = body_points[7]; // head height
 
   d = hh / 4; // FIXME
 
@@ -182,10 +185,15 @@ module body(
 
   hull() {
     bal(llps[0], d); bal(rlps[0], d);
+    bal(wps[0], d); bal(wps[2], d);
+  }
+  hull() {
+    bal(wps[0], d); bal(wps[2], d);
     bal(laps[0], d); bal(raps[0], d);
   }
 
-  bal(sps[4], hh * 0.7); // head
+  scale([ 0.8, 1, 1 ])
+    bal(sps[4], hh * 0.6); // head
 }
 
 
@@ -207,25 +215,25 @@ bps = body_points(
   [ [ 0, -100 ] ]); // right arm vectors
 echo(bps);
 
-d = [ 0, 0, bps[5] ];
+d = [ 0, 0, bps[6] ];
 
-sps = bps[0];
-//echo(concat("spine points", sps));
-for (sp = sps) translate(d + sp) sphere(0.7);
+echo(concat("spine points", bps[0]));
+for (sp = bps[0]) translate(d + sp) sphere(0.7);
 
-llps = bps[1];
-//echo(concat("left leg points", llps));
-for (llp = llps) translate(d + llp) color("blue", 0.6) sphere(0.5);
+echo(concat("waist points", bps[1]));
+for (wp = bps[1]) translate(d + wp) sphere(0.6);
 
-rlps = bps[2];
-//echo(concat("right leg points", rlps));
-for (rlp = rlps) translate(d + rlp) color("red", 0.6) sphere(0.5);
+echo(concat("left leg points", bps[2]));
+for (llp = bps[2]) translate(d + llp) color("blue", 0.6) sphere(0.5);
 
-laps = bps[3];
-for (lap = laps) translate(d + lap) color("red", 0.6) sphere(0.5);
+echo(concat("right leg points", bps[3]));
+for (rlp = bps[3]) translate(d + rlp) color("red", 0.6) sphere(0.5);
 
-raps = bps[4];
-for (rap = raps) translate(d + rap) color("blue", 0.6) sphere(0.5);
+echo(concat("left arm points", bps[4]));
+for (lap = bps[4]) translate(d + lap) color("red", 0.6) sphere(0.5);
+
+echo(concat("right arm points", bps[5]));
+for (rap = bps[5]) translate(d + rap) color("blue", 0.6) sphere(0.5);
 
 //echo ("-------------------------------------------------------------------");
 //translate(d + sps[3]) color("black") sphere(1);
@@ -235,7 +243,7 @@ for (rap = raps) translate(d + rap) color("blue", 0.6) sphere(0.5);
 
 translate([ -25, 0, 0 ]) {
   base();
-  translate([ 0, 0, bps[5] ]) {
+  translate([ 0, 0, bps[6] ]) {
     body(
       bps);
   }
