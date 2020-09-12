@@ -5,7 +5,11 @@
 
 // unit is mm
 
-module base(diameter=25, thickness=3, arrow_base=7, fn=12) {
+module base(
+  diameter=25,
+  thickness=3,
+  arrow_base=7, text="", font="courier", font_size=6, font_spacing=0.7,
+  fn=12) {
 
   d_2 = diameter / 2;
   ab_2 = arrow_base / 2;
@@ -14,8 +18,16 @@ module base(diameter=25, thickness=3, arrow_base=7, fn=12) {
   translate([ 0, 0, - thickness / 2 ]) // place base just under horizon
     difference() {
 
-      // base
-      cylinder(d=diameter, h=thickness, center=true, $fn=fn);
+      union() {
+
+        // base
+        cylinder(d=diameter, h=thickness, center=true, $fn=fn);
+
+        // text
+        translate([ - diameter / 2.6, -diameter / 3, thickness / 2 ])
+          linear_extrude(0.5)
+            text(text, size=font_size, font=font, spacing=font_spacing);
+      }
 
       // arrow
       translate([ 0, d_2 - 1.2 * ab_2, -0.5 * t12 ])

@@ -242,7 +242,7 @@ d = [ 0, 0, bps[6] ];
 //echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
 translate([ -25, 0, 0 ]) {
-  base();
+  base(text="tst01");
   translate([ 0, 0, bps[6] ]) {
     body(
       bps);
