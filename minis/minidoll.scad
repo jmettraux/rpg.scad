@@ -199,7 +199,6 @@ module body(
 
 echo("======================================================================");
 
-#base();
 
 $fn = 24;
 
@@ -210,30 +209,31 @@ bps = body_points(
   //[ undef, -80, -150, -45 ], // left leg vectors
   [], // left leg vectors
   [], // right leg vectors
-  [ [ 0, 80 ] ], // left arm vectors
-  //[ undef, -80, -50, 45 ]);
-  [ [ 0, -100 ] ]); // right arm vectors
+  [ [ 0, 80 ], [ -45, 90 ], [ -45, -90 ], [ -25, -100 ] ], // left arm vectors
+  [ [ 0, -100 ], [ -45, -90 ], [ -45, 90 ], [ 207, -110 ] ]); // right arm vectors
 echo(bps);
 
 d = [ 0, 0, bps[6] ];
 
-echo(concat("spine points", bps[0]));
-for (sp = bps[0]) translate(d + sp) sphere(0.7);
-
-echo(concat("waist points", bps[1]));
-for (wp = bps[1]) translate(d + wp) sphere(0.6);
-
-echo(concat("left leg points", bps[2]));
-for (llp = bps[2]) translate(d + llp) color("blue", 0.6) sphere(0.5);
-
-echo(concat("right leg points", bps[3]));
-for (rlp = bps[3]) translate(d + rlp) color("red", 0.6) sphere(0.5);
-
-echo(concat("left arm points", bps[4]));
-for (lap = bps[4]) translate(d + lap) color("red", 0.6) sphere(0.5);
-
-echo(concat("right arm points", bps[5]));
-for (rap = bps[5]) translate(d + rap) color("blue", 0.6) sphere(0.5);
+//#base();
+//
+//echo(concat("spine points", bps[0]));
+//for (sp = bps[0]) translate(d + sp) sphere(0.7);
+//
+//echo(concat("waist points", bps[1]));
+//for (wp = bps[1]) translate(d + wp) sphere(0.6);
+//
+//echo(concat("left leg points", bps[2]));
+//for (llp = bps[2]) translate(d + llp) color("blue", 0.6) sphere(0.5);
+//
+//echo(concat("right leg points", bps[3]));
+//for (rlp = bps[3]) translate(d + rlp) color("red", 0.6) sphere(0.5);
+//
+//echo(concat("left arm points", bps[4]));
+//for (lap = bps[4]) translate(d + lap) color("red", 0.6) sphere(0.5);
+//
+//echo(concat("right arm points", bps[5]));
+//for (rap = bps[5]) translate(d + rap) color("blue", 0.6) sphere(0.5);
 
 //echo ("-------------------------------------------------------------------");
 //translate(d + sps[3]) color("black") sphere(1);
