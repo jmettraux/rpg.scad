@@ -99,14 +99,14 @@ function body_points(
     lavs = left_arm_vectors,
     lap0 = to_xyz(sw2, vor(lavs, 0, [ 0, 90 ]), sp2),
     lap1 = to_xyz(1.5 * hh, vor(lavs, 1, [ -90, 0 ]), lap0),
-    lap2 = to_xyz(1.5 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
-    lap3 = to_xyz(hl, vor(lavs, 3, [ 0, 90 ]), lap2),
+    lap2 = to_xyz(1.3 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
+    lap3 = to_xyz(hl, vor(lavs, 3, [ -90, 0 ]), lap2),
 
     ravs = right_arm_vectors,
     rap0 = to_xyz(sw2, vor(ravs, 0, [ 0, -90 ]), sp2),
     rap1 = to_xyz(1.5 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
-    rap2 = to_xyz(1.5 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
-    rap3 = to_xyz(hl, vor(ravs, 3, [ 0, -90 ]), rap2),
+    rap2 = to_xyz(1.3 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
+    rap3 = to_xyz(hl, vor(ravs, 3, [ -90, 0 ]), rap2),
 
     z0 = llp3.z,
     z1 = rlp3.z,
@@ -119,6 +119,7 @@ function body_points(
     [ lap0, lap1, lap2, lap3 ], // left arm points
     [ rap0, rap1, rap2, rap3 ], // right arm points
     z, // ground to start z
+    hh, // head height
     [ "hh", hh ] // debug
   ];
 
@@ -143,10 +144,48 @@ module body(
   rlps = body_points[2]; // right leg points
   laps = body_points[3]; // left arm points
   raps = body_points[4]; // right arm points
-  z = body_points[5];
+  z = body_points[5]; // foot to start point (basin) z distance
+  hh = body_points[6]; // head height
 
-  //head_height = // compute head_height from body points
-    // TODO
+  d = hh / 4; // FIXME
+
+  module bal(p, d) {
+    translate(p) sphere(d, $fn=_fn);
+  };
+  module hul(p0, d0, p1, d1) {
+    hull() { bal(p0, d0); bal(p1, d1); }
+  }
+  hul(llps[0], d, llps[1], d);
+  hul(llps[1], d, llps[2], d);
+  hul(llps[2], d, llps[3], d);
+  hul(rlps[0], d, rlps[1], d);
+  hul(rlps[1], d, rlps[2], d);
+  hul(rlps[2], d, rlps[3], d);
+
+  hul(llps[0], d, sps[0], d);
+  hul(sps[0], d, rlps[0], d);
+
+  hul(sps[0], d, sps[1], d);
+  hul(sps[1], d, sps[2], d);
+  hul(sps[2], d, sps[3], d);
+  hul(sps[3], d, sps[4], d);
+
+  hul(laps[0], d, sps[2], d);
+  hul(sps[2], d, raps[0], d);
+
+  hul(laps[0], d, laps[1], d);
+  hul(laps[1], d, laps[2], d);
+  hul(laps[2], d, laps[3], d);
+  hul(raps[0], d, raps[1], d);
+  hul(raps[1], d, raps[2], d);
+  hul(raps[2], d, raps[3], d);
+
+  hull() {
+    bal(llps[0], d); bal(rlps[0], d);
+    bal(laps[0], d); bal(raps[0], d);
+  }
+
+  bal(sps[4], hh * 0.7); // head
 }
 
 
@@ -158,11 +197,14 @@ $fn = 24;
 
 bps = body_points(
   33,
-  [ 80, 80, 80, 70 ], // spine vectors
-  [ undef, -80, -150, -45 ], // left leg vectors
-  [],
-  [],
-  [ undef, -80, -50, 45 ]);
+  //[ 80, 80, 80, 70 ], // spine vectors
+  [], // spine vectors
+  //[ undef, -80, -150, -45 ], // left leg vectors
+  [], // left leg vectors
+  [], // right leg vectors
+  [ [ 0, 80 ] ], // left arm vectors
+  //[ undef, -80, -50, 45 ]);
+  [ [ 0, -100 ] ]); // right arm vectors
 echo(bps);
 
 d = [ 0, 0, bps[5] ];
@@ -192,8 +234,8 @@ for (rap = raps) translate(d + rap) color("blue", 0.6) sphere(0.5);
 //echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
 translate([ -25, 0, 0 ]) {
-  #base();
-  translate([ -25, 0, bps[5] ]) {
+  base();
+  translate([ 0, 0, bps[5] ]) {
     body(
       bps);
   }
