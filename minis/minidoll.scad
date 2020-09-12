@@ -199,6 +199,3 @@ translate([ -25, 0, 0 ]) {
   }
 }
 
-echo([ "midpoint", midpoint([ 0, 0, 0 ], [ 4, 2, 0 ], 0.5) ]);
-echo([ "midpoint", midpoint([ 1, 1, 2 ], [ 5, 3, 2 ], 0.5) ]);
-
