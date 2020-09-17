@@ -12,7 +12,7 @@
 module base(
   diameter=25,
   thickness=3,
-  arrow_base=7, text="", font="courier", font_size=6, font_spacing=0.7,
+  arrow_base=7, text="", font="helvetica", font_size=6, font_spacing=0.7,
   fn=12) {
 
   d_2 = diameter / 2;
@@ -29,7 +29,7 @@ module base(
 
         // text
         translate([ - diameter / 2.6, -diameter / 3, thickness / 2 ])
-          linear_extrude(0.5)
+          linear_extrude(0.7)
             text(text, size=font_size, font=font, spacing=font_spacing);
       }
 
