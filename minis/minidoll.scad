@@ -6,34 +6,6 @@
 include <minilib.scad>;
 
 
-  // Accept a single angle instead of [ angle0, angle1 ]
-  //
-function to_xyz(length, angles, sp=[ 0, 0, 0 ]) =
-  let(
-    as = is_num(angles) ? [ angles, 0 ] : angles,
-    elevation = as[0],
-    direction = as[1] + 90
-  )
-    sp + [
-      length * cos(elevation) * cos(direction),
-      length * cos(elevation) * sin(direction),
-      length * sin(elevation) ];
-
-function to_spherical(point) =
-  let(
-    l = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2)),
-    ele = asin(point.z / l),
-    dir = acos(point.x / (sqrt(pow(point.x, 2) + pow(point.y, 2))))
-  ) [ l, [ ele, dir - 90 ] ];
-
-function midpoint(p0, p1, ratio=0.5) =
-  let(
-    s = to_spherical(p1 - p0)
-  )
-    to_xyz(ratio * s[0], s[1], p0);
-
-function vlen(vector) =
-  sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
 
 function vor(vector, index, default) =
   vector[index] ? vector[index] : default;
