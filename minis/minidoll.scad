@@ -161,7 +161,7 @@ module body(
   }
   hull() {
     bal(wps[0], d); bal(wps[2], d);
-    bal(laps[0], d); bal(raps[0], d);
+    bal(laps[0], d); bal(sps[2], d); bal(raps[0], d);
   }
 
   scale([ 0.8, 1, 1 ])
@@ -179,9 +179,9 @@ bps = body_points(
   //[ 80, 80, 80, 70 ], // spine vectors
   [], // spine vectors
   //[ undef, -80, -150, -45 ], // left leg vectors
-  [], // left leg vectors
-  [], // right leg vectors
-  [ [ 0, 80 ], [ -45, 90 ], [ -45, -90 ], [ -25, -100 ] ], // left arm vectors
+  [ [], -85, -95, [ 0, 10 ] ], // left leg vectors
+  [ [], -95, -100, [ 0, -10 ] ], // right leg vectors
+  [ [ 0, 90 ], [ -45, 90 ], [ -45, -90 ], [ -25, -100 ] ], // left arm vectors
   [ [ 0, -100 ], [ -45, -90 ], [ -45, 90 ], [ 207, -110 ] ]); // right arm vectors
 echo(bps);
 
