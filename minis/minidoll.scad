@@ -256,7 +256,7 @@ module veil(
   hp = body_points[0][4]; // head point
   hh = body_points[7]; // head height
 
-  t = thickness > 0 ? thickness : hh / 10;
+  t = thickness > 0 ? thickness : hh / 7;
 
   sd = hh * 0.2; // shoulder diameter
   sw = hh / 3; // shoulder width
@@ -327,7 +327,7 @@ d = [ 0, 0, bps[6] ];
 //echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
 translate([ -25, 0, 0 ]) {
-  base(text=" B", $fn=12);
+  base(text=" C", $fn=12);
   translate([ 0, 0, bps[6] ]) {
     body(bps);
     robe(bps);
