@@ -201,12 +201,15 @@ module robe(
   //  [ p.x, p.y, -z ];
 
   hull() {
+
     bal(llps[0], d);
     bal(llps[1], d);
     bal(llps[2], d);
+      bal(llps[3], d);
     bal(rlps[0], d);
     bal(rlps[1], d);
     bal(rlps[2], d);
+      bal(rlps[3], d);
 
     //bal(to_ground(laps[1]), d);
     //bal(to_ground(laps[2]), d);
@@ -227,26 +230,55 @@ module robe(
 
 module skull(body_points) {
 
-  sps = body_points[0]; // spine points
-  sps4 = sps[4];
+  hp = body_points[0][4]; // head point
   hh = body_points[7]; // head height
 
   difference() {
     union() {
-      translate([ sps4.x, sps4.y + hh / 10, sps4.z - hh / 3 ])
+      translate([ hp.x, hp.y + hh / 10, hp.z - hh / 3 ])
         cylinder(d=hh/1.3, h=hh/3, center=true);
       translate([ 0, 0, hh / 7 ])
         scale([ 0.8, 1, 1 ])
-          bal(sps4, hh * 0.6); // head
+          bal(hp, hh * 0.6); // head
     }
     translate([ - hh / 3.7, hh / 2.1, hh / 7 ])
-      bal(sps4, hh * 0.16); // eyesocket
+      bal(hp, hh * 0.16); // eyesocket
     translate([ hh / 3.7, hh / 2.1, hh / 7 ])
-      bal(sps4, hh * 0.16); // eyesocket
+      bal(hp, hh * 0.16); // eyesocket
   }
 }
 
-module veil(body_points) {
+module veil(
+  body_points,
+  thickness=0
+) {
+
+  hp = body_points[0][4]; // head point
+  hh = body_points[7]; // head height
+
+  t = thickness > 0 ? thickness : hh / 10;
+
+  sd = hh * 0.2; // shoulder diameter
+  sw = hh / 3; // shoulder width
+
+  difference() {
+
+    hull() {
+      translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) bal(hp, hh * 0.6 + t);
+      translate([ -sw, 0, -2 * hh ]) bal(hp, sd + t);
+      translate([ sw, 0, -2 * hh ]) bal(hp, sd + t);
+    }
+    union() {
+      hull() {
+        translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) bal(hp, hh * 0.6);
+        translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) bal(hp, hh * 0.6);
+        translate([ -sw, 0, -2 * hh ]) bal(hp, sd);
+        translate([ sw, 0, -2 * hh ]) bal(hp, sd);
+      }
+      translate([ 0, hh / 2, hp.z - hh ])
+        cube([ hh / 1.4, hh, 3 * hh ], center=true);
+    }
+  }
 }
 
 
@@ -295,11 +327,12 @@ d = [ 0, 0, bps[6] ];
 //echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
 translate([ -25, 0, 0 ]) {
-  base(text=" A", $fn=12);
+  base(text=" B", $fn=12);
   translate([ 0, 0, bps[6] ]) {
     body(bps);
     robe(bps);
     skull(bps);
+    veil(bps);
   }
 }
 
