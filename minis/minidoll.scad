@@ -330,9 +330,16 @@ translate([ -25, 0, 0 ]) {
   base(text=" C", $fn=12);
   translate([ 0, 0, bps[6] ]) {
     body(bps);
-    robe(bps);
+    //robe(bps);
+    skirt(bps);
+    //veil(bps);
     skull(bps);
-    veil(bps);
   }
 }
+
+//di = [ [ "a", 0 ], [ "b", 1 ], [ "c", 2 ] ];
+//echo([ "b", get(di, "b") ]);
+//echo([ "c", get(di, "c") ]);
+//echo([ "di1", del(di, "b") ]);
+//echo([ "di2", put(di, "d", -2) ]);
 
