@@ -13,7 +13,7 @@ include <mini_weapons.scad>;
 
 $fn = 24;
 
-base();
+base($fn=12);
 //leg_robe(10, 7);
 //leg_norman(9, 7);
 leg_norman_short(8, 7);

@@ -30,7 +30,7 @@ $fn = 24;
 //        balratio=0.5, yangle=18); // shoulder
 //  };
 
-base();
+base($fn=12);
 
   //module trapeze(
   //  bottom_d, bottom_l, top_d, top_l,

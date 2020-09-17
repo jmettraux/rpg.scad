@@ -12,8 +12,8 @@
 module base(
   diameter=25,
   thickness=3,
-  arrow_base=7, text="", font="helvetica", font_size=6, font_spacing=0.7,
-  fn=12) {
+  arrow_base=7, text="", font="helvetica", font_size=6, font_spacing=0.7
+) {
 
   d_2 = diameter / 2;
   ab_2 = arrow_base / 2;
@@ -25,7 +25,7 @@ module base(
       union() {
 
         // base
-        cylinder(d=diameter, h=thickness, center=true, $fn=fn);
+        cylinder(d=diameter, h=thickness, center=true);
 
         // text
         translate([ - diameter / 2.6, -diameter / 3, thickness / 2 ])

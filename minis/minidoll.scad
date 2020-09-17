@@ -97,9 +97,8 @@ function body_points(
   ];
 
 
-module bal(p, d, fn=0) {
-  _fn = fn == 0 ? $fn : fn;
-  translate(p) sphere(d, $fn=_fn);
+module bal(p, d) {
+  translate(p) sphere(d);
 };
 module hul(p0, d0, p1, d1) {
   hull() { bal(p0, d0); bal(p1, d1); }
@@ -118,11 +117,9 @@ module body(
   neck_diameter=0,
   elbow_diameter=0,
   wrist_diameter=0,
-  palm_diameter=0,
-  fn=0
+  palm_diameter=0
 ) {
 
-  _fn = fn == 0 ? $fn : fn;
   sps = body_points[0]; // spine points
   wps = body_points[1]; // waist points
   llps = body_points[2]; // left leg points
@@ -228,9 +225,7 @@ module robe(
 }
 
 
-module skull(body_points, fn=0) {
-
-  _fn = fn == 0 ? $fn : fn;
+module skull(body_points) {
 
   sps = body_points[0]; // spine points
   sps4 = sps[4];
@@ -239,17 +234,20 @@ module skull(body_points, fn=0) {
   difference() {
     union() {
       translate([ sps4.x, sps4.y + hh / 10, sps4.z - hh / 3 ])
-        cylinder(d=hh/1.3, h=hh/3, center=true, $fn=_fn);
+        cylinder(d=hh/1.3, h=hh/3, center=true);
       translate([ 0, 0, hh / 7 ])
         scale([ 0.8, 1, 1 ])
-          bal(sps4, hh * 0.6, _fn); // head
+          bal(sps4, hh * 0.6); // head
     }
     translate([ - hh / 3.7, hh / 2.1, hh / 7 ])
-      bal(sps4, hh * 0.16, _fn); // eyesocket
+      bal(sps4, hh * 0.16); // eyesocket
     translate([ hh / 3.7, hh / 2.1, hh / 7 ])
-      bal(sps4, hh * 0.16, _fn); // eyesocket
+      bal(sps4, hh * 0.16); // eyesocket
   }
-};
+}
+
+module veil(body_points) {
+}
 
 
 echo("======================================================================");
@@ -297,7 +295,7 @@ d = [ 0, 0, bps[6] ];
 //echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
 translate([ -25, 0, 0 ]) {
-  base(text=" A");
+  base(text=" A", $fn=12);
   translate([ 0, 0, bps[6] ]) {
     body(bps);
     robe(bps);

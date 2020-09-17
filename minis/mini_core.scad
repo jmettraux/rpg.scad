@@ -3,8 +3,6 @@
 // minis_core.scad
 //
 
-//$fn=12;
-
 // unit is mm
 
 base_diameter = 25;
@@ -28,7 +26,7 @@ module base() {
     difference() {
 
       // base
-      cylinder(d=base_diameter, h=base_thickness, center=true, $fn=12);
+      cylinder(d=base_diameter, h=base_thickness, center=true);
 
       // arrow
       translate([ 0, d_2 - 1.2 * ab_2, -0.5 * t12 ])

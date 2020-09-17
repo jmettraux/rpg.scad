@@ -5,7 +5,7 @@
 
 // swords
 
-module long_sword(length, handle_length, fn=0) {
+module long_sword(length, handle_length) {
 
   l = length;
   hl = handle_length;
@@ -15,12 +15,11 @@ module long_sword(length, handle_length, fn=0) {
   bl = l - tl - hl - gh; // blade length
   bw = hl * 0.7; // blade width
   bd = hd * 0.7; // blade depth, well
-  _fn = fn == 0 ? $fn : fn;
 
   union() {
     // handle
     translate([ 0, 0, -hl / 2 - gh / 2 ])
-      cylinder(d1=hd, d2=hd, h=hl, center=true, $fn=_fn);
+      cylinder(d1=hd, d2=hd, h=hl, center=true);
     // guard
     translate([ 0, 0, 0 ])
       cube([ hl, hd, gh ], center=true);
@@ -39,32 +38,34 @@ module long_sword(length, handle_length, fn=0) {
 
 // axes
 
-module housekarl_axe(length, diameter, fn=0) {
+module housekarl_axe(length, diameter) {
 
   l = length;
   d = diameter;
   bd = l / 4; // blade diameter
   dp = 1;
-  _fn = fn == 0 ? $fn : fn;
 
-  cylinder(d=d, h=l, $fn=_fn);
+  cylinder(d=d, h=l);
 
   translate([ -bd / 2, 0, l * 0.96 ])
     rotate([ 90, 0, 0 ])
       difference() {
-        cylinder(d=bd, h=dp, center=true, $fn=_fn);
+        cylinder(d=bd, h=dp, center=true);
         union() {
           translate([ bd / 2.7,   bd / 1.9, dp * 0.05 ])
-            cylinder(d=bd / 1.1, h=dp * 1.2, center=true, $fn=_fn);
+            cylinder(d=bd / 1.1, h=dp * 1.2, center=true);
           translate([ bd / 2.7, - bd / 1.9, dp * 0.05 ])
-            cylinder(d=bd / 1.1, h=dp * 1.2, center=true, $fn=_fn);
+            cylinder(d=bd / 1.1, h=dp * 1.2, center=true);
         }
       }
 };
 
 // spears
 
-module spear(length, rod_diameter, head_ratio=0.2, d1r=2.1, d2r=1.7, fn=0) {
+module spear(
+  length, rod_diameter,
+  head_ratio=0.2, d1r=2.1, d2r=1.7
+) {
 
   rd = rod_diameter;
 
@@ -73,11 +74,10 @@ module spear(length, rod_diameter, head_ratio=0.2, d1r=2.1, d2r=1.7, fn=0) {
   rl = l - hl; // rod length
   hd1 = d1r * rd; // head width 1
   hd2 = d2r * rd; // head width 2
-  _fn = fn == 0 ? $fn : fn;
 
   // rod
 
-  cylinder(d=rd, h=rl * 1.1, $fn=_fn);
+  cylinder(d=rd, h=rl * 1.1);
 
   // spearhead
 
