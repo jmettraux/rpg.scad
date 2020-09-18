@@ -1,14 +1,14 @@
 
-// cadence_0040f71.scad
+// cadence_d27c34c.scad
 // https://github.com/jmettraux/cadence.scad
 
 
-
-// sublist
+// as of 2019.05, OpenSCAD understands
+// is_num, is_list, is_string, and, is_bool
 //
-function _sl(list, from=0, to) =
-  let(end = (to == undef ? len(list) - 1 : to))
-  [ for ( i = [from:end]) list[i] ];
+// is_function is coming, but looks tricky
+
+
 
 function _normalize_angle(a) =
   ((a >= 0 && a <= 360) ? a : _normalize_angle(a + (a < 0 ? 360 : -360)));
@@ -17,10 +17,38 @@ function _normalize_angle(a) =
 //
 // dictionary functions
 
-function _get(dict, key) = search(key, dict)[0];
-function _del(dict, key) = [ for (kv = dict) if (kv[0] != key) kv ];
-function _put(dict, key, value) = concat(_del(dict, key), [ [ key, value ] ]);
+function _get(dict, key, default=undef) =
+  let (r = search(key, dict)[0]) r == undef ? default : r;
+function _del(dict, key) =
+  [ for (kv = dict) if (kv[0] != key) kv ];
+function _put(dict, key, value) =
+  concat(_del(dict, key), [ [ key, value ] ]);
 
+
+//
+// list functions
+
+function _idx(list, index, default=undef) =
+  let (
+    l = len(list),
+    i = index < 0 ? l + index : index,
+    r = list[i]
+  )
+    r == undef ? default : r;
+
+  // sublist
+  //
+function _slist(list, from=0, to) =
+  let(
+    li = len(list) - 1,
+    end = (to == undef ? li : to),
+    a0 = from < 0 ? li + 1 + from : from,
+    a = a0 < 0 ? 0 : a0,
+    z = end < 0 ? li + 1 + end : end
+  )
+    a > li ? [] :
+    z < a ? [] :
+      [ for (i = [a:z]) list[i] ];
 
 //
 // point functions
@@ -88,11 +116,16 @@ module paslice(radius, depth, slice=45, radius1=0) {
       ty = r / t;
 
       translate([ 0, 0, -0.1 ]) linear_extrude(depth + 0.2)
-        if (s <= 45) polygon(concat(pas, [ [ tx, r ] ], pbs));
-        else if (s <= 135) polygon(concat(pas, [ [ r, ty ] ], _sl(pbs, 2)));
-        else if (s <= 225) polygon(concat(pas, [ [ -tx, -r ] ], _sl(pbs, 4)));
-        else if (s <= 315) polygon(concat(pas, [ [ -r, -ty ] ], _sl(pbs, 6)));
-        else if (s < 360) polygon(concat(pas, [ [ tx, r ] ]));
+        if (s <= 45)
+          polygon(concat(pas, [ [ tx, r ] ], pbs));
+        else if (s <= 135)
+          polygon(concat(pas, [ [ r, ty ] ], _slist(pbs, 2)));
+        else if (s <= 225)
+          polygon(concat(pas, [ [ -tx, -r ] ], _slist(pbs, 4)));
+        else if (s <= 315)
+          polygon(concat(pas, [ [ -r, -ty ] ], _slist(pbs, 6)));
+        else if (s < 360)
+          polygon(concat(pas, [ [ tx, r ] ]));
     }
   }
 }
