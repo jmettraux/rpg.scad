@@ -28,15 +28,15 @@ function body_points(
       basin_ratio == 0 ? 1.2 :
       basin_ratio == "male" ? 1.2 :
       basin_ratio == "female" ? 1.7 :
-      basin_ratio,
+        basin_ratio,
     wr =
       waist_ratio == 0 ?  1.1 :
-      waist_ratio,
+        waist_ratio,
     sr =
       shoulder_ratio == 0 ?  2.1 :
       shoulder_ratio == "male" ? 2.3 :
       shoulder_ratio == "female" ? 2.1 :
-      shoulder_ratio,
+        shoulder_ratio,
 
     hh = height / 8, // head height
     bw2 = hh * br / 2, // basin width / 2
@@ -94,9 +94,43 @@ function body_points(
     [ rap0, rap1, rap2, rap3 ], // right arm points
     z, // ground to start z
     hh, // head height
-    [ "hh", hh ] // debug
+    [ [ "hh", hh ]  ] // debug dict
   ];
 
+function bpoint(bpoints, name, default=undef) =
+  let(
+    n = name,
+    sps = bpoints[0], // spine points
+    wps = bpoints[1], // waist points
+    llps = bpoints[2], // left leg points
+    rlps = bpoints[3], // right leg points
+    laps = bpoints[4], // left arm points
+    raps = bpoints[5], // right arm points
+
+    r =
+      n == "left foot" ? llps[3] :
+      n == "right foot" ? rlps[3] :
+      n == "left ankle" ? llps[2] :
+      n == "right ankle" ? rlps[2] :
+      n == "left knee" ? llps[1] :
+      n == "right knee" ? rlps[1] :
+      n == "left basin" ? llps[0] :
+      n == "right basin" ? rlps[0] :
+      n == "left hand" ? laps[3] :
+      n == "right hand" ? raps[3] :
+      n == "left wrist" ? laps[2] :
+      n == "right wrist" ? raps[2] :
+      n == "left elbow" ? laps[1] :
+      n == "right elbow" ? raps[1] :
+      n == "left shoulder" ? laps[0] :
+      n == "right shoulder" ? raps[0] :
+      n == "head" ? sps[4] :
+      n == "neck" ? sps[3] :
+      n == "head height" ? bpoints[7] :
+      n == "z" ? bpoints[6] :
+        undef
+  )
+    r == undef ? default : r;
 
 module bal(p, d) {
   translate(p) sphere(d);
