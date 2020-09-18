@@ -1,5 +1,5 @@
 
-// cadence_d27c34c.scad
+// cadence_a0c1560.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -30,8 +30,7 @@ function _put(dict, key, value) =
 
 function _idx(list, index, default=undef) =
   let (
-    l = len(list),
-    i = index < 0 ? l + index : index,
+    i = index < 0 ? len(list) + index : index,
     r = list[i]
   )
     r == undef ? default : r;
