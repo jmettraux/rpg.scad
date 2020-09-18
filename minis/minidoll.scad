@@ -46,39 +46,39 @@ function body_points(
 
     svs = spine_vectors,
     sp0 = [ 0, 0, 0 ],
-    sp1 = to_xyz(hh, vor(svs, 0, [ 90, 0 ]), sp0),
-    sp2 = to_xyz(1.5 * hh, vor(svs, 2, [ 90, 0 ]), sp1),
-    sp3 = to_xyz(0.5 * hh, vor(svs, 3, [ 90, 0 ]), sp2),
-    sp4 = to_xyz(0.5 * hh, vor(svs, 4, [ 90, 0 ]), sp3),
+    sp1 = _to_point(hh, vor(svs, 0, [ 90, 0 ]), sp0),
+    sp2 = _to_point(1.5 * hh, vor(svs, 2, [ 90, 0 ]), sp1),
+    sp3 = _to_point(0.5 * hh, vor(svs, 3, [ 90, 0 ]), sp2),
+    sp4 = _to_point(0.5 * hh, vor(svs, 4, [ 90, 0 ]), sp3),
       //
-    sp1h = to_xyz(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
-    wal = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
-    war = to_xyz(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
+    sp1h = _to_point(0.7 * hh, vor(svs, 0, [ 90, 0 ]), sp0),
+    wal = _to_point(ww2, vor(left_leg_vectors, 0, [ 0, 90 ]), sp1h),
+    war = _to_point(ww2, vor(left_leg_vectors, 0, [ 0, -90 ]), sp1h),
       // TODO bring back somehow
 
     llvs = left_leg_vectors,
-    llp0 = to_xyz(bw2, vor(llvs, 0, [ 0, 90 ]), sp0),
-    llp1 = to_xyz(2 * hh, vor(llvs, 1, [ -90, 0 ]), llp0),
-    llp2 = to_xyz(2 * hh, vor(llvs, 2, [ -90, 0 ]), llp1),
-    llp3 = to_xyz(fl, vor(llvs, 3, [ 0, 0 ]), llp2),
+    llp0 = _to_point(bw2, vor(llvs, 0, [ 0, 90 ]), sp0),
+    llp1 = _to_point(2 * hh, vor(llvs, 1, [ -90, 0 ]), llp0),
+    llp2 = _to_point(2 * hh, vor(llvs, 2, [ -90, 0 ]), llp1),
+    llp3 = _to_point(fl, vor(llvs, 3, [ 0, 0 ]), llp2),
 
     rlvs = right_leg_vectors,
-    rlp0 = to_xyz(bw2, vor(rlvs, 0, [ 0, -90 ]), sp0),
-    rlp1 = to_xyz(2 * hh, vor(rlvs, 1, [ -90, 0 ]), rlp0),
-    rlp2 = to_xyz(2 * hh, vor(rlvs, 2, [ -90, 0 ]), rlp1),
-    rlp3 = to_xyz(fl, vor(rlvs, 3, [ 0, 0 ]), rlp2),
+    rlp0 = _to_point(bw2, vor(rlvs, 0, [ 0, -90 ]), sp0),
+    rlp1 = _to_point(2 * hh, vor(rlvs, 1, [ -90, 0 ]), rlp0),
+    rlp2 = _to_point(2 * hh, vor(rlvs, 2, [ -90, 0 ]), rlp1),
+    rlp3 = _to_point(fl, vor(rlvs, 3, [ 0, 0 ]), rlp2),
 
     lavs = left_arm_vectors,
-    lap0 = to_xyz(sw2, vor(lavs, 0, [ 0, 90 ]), sp2),
-    lap1 = to_xyz(1.5 * hh, vor(lavs, 1, [ -90, 0 ]), lap0),
-    lap2 = to_xyz(1.3 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
-    lap3 = to_xyz(hl, vor(lavs, 3, [ -90, 0 ]), lap2),
+    lap0 = _to_point(sw2, vor(lavs, 0, [ 0, 90 ]), sp2),
+    lap1 = _to_point(1.5 * hh, vor(lavs, 1, [ -90, 0 ]), lap0),
+    lap2 = _to_point(1.3 * hh, vor(lavs, 2, [ -90, 0 ]), lap1),
+    lap3 = _to_point(hl, vor(lavs, 3, [ -90, 0 ]), lap2),
 
     ravs = right_arm_vectors,
-    rap0 = to_xyz(sw2, vor(ravs, 0, [ 0, -90 ]), sp2),
-    rap1 = to_xyz(1.5 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
-    rap2 = to_xyz(1.3 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
-    rap3 = to_xyz(hl, vor(ravs, 3, [ -90, 0 ]), rap2),
+    rap0 = _to_point(sw2, vor(ravs, 0, [ 0, -90 ]), sp2),
+    rap1 = _to_point(1.5 * hh, vor(ravs, 1, [ -90, 0 ]), rap0),
+    rap2 = _to_point(1.3 * hh, vor(ravs, 2, [ -90, 0 ]), rap1),
+    rap3 = _to_point(hl, vor(ravs, 3, [ -90, 0 ]), rap2),
 
     z0 = llp3.z,
     z1 = rlp3.z,
@@ -336,10 +336,4 @@ translate([ -25, 0, 0 ]) {
     skull(bps);
   }
 }
-
-//di = [ [ "a", 0 ], [ "b", 1 ], [ "c", 2 ] ];
-//echo([ "b", get(di, "b") ]);
-//echo([ "c", get(di, "c") ]);
-//echo([ "di1", del(di, "b") ]);
-//echo([ "di2", put(di, "d", -2) ]);
 

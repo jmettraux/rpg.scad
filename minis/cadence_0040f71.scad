@@ -1,6 +1,7 @@
 
-// cadence_96cb202.scad
-// https://github.com/jmettraux/cadence
+// cadence_0040f71.scad
+// https://github.com/jmettraux/cadence.scad
+
 
 
 // sublist
@@ -11,6 +12,55 @@ function _sl(list, from=0, to) =
 
 function _normalize_angle(a) =
   ((a >= 0 && a <= 360) ? a : _normalize_angle(a + (a < 0 ? 360 : -360)));
+
+
+//
+// dictionary functions
+
+function _get(dict, key) = search(key, dict)[0];
+function _del(dict, key) = [ for (kv = dict) if (kv[0] != key) kv ];
+function _put(dict, key, value) = concat(_del(dict, key), [ [ key, value ] ]);
+
+
+//
+// point functions
+
+  // Accept a single angle instead of [ angle0, angle1 ]
+  //
+function _to_point(length, angles, sp=[ 0, 0, 0 ]) =
+  let(
+    as = is_num(angles) ? [ angles, 0 ] : angles,
+    inclination = as[0],
+    azimuth = as[1] + 90
+  )
+    sp + [
+      length * cos(inclination) * cos(azimuth),
+      length * cos(inclination) * sin(azimuth),
+      length * sin(inclination) ];
+
+function _to_spherical(point) =
+  let(
+    //l = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2)),
+    l = norm(point),
+    ele = asin(point.z / l),
+    dir = acos(point.x / (sqrt(pow(point.x, 2) + pow(point.y, 2))))
+  )
+    [ l, [ ele, dir - 90 ] ];
+
+function _midpoint(p0, p1, ratio=0.5) =
+  let(
+    s = _to_spherical(p1 - p0)
+  )
+    _to_point(ratio * s[0], s[1], p0);
+
+//function _vlen(vector) =
+//  sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
+  //
+  // no, use norm(vector)
+
+
+//
+// modules
 
 // pineapple slice
 //
