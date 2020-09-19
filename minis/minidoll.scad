@@ -298,13 +298,17 @@ module skirt(
 
   lb = _midpoint(lt, lk, lratio);
   rb = _midpoint(rt, rk, rratio);
+//color("red") translate(rk) sphere(d=hh/1.7);
+//color("blue") translate(rb) sphere(d=hh/1.7);
 
-  d = hh * 0.3;
+  td = hh * 0.3;
+  bd = hh * 0.5;
+
   hull() {
-    _bal(lt, d);
-    _bal(rt, d);
-    translate(lb) cylinder(diameter=d, h=d / 10);
-    translate(rb) cylinder(diameter=d, h=d / 10);
+    _bal(lt, td);
+    _bal(rt, td);
+    translate(lk) cylinder(d=bd, h=0.01);
+    translate(rk) cylinder(d=bd, h=0.01);
   }
 }
 
