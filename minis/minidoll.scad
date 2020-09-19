@@ -6,31 +6,32 @@
 include <minilib.scad>;
 
 
-function _lu(dict, key, list, index, default) =
-  let(
-    dv = _get(dict, key),
-    lv = _idx(list, index)
-  )
-    dv != undef ? dv :
-    lv != undef ? lv :
-      default;
-
-function _vor(vector, index, default) =
-  vector[index] ? vector[index] : default;
-    //
-    // [], false, 0, and undef are all falsy...
-
 function body_points(
   height,
-  spine_vectors=[],
-  left_leg_vectors=[],
-  right_leg_vectors=[],
-  left_arm_vectors=[],
-  right_arm_vectors=[],
   basin_ratio=0,
   waist_ratio=0,
   shoulder_ratio=0,
-  vectors=[]
+  to_hip=[ 90, 0 ],
+  to_navel=[ 90, 0 ],
+  to_neck=[ 90, 0 ],
+  to_head=[ 90, 0 ],
+  to_low_hip=[ 90, 0 ],
+  to_left_hip=[ 0, 90 ],
+  to_left_knee=[ -90, 0 ],
+  to_left_ankle=[ -90, 0 ],
+  to_left_toe=[ 0, 0 ],
+  to_right_hip=[ 0, -90 ],
+  to_right_knee=[ -90, 0 ],
+  to_right_ankle=[ -90, 0 ],
+  to_right_toe=[ 0, 0 ],
+  to_left_shoulder=[ 0, -90 ],
+  to_left_elbow=[ -90, 0 ],
+  to_left_wrist=[ -90, 0 ],
+  to_left_finger=[ -90, 0 ],
+  to_right_shoulder=[ 0, 90 ],
+  to_right_elbow=[ -90, 0 ],
+  to_right_wrist=[ -90, 0 ],
+  to_right_finger=[ -90, 0 ]
 ) =
   let(
 
@@ -48,8 +49,6 @@ function body_points(
       shoulder_ratio == "female" ? 2.1 :
         shoulder_ratio,
 
-    vs = vectors,
-
     hh = height / 8, // head height
     hh2 = hh * 2,
     bw2 = hh * br / 2, // basin width / 2
@@ -58,48 +57,37 @@ function body_points(
     fl = hh * 0.7, // foot length
     hl = hh * 0.6, // hand length
 
-    svs = spine_vectors,
-    llvs = left_leg_vectors,
-    rlvs = right_leg_vectors,
-    lavs = left_arm_vectors,
-    ravs = right_arm_vectors,
-
-    up = [ 90, 0 ],
-    down = [ -90, 0 ],
-    left = [ 0, 90 ],
-    right = [ 0, -90 ],
-
     sp0 = [ 0, 0, 0 ],
-    sp1 = _to_point(hh, _lu(vs, "to hip", svs, 0, up), sp0),
-    sp2 = _to_point(1.5 * hh, _lu(vs, "to navel", svs, 2, up), sp1),
-    sp3 = _to_point(0.5 * hh, _lu(vs, "to neck", svs, 3, up), sp2),
-    sp4 = _to_point(0.5 * hh, _lu(vs, "to head", svs, 4, up), sp3),
+    sp1 = _to_point(hh, to_hip, sp0),
+    sp2 = _to_point(1.5 * hh, to_navel, sp1),
+    sp3 = _to_point(0.5 * hh, to_neck, sp2),
+    sp4 = _to_point(0.5 * hh, to_head, sp3),
       //
-    sp1h = _to_point(0.7 * hh, _lu(vs, "to low hip", svs, 0, up), sp0),
-    wal = _to_point(ww2, _lu(vs, "to left hip", llvs, 0, left), sp1h),
-    war = _to_point(ww2, _lu(vs, "to right hip", rlvs, 0, right), sp1h),
+    sp1h = _to_point(0.7 * hh, to_low_hip, sp0),
+    wal = _to_point(ww2, to_left_hip, sp1h),
+    war = _to_point(ww2, to_right_hip, sp1h),
       // TODO bring back somehow
 
-    llp0 = _to_point(bw2, _lu(vs, "to left hip", llvs, 0, left), sp0),
-    llp1 = _to_point(hh2, _lu(vs, "to left knee", llvs, 1, down), llp0),
-    llp2 = _to_point(hh2, _lu(vs, "to left ankle", llvs, 2, down), llp1),
-    llp3 = _to_point(fl, _lu(vs, "to left toe", llvs, 3, [ 0, 0 ]), llp2),
+    llp0 = _to_point(bw2, to_left_hip, sp0),
+    llp1 = _to_point(hh2, to_left_knee, llp0),
+    llp2 = _to_point(hh2, to_left_ankle, llp1),
+    llp3 = _to_point(fl, to_left_toe, llp2),
 
-    rlp0 = _to_point(bw2, _lu(vs, "to right hip", rlvs, 0, right), sp0),
-    rlp1 = _to_point(hh2, _lu(vs, "to right knee", rlvs, 1, down), rlp0),
-    rlp2 = _to_point(hh2, _lu(vs, "to right ankle", rlvs, 2, down), rlp1),
-    rlp3 = _to_point(fl, _lu(vs, "to right toe", rlvs, 3, [ 0, 0 ]), rlp2),
+    rlp0 = _to_point(bw2, to_right_hip, sp0),
+    rlp1 = _to_point(hh2, to_right_knee, rlp0),
+    rlp2 = _to_point(hh2, to_right_ankle, rlp1),
+    rlp3 = _to_point(fl, to_right_toe, rlp2),
 
 
-    lap0 = _to_point(sw2, _lu(vs, "to left shoulder", lavs, 0, left), sp2),
-    lap1 = _to_point(1.5 * hh, _lu(vs, "to left elbow", lavs, 1, down), lap0),
-    lap2 = _to_point(1.3 * hh, _lu(vs, "to left wrist", lavs, 2, down), lap1),
-    lap3 = _to_point(hl, _lu(vs, "to left finger", lavs, 3, down), lap2),
+    lap0 = _to_point(sw2, to_left_shoulder, sp2),
+    lap1 = _to_point(1.5 * hh, to_left_elbow, lap0),
+    lap2 = _to_point(1.3 * hh, to_left_wrist, lap1),
+    lap3 = _to_point(hl, to_left_finger, lap2),
 
-    rap0 = _to_point(sw2, _lu(vs, "to right shoulder", ravs, 0, right), sp2),
-    rap1 = _to_point(1.5 * hh, _lu(vs, "to right elbow", ravs, 1, down), rap0),
-    rap2 = _to_point(1.3 * hh, _lu(vs, "to right wrist", ravs, 2, down), rap1),
-    rap3 = _to_point(hl, _lu(vs, "to right finger", ravs, 3, down), rap2),
+    rap0 = _to_point(sw2, to_right_shoulder, sp2),
+    rap1 = _to_point(1.5 * hh, to_right_elbow, rap0),
+    rap2 = _to_point(1.3 * hh, to_right_wrist, rap1),
+    rap3 = _to_point(hl, to_right_finger, rap2),
 
     z0 = llp3.z,
     z1 = rlp3.z,
@@ -346,15 +334,13 @@ $fn = 24;
 
 bps = body_points(
   33,
-  vectors=[
-    "to hip", 90,
-    "to left knee", -80,
-    "to right knee", -95,
-    "to right ankle", -95,
-    "to left toe", [ 0, 10 ],
-    "to right toe", [ 0, -10 ]
-  ]
-); // right arm vectors
+  to_hip=90,
+  to_left_knee=-80,
+  to_right_knee=-95,
+  to_right_ankle=-95,
+  to_left_toe=[ 0, 10 ],
+  to_right_toe=[ 0, -10 ]
+);
 echo(bps);
 
 //d = [ 0, 0, bps[6] ];
@@ -385,8 +371,11 @@ echo(bps);
 //echo([ "sp3", sps[3] ]);
 //echo([ "sp3 spherical", to_spherical(sps[3]) ]);
 
+//_r = "A B C D E F G H I K L M N   O P R S T U   X";
+//_g = "Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω";
+
 translate([ -25, 0, 0 ]) {
-  base(text=" C", $fn=12);
+  base(text=" D", $fn=12);
   translate([ 0, 0, bps[6] ]) {
     body(bps);
     //robe(bps);
