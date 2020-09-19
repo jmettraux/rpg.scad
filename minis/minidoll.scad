@@ -36,17 +36,17 @@ function body_points(
   let(
 
     br =
-      basin_ratio == 0 ? 1.2 :
-      basin_ratio == "male" ? 1.2 :
-      basin_ratio == "female" ? 1.7 :
+      basin_ratio == 0 ? 0.9 :
+      basin_ratio == "male" ? 0.9 :
+      basin_ratio == "female" ? 1.5 :
         basin_ratio,
     wr =
       waist_ratio == 0 ?  1.1 :
         waist_ratio,
     sr =
       shoulder_ratio == 0 ?  2.1 :
-      shoulder_ratio == "male" ? 2.3 :
-      shoulder_ratio == "female" ? 2.1 :
+      shoulder_ratio == "male" ? 2.1 :
+      shoulder_ratio == "female" ? 2.0 :
         shoulder_ratio,
 
     hh = height / 8, // head height
@@ -141,15 +141,25 @@ function bpoint(bpoints, name, default=undef) =
       n == "neck" ? sps[3] :
       n == "head height" ? bpoints[7] :
       n == "z" ? bpoints[6] :
+      n == "left calf" ? _midpoint(llps[1], llps[2], 0.3) :
+      n == "right calf" ? _midpoint(rlps[1], rlps[2], 0.3) :
+      n == "left thigh" ? _midpoint(llps[0], llps[1], 0.5) :
+      n == "right thigh" ? _midpoint(rlps[0], rlps[1], 0.5) :
+      n == "left arm" ? _midpoint(laps[0], laps[1], 0.5) :
+      n == "right arm" ? _midpoint(raps[0], raps[1], 0.5) :
+      n == "left forearm" ? _midpoint(laps[1], laps[2], 0.5) :
+      n == "right forearm" ? _midpoint(raps[1], raps[2], 0.5) :
+      n == "left midneck" ? _midpoint(sps[3], laps[0], 0.5) :
+      n == "right midneck" ? _midpoint(sps[3], raps[0], 0.5) :
         undef
   )
     r == undef ? default : r;
 
-module bal(p, d) {
+module _bal(p, d) {
   translate(p) sphere(d);
 };
-module hul(p0, d0, p1, d1) {
-  hull() { bal(p0, d0); bal(p1, d1); }
+module _hul(p0, d0, p1, d1) {
+  hull() { _bal(p0, d0); _bal(p1, d1); }
 }
 
 
@@ -191,38 +201,38 @@ module body(
   wd = wrist_diameter > 0 ? wrist_diameter : d;
   pd = palm_diameter > 0 ? palm_diameter : d;
 
-  hul(llps[0], bd, llps[1], kd); // TODO replace buttock
-  hul(llps[1], kd, llps[2], ad);
-  hul(llps[2], ad, llps[3], fd);
-  hul(rlps[0], bd, rlps[1], kd); // TODO replace buttock
-  hul(rlps[1], kd, rlps[2], ad);
-  hul(rlps[2], ad, rlps[3], fd);
+  _hul(llps[0], bd, llps[1], kd); // TODO replace buttock
+  _hul(llps[1], kd, llps[2], ad);
+  _hul(llps[2], ad, llps[3], fd);
+  _hul(rlps[0], bd, rlps[1], kd); // TODO replace buttock
+  _hul(rlps[1], kd, rlps[2], ad);
+  _hul(rlps[2], ad, rlps[3], fd);
 
-  hul(llps[0], bd, sps[0], bd); // TODO replace buttock
-  hul(sps[0], bd, rlps[0], bd); // TODO replace buttock
+  _hul(llps[0], bd, sps[0], bd); // TODO replace buttock
+  _hul(sps[0], bd, rlps[0], bd); // TODO replace buttock
 
-  hul(sps[0], d, sps[1], d);
-  hul(sps[1], d, sps[2], d);
-  hul(sps[2], d, sps[3], d);
-  hul(sps[3], d, sps[4], d);
+  _hul(sps[0], d, sps[1], d);
+  _hul(sps[1], d, sps[2], d);
+  _hul(sps[2], d, sps[3], d);
+  _hul(sps[3], d, sps[4], d);
 
-  hul(laps[0], sd, sps[2], d);
-  hul(sps[2], d, raps[0], sd);
+  _hul(laps[0], sd, sps[2], d);
+  _hul(sps[2], d, raps[0], sd);
 
-  hul(laps[0], sd, laps[1], ed);
-  hul(laps[1], ed, laps[2], wd);
-  hul(laps[2], wd, laps[3], pd);
-  hul(raps[0], sd, raps[1], ed);
-  hul(raps[1], ed, raps[2], wd);
-  hul(raps[2], wd, raps[3], pd);
+  _hul(laps[0], sd, laps[1], ed);
+  _hul(laps[1], ed, laps[2], wd);
+  _hul(laps[2], wd, laps[3], pd);
+  _hul(raps[0], sd, raps[1], ed);
+  _hul(raps[1], ed, raps[2], wd);
+  _hul(raps[2], wd, raps[3], pd);
 
   hull() {
-    bal(llps[0], d); bal(rlps[0], d);
-    bal(wps[0], d); bal(wps[2], d);
+    _bal(llps[0], d); _bal(rlps[0], d);
+    _bal(wps[0], d); _bal(wps[2], d);
   }
   hull() {
-    bal(wps[0], d); bal(wps[2], d);
-    bal(laps[0], d); bal(sps[2], d); bal(raps[0], d);
+    _bal(wps[0], d); _bal(wps[2], d);
+    _bal(laps[0], d); _bal(sps[2], d); _bal(raps[0], d);
   }
 }
 
@@ -247,28 +257,54 @@ module robe(
 
   hull() {
 
-    bal(llps[0], d);
-    bal(llps[1], d);
-    bal(llps[2], d);
-      bal(llps[3], d);
-    bal(rlps[0], d);
-    bal(rlps[1], d);
-    bal(rlps[2], d);
-      bal(rlps[3], d);
+    _bal(llps[0], d);
+    _bal(llps[1], d);
+    _bal(llps[2], d);
+      _bal(llps[3], d);
+    _bal(rlps[0], d);
+    _bal(rlps[1], d);
+    _bal(rlps[2], d);
+      _bal(rlps[3], d);
 
-    //bal(to_ground(laps[1]), d);
-    //bal(to_ground(laps[2]), d);
-    //bal(to_ground(raps[1]), d);
-    //bal(to_ground(raps[2]), d);
+    //_bal(to_ground(laps[1]), d);
+    //_bal(to_ground(laps[2]), d);
+    //_bal(to_ground(raps[1]), d);
+    //_bal(to_ground(raps[2]), d);
 
-    bal(laps[0], d);
-    bal(laps[1], d);
-    bal(laps[2], d);
-    bal(laps[3], d);
-    bal(raps[0], d);
-    bal(raps[1], d);
-    bal(raps[2], d);
-    bal(raps[3], d);
+    _bal(laps[0], d);
+    _bal(laps[1], d);
+    _bal(laps[2], d);
+    _bal(laps[3], d);
+    _bal(raps[0], d);
+    _bal(raps[1], d);
+    _bal(raps[2], d);
+    _bal(raps[3], d);
+  }
+}
+
+module skirt(
+  body_points,
+  lratio=0.8,
+  rratio=0.8
+) {
+
+  bps = body_points;
+
+  lt = bpoint(bps, "left hip");
+  rt = bpoint(bps, "right hip");
+  lk = bpoint(bps, "left knee");
+  rk = bpoint(bps, "right knee");
+  hh = bpoint(bps, "head height");
+
+  lb = _midpoint(lt, lk, lratio);
+  rb = _midpoint(rt, rk, rratio);
+
+  d = hh * 0.3;
+  hull() {
+    _bal(lt, d);
+    _bal(rt, d);
+    translate(lb) cylinder(diameter=d, h=d / 10);
+    translate(rb) cylinder(diameter=d, h=d / 10);
   }
 }
 
@@ -284,12 +320,12 @@ module skull(body_points) {
         cylinder(d=hh/1.3, h=hh/3, center=true);
       translate([ 0, 0, hh / 7 ])
         scale([ 0.8, 1, 1 ])
-          bal(hp, hh * 0.6); // head
+          _bal(hp, hh * 0.6); // head
     }
     translate([ - hh / 3.7, hh / 2.1, hh / 7 ])
-      bal(hp, hh * 0.16); // eyesocket
+      _bal(hp, hh * 0.16); // eyesocket
     translate([ hh / 3.7, hh / 2.1, hh / 7 ])
-      bal(hp, hh * 0.16); // eyesocket
+      _bal(hp, hh * 0.16); // eyesocket
   }
 }
 
@@ -309,16 +345,16 @@ module veil(
   difference() {
 
     hull() {
-      translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) bal(hp, hh * 0.6 + t);
-      translate([ -sw, 0, -2 * hh ]) bal(hp, sd + t);
-      translate([ sw, 0, -2 * hh ]) bal(hp, sd + t);
+      translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) _bal(hp, hh * 0.6 + t);
+      translate([ -sw, 0, -2 * hh ]) _bal(hp, sd + t);
+      translate([ sw, 0, -2 * hh ]) _bal(hp, sd + t);
     }
     union() {
       hull() {
-        translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) bal(hp, hh * 0.6);
-        translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) bal(hp, hh * 0.6);
-        translate([ -sw, 0, -2 * hh ]) bal(hp, sd);
-        translate([ sw, 0, -2 * hh ]) bal(hp, sd);
+        translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) _bal(hp, hh * 0.6);
+        translate([ 0, 0, hh / 7 ]) scale([ 0.8, 1, 1 ]) _bal(hp, hh * 0.6);
+        translate([ -sw, 0, -2 * hh ]) _bal(hp, sd);
+        translate([ sw, 0, -2 * hh ]) _bal(hp, sd);
       }
       translate([ 0, hh / 2, hp.z - hh ])
         cube([ hh / 1.4, hh, 3 * hh ], center=true);
@@ -379,7 +415,7 @@ translate([ -25, 0, 0 ]) {
   translate([ 0, 0, bps[6] ]) {
     body(bps);
     //robe(bps);
-    //skirt(bps);
+    skirt(bps);
     //veil(bps);
     //skull(bps);
   }
