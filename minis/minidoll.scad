@@ -108,14 +108,19 @@ function bpoint(bpoints, name, default=undef) =
     raps = bpoints[5], // right arm points
 
     r =
-      n == "left foot" ? llps[3] :
-      n == "right foot" ? rlps[3] :
+      n == "spine" ? sps :
+      n == "left leg" ? llps :
+      n == "right leg" ? rlps :
+      n == "left arm" ? laps :
+      n == "right arm" ? raps :
+      n == "left toe" ? llps[3] :
+      n == "right toe" ? rlps[3] :
       n == "left ankle" ? llps[2] :
       n == "right ankle" ? rlps[2] :
       n == "left knee" ? llps[1] :
       n == "right knee" ? rlps[1] :
-      n == "left basin" ? llps[0] :
-      n == "right basin" ? rlps[0] :
+      n == "left hip" ? llps[0] :
+      n == "right hip" ? rlps[0] :
       n == "left hand" ? laps[3] :
       n == "right hand" ? raps[3] :
       n == "left wrist" ? laps[2] :
