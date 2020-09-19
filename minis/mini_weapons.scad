@@ -34,7 +34,7 @@ module long_sword(length, handle_length) {
         polygon(
           [ [ -bw / 2, 0 ], [ 0, bd / 2 ], [ bw / 2, 0 ], [ 0, -bd / 2 ] ]);
   }
-};
+}
 
 // axes
 
@@ -58,7 +58,34 @@ module housekarl_axe(length, diameter) {
             cylinder(d=bd / 1.1, h=dp * 1.2, center=true);
         }
       }
-};
+}
+
+module norse_axe(
+  rod_length, depth, rod_diameter=0
+) {
+
+  rl = rod_length;
+  rd = rod_diameter > 0 ? rod_diameter : rl / 10;
+  bw = rd * 0.75; //blade width
+
+  westd = depth * 2;
+  northd = westd;
+  southd = westd;
+
+  north = [ -northd / 2, depth * 0.3, 0 ];
+  south = [ southd / 2, -depth * 0.4, 0 ];
+
+  cylinder(d=rd, h=rl);
+
+  translate([ 0, 0, rl * 0.99 ])
+    rotate([ 0, 90, 0 ])
+      difference() {
+        cylinder(d=westd, h=bw, center=true);
+        translate(north) cylinder(d=northd, h=bw * 1.2, center=true);
+        translate(south) cylinder(d=southd, h=bw * 1.2, center=true);
+        translate([ 0, -rl / 4, 0 ]) cube([ rl, rl / 2, bw * 1.2 ], center=true);
+      }
+}
 
 // spears
 

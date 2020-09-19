@@ -4,6 +4,7 @@
 //
 
 include <minilib.scad>;
+include <mini_weapons.scad>;
 
 
 function body_points(
@@ -50,7 +51,6 @@ function body_points(
         shoulder_ratio,
 
     hh = height / 8, // head height
-    hh2 = hh * 2,
     bw2 = hh * br / 2, // basin width / 2
     sw2 = hh * sr / 2, // shoulder width / 2
     ww2 = hh * wr / 2, // wast width / 2
@@ -69,15 +69,14 @@ function body_points(
       // TODO bring back somehow
 
     llp0 = _to_point(bw2, to_left_hip, sp0),
-    llp1 = _to_point(hh2, to_left_knee, llp0),
-    llp2 = _to_point(hh2, to_left_ankle, llp1),
+    llp1 = _to_point(2 * hh, to_left_knee, llp0),
+    llp2 = _to_point(2 * hh, to_left_ankle, llp1),
     llp3 = _to_point(fl, to_left_toe, llp2),
 
     rlp0 = _to_point(bw2, to_right_hip, sp0),
-    rlp1 = _to_point(hh2, to_right_knee, rlp0),
-    rlp2 = _to_point(hh2, to_right_ankle, rlp1),
+    rlp1 = _to_point(2 * hh, to_right_knee, rlp0),
+    rlp2 = _to_point(2 * hh, to_right_ankle, rlp1),
     rlp3 = _to_point(fl, to_right_toe, rlp2),
-
 
     lap0 = _to_point(sw2, to_left_shoulder, sp2),
     lap1 = _to_point(1.5 * hh, to_left_elbow, lap0),
@@ -107,7 +106,9 @@ function body_points(
 
 function bpoint(bpoints, name, default=undef) =
   let(
+
     n = name,
+
     sps = bpoints[0], // spine points
     wps = bpoints[1], // waist points
     llps = bpoints[2], // left leg points
@@ -175,7 +176,8 @@ module body(
   neck_diameter=0,
   elbow_diameter=0,
   wrist_diameter=0,
-  palm_diameter=0
+  palm_diameter=0,
+  diameter=0
 ) {
 
   sps = body_points[0]; // spine points
@@ -187,7 +189,7 @@ module body(
   z = body_points[6]; // foot to start point (basin) z distance
   hh = body_points[7]; // head height
 
-  d = hh / 4; // default diameter
+  d = diameter > 0 ? diameter : hh / 4; // default diameter
 
   fd = foot_diameter > 0 ? foot_diameter : d;
   ad = ankle_diameter > 0 ? ankle_diameter : d;
@@ -284,34 +286,35 @@ module robe(
 
 module skirt(
   body_points,
-  lratio=0.8,
-  rratio=0.8
+  lratio=0.5,
+  rratio=0.5,
+  topd=0,
+  bottomd=0
 ) {
 
   bps = body_points;
 
   lt = bpoint(bps, "left hip");
   rt = bpoint(bps, "right hip");
+
   lk = bpoint(bps, "left knee");
   rk = bpoint(bps, "right knee");
+
   hh = bpoint(bps, "head height");
 
   lb = _midpoint(lt, lk, lratio);
   rb = _midpoint(rt, rk, rratio);
-//color("red") translate(rk) sphere(d=hh/1.7);
-//color("blue") translate(rb) sphere(d=hh/1.7);
 
-  td = hh * 0.3;
-  bd = hh * 0.5;
+  td = topd > 0 ? topd : hh * 0.28;
+  bd = bottomd > 0 ? bottomd : hh * 0.6;
 
   hull() {
     _bal(lt, td);
     _bal(rt, td);
-    translate(lk) cylinder(d=bd, h=0.01);
-    translate(rk) cylinder(d=bd, h=0.01);
+    translate(lb) cylinder(d=bd, h=0.01);
+    translate(rb) cylinder(d=bd, h=0.01);
   }
 }
-
 
 module skull(body_points) {
 
@@ -331,6 +334,29 @@ module skull(body_points) {
     translate([ hh / 3.7, hh / 2.1, hh / 7 ])
       _bal(hp, hh * 0.16); // eyesocket
   }
+}
+
+module head(body_points) {
+
+  h = bpoint(body_points, "head");
+  hh = bpoint(body_points, "head height");
+
+  d = hh * 0.6;
+
+  hull() {
+    scale([ 0.8, 1, 1 ]) _bal(h, d);
+    translate([ 0, 0, hh * 0.2 ]) scale([ 0.8, 1, 1 ]) _bal(h, d);
+  }
+}
+
+module cap(body_points) {
+
+  h = bpoint(body_points, "head");
+  hh = bpoint(body_points, "head height");
+
+  translate(h + [ 0, hh * 0.03, hh * 0.15 ])
+    rotate([ 40, 0, 0 ])
+      dome(hh * 0.65, trunk_height=hh * 0.05);
 }
 
 module veil(
@@ -372,14 +398,21 @@ echo("======================================================================");
 
 $fn = 24;
 
+height = 33;
+
 bps = body_points(
-  33,
+  height,
   to_hip=90,
   to_left_knee=-80,
   to_right_knee=-95,
   to_right_ankle=-95,
   to_left_toe=[ 0, 10 ],
-  to_right_toe=[ 0, -10 ]
+  to_right_toe=[ 0, -10 ],
+  to_left_wrist=-75,
+  to_left_finger=-70,
+  to_right_elbow=[ -70, 90 ],
+  to_right_wrist=[ -70, -60 ],
+  to_right_finger=[ 0, -90 ]
 );
 echo(bps);
 
@@ -414,15 +447,27 @@ echo(bps);
 //_r = "A B C D E F G H I K L M N   O P R S T U   X";
 //_g = "Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω";
 
+hh = bpoint(bps, "head height");
+
 translate([ -25, 0, 0 ]) {
   base(text=" D", $fn=12);
   translate([ 0, 0, bps[6] ]) {
-    body(bps);
+    body(bps, diameter=hh * 0.3);
     //robe(bps);
-    skirt(bps);
+    skirt(bps, 0.77, 0.77, topd=hh * 0.32, bottomd=hh * 0.70);
     //veil(bps);
     //skull(bps);
+    head(bps);
+    cap(bps);
   }
+
+  translate([ 5, 1, height * 0.43 ])
+    rotate([ -135, 0, 45 ])
+      norse_axe(height * 0.49, hh * 0.9, hh * 0.3);
+
+  translate([ -hh * 0.2, -hh * 0.38, height * 0.51 ])
+    rotate([ 189, 10, 0 ])
+      long_sword(hh * 2.6, hh * 0.6); // scramax
 }
 
 

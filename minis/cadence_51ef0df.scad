@@ -1,5 +1,5 @@
 
-// cadence_f38a525.scad
+// cadence_51ef0df.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -82,10 +82,9 @@ function _to_point(length, angles, sp=[ 0, 0, 0 ]) =
 
 function _to_spherical(point) =
   let(
-    //l = sqrt(pow(point.x, 2) + pow(point.y, 2) + pow(point.z, 2)),
     l = norm(point),
     ele = asin(point.z / l),
-    dir = acos(point.x / (sqrt(pow(point.x, 2) + pow(point.y, 2))))
+    dir = atan(point.y / point.x)
   )
     [ l, [ ele, dir - 90 ] ];
 
