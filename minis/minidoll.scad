@@ -1,10 +1,9 @@
 
 //
-// doll.scad
+// minidoll.scad
 //
 
 include <minilib.scad>;
-include <mini_weapons.scad>;
 
 
 function body_points(
@@ -25,11 +24,11 @@ function body_points(
   to_right_knee=[ -90, 0 ],
   to_right_ankle=[ -90, 0 ],
   to_right_toe=[ 0, 0 ],
-  to_left_shoulder=[ 0, -90 ],
+  to_left_shoulder=[ 0, 90 ],
   to_left_elbow=[ -90, 0 ],
   to_left_wrist=[ -90, 0 ],
   to_left_finger=[ -90, 0 ],
-  to_right_shoulder=[ 0, 90 ],
+  to_right_shoulder=[ 0, -90 ],
   to_right_elbow=[ -90, 0 ],
   to_right_wrist=[ -90, 0 ],
   to_right_finger=[ -90, 0 ]
@@ -37,8 +36,8 @@ function body_points(
   let(
 
     br =
-      basin_ratio == 0 ? 0.9 :
-      basin_ratio == "male" ? 0.9 :
+      basin_ratio == 0 ? 1.0 :
+      basin_ratio == "male" ? 1.0 :
       basin_ratio == "female" ? 1.5 :
         basin_ratio,
     wr =
@@ -234,7 +233,7 @@ module body(
   }
   hull() {
     _bal(wps[0], d); _bal(wps[2], d);
-    _bal(laps[0], d); _bal(sps[2], d); _bal(raps[0], d);
+    _bal(laps[0], sd); _bal(sps[2], sd); _bal(raps[0], sd);
   }
 }
 
@@ -393,28 +392,25 @@ module veil(
 }
 
 
-echo("======================================================================");
-
-
-$fn = 24;
-
-height = 33;
-
-bps = body_points(
-  height,
-  to_hip=90,
-  to_left_knee=-80,
-  to_right_knee=-95,
-  to_right_ankle=-95,
-  to_left_toe=[ 0, 10 ],
-  to_right_toe=[ 0, -10 ],
-  to_left_wrist=-75,
-  to_left_finger=-70,
-  to_right_elbow=[ -70, 90 ],
-  to_right_wrist=[ -70, -60 ],
-  to_right_finger=[ 0, -90 ]
-);
-echo(bps);
+//$fn = 24;
+//
+//height = 33;
+//
+//bps = body_points(
+//  height,
+//  to_hip=90,
+//  to_left_knee=-80,
+//  to_right_knee=-95,
+//  to_right_ankle=-95,
+//  to_left_toe=[ 0, 10 ],
+//  to_right_toe=[ 0, -10 ],
+//  to_left_wrist=-75,
+//  to_left_finger=-70,
+//  to_right_elbow=[ -70, 90 ],
+//  to_right_wrist=[ -70, -60 ],
+//  to_right_finger=[ 0, -90 ]
+//);
+//echo(bps);
 
 //d = [ 0, 0, bps[6] ];
 //
@@ -437,44 +433,4 @@ echo(bps);
 //
 ////echo(concat("right arm points", bps[5]));
 //for (rap = bps[5]) translate(d + rap) color("blue", 0.6) sphere(0.5);
-
-//echo ("-------------------------------------------------------------------");
-//translate(d + sps[3]) color("black") sphere(1);
-//echo([ "hh", 33 / 8 ]);
-//echo([ "sp3", sps[3] ]);
-//echo([ "sp3 spherical", to_spherical(sps[3]) ]);
-
-//_r = "A B C D E F G H I K L M N   O P R S T U   X";
-//_g = "Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω";
-
-hh = bpoint(bps, "head height");
-
-translate([ -25, 0, 0 ]) {
-  base(text=" D", $fn=12);
-  translate([ 0, 0, bps[6] ]) {
-    body(bps, diameter=hh * 0.3);
-    //robe(bps);
-    skirt(bps, 0.77, 0.77, topd=hh * 0.32, bottomd=hh * 0.70);
-    //veil(bps);
-    //skull(bps);
-    head(bps);
-    cap(bps);
-  }
-
-  translate([ 5, 1, height * 0.43 ])
-    rotate([ -135, 0, 45 ])
-      norse_axe(height * 0.49, hh * 0.9, hh * 0.3);
-
-  translate([ -hh * 0.2, -hh * 0.38, height * 0.51 ])
-    rotate([ 189, 10, 0 ])
-      long_sword(hh * 2.6, hh * 0.6); // scramax
-}
-
-
-//function _get(dict, key, default=undef) =
-//  //let (r = search(key, dict)[0]) r == undef ? default : r;
-//  search(key, dict)[0]) r == undef ? default : r;
-//dict = [ [ "t", [ 90, 0 ] ] ];
-//echo(dict);
-//echo(_get(dict, "t"));
 
