@@ -3,11 +3,16 @@ $fn=12;
 
 // unit is mm
 
-diameter = 25;
-thickness = 3;
-slit_width = 1.1;
-arrow_base = 7;
+size = 1;
+  // 0.5 tiny / 1 small/medium / 2 large / 3 huge / 4 gargantuan
 support_height = 9;
+  // the height of the "clench", 9mm for ground creature, >20mm for flying
+
+diameter = size * 25; // the diameter of the base
+thickness = 3;        // the height of the base
+slit_width = 1.05;    // used 0.8 initially, 1.0 or 1.1 should be better
+arrow_base = 7;       // the x width of the "front" indicating arrow
+hratio = 0.6;         // "H" height vs diameter
 
 ab_2 = arrow_base / 2;
 ab_4 = arrow_base / 4;
@@ -23,7 +28,7 @@ sh_2 = support_height / 2;
 
 difference() {
 
-  union() {
+  union() { // adding
 
     // base
 
@@ -37,16 +42,16 @@ difference() {
       cube([ diameter_4, thickness_2, support_height ], center=true);
   }
 
-  union() {
+  union() { // removing
 
     // H
 
     translate([ 0, 0, 0 ])
       cube([ diameter_4, slit_width, thickness12 ], center=true);
     translate([ -diameter_8 - sw_2, -ab_4, 0 ])
-      cube([ slit_width, 0.6 * diameter, thickness12 ], center=true);
+      cube([ slit_width, hratio * diameter, thickness12 ], center=true);
     translate([ diameter_8 + sw_2, -ab_4, 0 ])
-      cube([ slit_width, 0.6 * diameter, thickness12 ], center=true);
+      cube([ slit_width, hratio * diameter, thickness12 ], center=true);
 
     // arrow
 
