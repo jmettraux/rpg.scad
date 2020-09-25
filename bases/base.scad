@@ -8,11 +8,12 @@ size = 1;
 support_height = 9;
   // the height of the "clench", 9mm for ground creature, >20mm for flying
 
-diameter = size * 25; // the diameter of the base
 thickness = 3;        // the height of the base
 slit_width = 1.05;    // used 0.8 initially, 1.0 or 1.1 should be better
-arrow_base = 7;       // the x width of the "front" indicating arrow
 hratio = 0.6;         // "H" height vs diameter
+
+arrow_base = size < 1 ? 2 : 7;  // the x width of the "front" indicating arrow
+diameter = size * 25; // medium is thus 25mm
 
 ab_2 = arrow_base / 2;
 ab_4 = arrow_base / 4;
