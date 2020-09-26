@@ -1,16 +1,20 @@
 
 $fn=12;
+  // circle facet count, set to 120 or 360 for "round"
 
-// unit is mm
+
+// unit is millimeter (except for the size variable)
 
 size = 1;
   // 0.5 tiny / 1 small/medium / 2 large / 3 huge / 4 gargantuan
 support_height = 9;
   // the height of the "clench", 9mm for ground creature, >20mm for flying
 
+
 thickness = 3;        // the height of the base
 slit_width = 1.0;    // used 0.8 initially, 1.0 or 1.1 should be better
 hratio = 0.6;         // "H" height vs diameter
+
 
 arrow_base = size < 1 ? 2 : 7;  // the x width of the "front" indicating arrow
 diameter = size * 25; // medium is thus 25mm
