@@ -358,6 +358,19 @@ module cap(body_points) {
       dome(hh * 0.65, trunk_height=hh * 0.05);
 }
 
+module pointy_cap(body_points) {
+
+  h = bpoint(body_points, "head");
+  hh = bpoint(body_points, "head height");
+  r1 = hh * 0.6;
+  translate(h + [ 0, hh * -0.07, hh * 0.4 ])
+    rotate([ 30, 10, 0 ]) union() {
+      cylinder(h=hh * 0.2, r=r1);
+      translate([ 0, 0, hh * 0.2 ])
+        cylinder(h=hh * 0.4, r1=r1, r2=0);
+    }
+}
+
 module veil(
   body_points,
   thickness=0

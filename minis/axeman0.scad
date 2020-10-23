@@ -1,7 +1,8 @@
 
 
 //
-// humans.scad
+// axeman0.scad
+// from humans.scad
 //
 
 include <minidoll.scad>;
@@ -48,7 +49,7 @@ rotate([ 0, 0, -20 ]) {
     //skull(bps);
     rotate([ 0, 0, 40 ]) union() {
       head(bps);
-      pointy_cap(bps);
+      cap(bps);
     }
   }
 
