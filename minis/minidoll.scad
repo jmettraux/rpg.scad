@@ -359,8 +359,8 @@ module ear(length, diameter) {
       sphere(d=d);
       translate([ 0, 0, length ]) sphere(d=0.1);
     }
-    translate([ d * 0.6, 0, d ])
-      cube([ l * 0.5, l * 0.5, l * 2 ], center=true);
+    translate([ d * 0.5, 0, d ])
+      cube([ l * 0.5, l * 1.5, l * 2 ], center=true);
   }
 };
 

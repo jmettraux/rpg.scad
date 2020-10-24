@@ -33,13 +33,13 @@ bps = body_points(
   to_left_finger=[ 0, 0 ],
   to_right_elbow=[ -127, 60 ],
   to_right_wrist=[ -40, 10 ],
-  to_right_finger=[ -30, 8 ]
+  to_right_finger=[ -30, 35 ]
 );
 //echo(bps);
 hh = bpoint(bps, "head height");
 hp = bpoint(bps, "head");
 
-base(text=" 1", $fn=12);
+base(text="", $fn=12);
 
 translate([ 0, -2, 0 ]) rotate([ 0, 0, 10 ]) {
 
@@ -55,10 +55,10 @@ translate([ 0, -2, 0 ]) rotate([ 0, 0, 10 ]) {
     rotate([ 0, 0, -10 ]) union() {
       head(bps);
       //cap(bps);
-      translate(hp + [ hh * 0.5, 0, hh * 0.2 ]) rotate([ 40, 10, 0 ])
-        ear(hh * 0.9, hh * 0.4);
-      translate(hp + [ -hh * 0.5, 0, hh * 0.2 ]) rotate([ -40, 10, 180 ])
-        ear(hh * 0.9, hh * 0.4);
+      translate(hp + [ hh * 0.5, 0, hh * 0.2 ]) rotate([ 60, 10, 0 ])
+        ear(hh * 1.0, hh * 0.6);
+      translate(hp + [ -hh * 0.5, 0, hh * 0.2 ]) rotate([ -60, 10, 180 ])
+        ear(hh * 1.0, hh * 0.6);
     }
 
     sling_bag(bps);
@@ -70,8 +70,8 @@ translate([ 0, -2, 0 ]) rotate([ 0, 0, 10 ]) {
   //translate([ 6.3, 4.9, height / 2 ])
   //  rotate([ 0, 0, 0 ])
   //    quarterstaff(height * 1.13, hh * 0.38);
-  translate([ 3.4, 4.5, height * 0.55 ])
-    rotate([ 0, -30, 0 ])
+  translate([ 3.4, 4.4, height * 0.55 ])
+    rotate([ 0, -30, -10 ])
       scimitar(height * 0.6, hh * 0.3);
 
   //translate([ -hh * 0.2, -hh * 0.38, height * 0.51 ])
