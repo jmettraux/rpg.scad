@@ -139,6 +139,7 @@ function bpoint(bpoints, name, default=undef) =
       n == "right shoulder" ? raps[0] :
       n == "head" ? sps[4] :
       n == "neck" ? sps[3] :
+      n == "neck base" ? sps[2] :
       n == "head height" ? bpoints[7] :
       n == "z" ? bpoints[6] :
       n == "left calf" ? _midpoint(llps[1], llps[2], 0.3) :
@@ -408,23 +409,43 @@ module veil(
   }
 }
 
-module bag1(body_points) {
+module sling_bag(body_points) {
 
   rc0 = 2;
   rc1 = 2;
   ch = 0.5;
   cd = 6;
 
-  ne = bpoint(body_points, "neck");
+  hh = bpoint(body_points, "head height");
+
+  nb = bpoint(body_points, "neck base");
   ls = bpoint(body_points, "left shoulder");
-  mls = _midpoint(ne, ls, 0.5);
-  echo([ "ne", ne ]);
-  echo([ "ls", ls ]);
-  echo([ "mls", mls ]);
-  echo("---");
-  echo(body_points[4]);
-  echo(body_points[5]);
-  #translate(mls) sphere(r=2);
+  sp = _midpoint(nb, ls, 0.5); // shoulder point
+  //translate(sp) color("blue", 0.6) sphere(r=2);
+
+  rh = bpoint(body_points, "right hip") + [ 0, 0, hh * 0.4 ];
+  //translate(rh) color("blue", 0.6) sphere(r=2);
+
+  r0 = hh * 0.2;
+  r1 = hh * 0.5;
+  bdy = -hh * 0.2;
+  hull() { // front
+    translate(sp + [ 0, 0.7, 0.7 ]) sphere(r=r0);
+    translate(rh + [ 0.5, 0.7, 0.9 ]) sphere(r=r0);
+  }
+  hull() { // bag
+    translate(sp + [ 0, bdy, 0 ]) sphere(r=r1);
+    translate(rh + [ 0, bdy, hh * 0.4 ]) sphere(r=r1);
+  }
+  hull() {
+    translate(sp + [ 0, 0.7, 0.7 ]) sphere(r=r0);
+    translate(sp + [ 0, bdy, 0 ]) sphere(r=r1);
+  }
+  hull() {
+    translate(rh + [ 0.5, 0.7, 0.9 ]) sphere(r=r0);
+    translate(rh + [ 0, bdy, hh * 0.4 ]) sphere(r=r1);
+  }
+
   //#translate(body_points[5][0]) sphere(r=3);
 
   //translate([ 0, 0, ls.z * 0.77 ])
