@@ -352,17 +352,21 @@ module cap(body_points) {
 
   h = bpoint(body_points, "head");
   hh = bpoint(body_points, "head height");
+  r = hh * 0.64;
 
-  translate(h + [ 0, hh * 0.03, hh * 0.15 ])
-    rotate([ 40, 0, 0 ])
-      dome(hh * 0.65, trunk_height=hh * 0.05);
+  translate(h + [ 0, 0, hh * 0.4 ])
+    rotate([ 10, 0, 0 ])
+      scale([ 0.8, 1, 1 ])
+        dome(r, trunk_height=hh * 0.05);
 }
 
 module pointy_cap(body_points) {
 
   h = bpoint(body_points, "head");
   hh = bpoint(body_points, "head height");
+
   r1 = hh * 0.6;
+
   translate(h + [ 0, hh * -0.07, hh * 0.4 ])
     rotate([ 30, 10, 0 ]) union() {
       cylinder(h=hh * 0.2, r=r1);

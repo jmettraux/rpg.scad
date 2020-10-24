@@ -48,7 +48,7 @@ rotate([ 0, 0, -20 ]) {
     //skull(bps);
     rotate([ 0, 0, 40 ]) union() {
       head(bps);
-      pointy_cap(bps);
+      cap(bps);
     }
 
     //bag1(bps);
