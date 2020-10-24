@@ -114,3 +114,9 @@ module spear(
   translate([ 0, 0, rl + hl0 ]) pyramid(hd1, w2=hd2, hl1);
 }
 
+// staffs
+
+module quarterstaff(length, diameter) {
+  cylinder(d=diameter, h=length, center=true);
+}
+
