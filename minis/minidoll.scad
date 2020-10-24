@@ -349,6 +349,21 @@ module head(body_points) {
   }
 }
 
+module ear(length, diameter) {
+
+  l = length;
+  d = diameter;
+
+  difference() {
+    hull() {
+      sphere(d=d);
+      translate([ 0, 0, length ]) sphere(d=0.1);
+    }
+    translate([ d * 0.6, 0, d ])
+      cube([ l * 0.5, l * 0.5, l * 2 ], center=true);
+  }
+};
+
 module cap(body_points) {
 
   h = bpoint(body_points, "head");

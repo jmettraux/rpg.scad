@@ -25,9 +25,9 @@ module round_shield(diameter, thickness=1) {
   rotate([ 270, 0, 0 ])
     union() {
       cylinder(d=d, h=t, center=true);
-      translate([ 0, 0, -0.5 ])
+      translate([ 0, 0, -0.2 ])
       difference() {
-        sphere(d / 10);
+        sphere(d * 0.12);
         translate([ 0, 0, -d / 8 ]) cube(d / 3, center=true);
       }
     }

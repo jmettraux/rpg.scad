@@ -36,6 +36,35 @@ module long_sword(length, handle_length) {
   }
 }
 
+module scimitar(length, width) {
+
+  l = length;
+  l1 = l * 0.7;
+  w = width;
+  w1 = w * 2.31;
+  w2 = w * 2.6;
+  t = 10;
+
+  ps = concat(
+    _bezier_points([ [ 0, 0 ], [ l, 0 ], [ l, w1 ] ], t),
+    _bezier_points([ [ l, w1 ], [ l1, w1 ], [ l1, w2 ] ], t / 2),
+    _bezier_points([ [ l1, w2 ], [ l1, w ], [ 0, w ] ], t),
+    [ [ 0, w ], [ 0, 0 ] ]);
+
+  gl = 2;
+  gd = 0.7;
+  gh = 0.7;
+
+  rotate([ 0, -90, 180 ]) union() {
+    translate([ 0, gl * 0.2, 0 ])
+      cube([ gd, gl, gh ], center=true); // guard
+    translate([ -gd * 1.2, gl * 0.2, 0 ])
+      rotate([ 0, -90, 0 ])
+        cylinder(r=0.4, h=2, center=true); // handle
+    linear_extrude(height=0.4, center=true) polygon(ps); // blade
+  }
+}
+
 // axes
 
 module housekarl_axe(length, diameter) {
