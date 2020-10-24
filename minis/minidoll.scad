@@ -404,46 +404,77 @@ module veil(
   }
 }
 
+module bag1(body_points) {
 
-//$fn = 24;
-//
-//height = 33;
-//
-//bps = body_points(
-//  height,
-//  to_hip=90,
-//  to_left_knee=-80,
-//  to_right_knee=-95,
-//  to_right_ankle=-95,
-//  to_left_toe=[ 0, 10 ],
-//  to_right_toe=[ 0, -10 ],
-//  to_left_wrist=-75,
-//  to_left_finger=-70,
-//  to_right_elbow=[ -70, 90 ],
-//  to_right_wrist=[ -70, -60 ],
-//  to_right_finger=[ 0, -90 ]
-//);
-//echo(bps);
+  rc0 = 2;
+  rc1 = 2;
+  ch = 0.5;
+  cd = 6;
 
-//d = [ 0, 0, bps[6] ];
-//
-//#base();
-//
-////echo(concat("spine points", bps[0]));
-//for (sp = bps[0]) translate(d + sp) sphere(0.7);
-//
-////echo(concat("waist points", bps[1]));
-//for (wp = bps[1]) translate(d + wp) sphere(0.6);
-//
-////echo(concat("left leg points", bps[2]));
-//for (llp = bps[2]) translate(d + llp) color("blue", 0.6) sphere(0.5);
-//
-//////echo(concat("right leg points", bps[3]));
-//for (rlp = bps[3]) translate(d + rlp) color("red", 0.6) sphere(0.5);
-//
-//////echo(concat("left arm points", bps[4]));
-//for (lap = bps[4]) translate(d + lap) color("red", 0.6) sphere(0.5);
-//
-////echo(concat("right arm points", bps[5]));
-//for (rap = bps[5]) translate(d + rap) color("blue", 0.6) sphere(0.5);
+  ne = bpoint(body_points, "neck");
+  ls = bpoint(body_points, "left shoulder");
+  mls = _midpoint(ne, ls, 0.5);
+  echo([ "ne", ne ]);
+  echo([ "ls", ls ]);
+  echo([ "mls", mls ]);
+  echo("---");
+  echo(body_points[4]);
+  echo(body_points[5]);
+  #translate(mls) sphere(r=2);
+  //#translate(body_points[5][0]) sphere(r=3);
+
+  //translate([ 0, 0, ls.z * 0.77 ])
+  //  rotate([ 0, 50, 0 ])
+  //    hull() {
+  //      translate([ -cd / 2, 0, 0 ]) cylinder(r=rc0, h=ch);
+  //      translate([ cd / 2, 0, 0 ]) cylinder(r=rc1, h=ch);
+  //    }
+}
+
+
+/*
+translate([ 30, 0, 0 ]) {
+  $fn = 24;
+
+  height = 33;
+
+  bps = body_points(
+    height,
+    to_hip=90,
+    to_left_knee=-80,
+    to_right_knee=-95,
+    to_right_ankle=-95,
+    to_left_toe=[ 0, 10 ],
+    to_right_toe=[ 0, -10 ],
+    to_left_wrist=-75,
+    to_left_finger=-70,
+    to_right_elbow=[ -70, 90 ],
+    to_right_wrist=[ -70, -60 ],
+    to_right_finger=[ 0, -90 ]
+  );
+  echo(bps);
+
+  d = [ 0, 0, bps[6] ];
+
+  #base();
+
+  //echo(concat("spine points", bps[0]));
+  for (sp = bps[0]) translate(d + sp) sphere(0.7);
+
+  //echo(concat("waist points", bps[1]));
+  for (wp = bps[1]) translate(d + wp) sphere(0.6);
+
+  //echo(concat("left leg points", bps[2]));
+  for (llp = bps[2]) translate(d + llp) color("blue", 0.6) sphere(0.5);
+
+  ////echo(concat("right leg points", bps[3]));
+  for (rlp = bps[3]) translate(d + rlp) color("red", 0.6) sphere(0.5);
+
+  ////echo(concat("left arm points", bps[4]));
+  for (lap = bps[4]) translate(d + lap) color("red", 0.6) sphere(0.5);
+
+  //echo(concat("right arm points", bps[5]));
+  for (rap = bps[5]) translate(d + rap) color("blue", 0.6) sphere(0.5);
+}
+*/
 

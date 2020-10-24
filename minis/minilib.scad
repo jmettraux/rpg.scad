@@ -3,7 +3,7 @@
 // minilib.scad
 //
 
-use <cadence_51ef0df.scad>;
+use <cadence.scad>;
 
 
 //

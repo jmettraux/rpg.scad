@@ -34,7 +34,7 @@ bps = body_points(
 //echo(bps);
 hh = bpoint(bps, "head height");
 
-base(text=" E", $fn=12);
+base(text=" F", $fn=12);
 
 rotate([ 0, 0, -20 ]) {
 
@@ -50,6 +50,8 @@ rotate([ 0, 0, -20 ]) {
       head(bps);
       pointy_cap(bps);
     }
+
+    //bag1(bps);
   }
 
   translate([ 5, 4, height * 0.00 ])
