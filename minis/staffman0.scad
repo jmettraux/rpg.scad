@@ -34,7 +34,7 @@ bps = body_points(
 //echo(bps);
 hh = bpoint(bps, "head height");
 
-base(text=" E", $fn=12);
+base(text=" G", $fn=12);
 
 rotate([ 0, 0, -10 ]) {
 
@@ -59,10 +59,10 @@ rotate([ 0, 0, -10 ]) {
   //    norse_axe(height * 0.52, hh * 1.11, hh * 0.31);
   translate([ 6.3, 4.9, height / 2 ])
     rotate([ 0, 0, 0 ])
-      quarterstaff(height * 1.13, hh * 0.31);
+      quarterstaff(height * 1.13, hh * 0.38);
 
   translate([ -hh * 0.2, -hh * 0.38, height * 0.51 ])
-    rotate([ 182, 10, 0 ])
+    rotate([ 190, 15, 0 ])
       long_sword(hh * 2.6, hh * 0.6); // scramax
 }
 
