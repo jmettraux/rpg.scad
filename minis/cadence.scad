@@ -1,5 +1,5 @@
 
-// cadence a90b5bb.scad
+// cadence 8309ae0.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -64,6 +64,9 @@ function _slist(list, from=0, to) =
     z < a ? [] :
       [ for (i = [a:z]) list[i] ];
 
+function _reverse(list) =
+  [ for (i = [ len(list) - 1 : -1 : 0 ]) list[i] ];
+
 //
 // point functions
 
@@ -124,8 +127,28 @@ function _bezier_points(control_points, sample_count) =
   [ for (t = [ 0 : 1.0 / sample_count : 1 ])
     _bezier_point(control_points, t, 0, [ 0, 0 ]) ];
 
+
 //
 // modules
+
+module polypoints(points) {
+
+  for (i = [ 0 : len(points) - 1 ]) {
+    translate(points[i]) children(i % $children);
+  }
+}
+
+module polyhulls(points) {
+
+  for (i = [ 0 : len(points) - 2 ]) {
+
+    hull() {
+      translate(points[i]) children(i % $children);
+      translate(points[i + 1]) children((i + 1) % $children);
+    }
+  }
+}
+
 
 // pineapple slice
 //

@@ -146,6 +146,33 @@ module spear(
 // staffs
 
 module quarterstaff(length, diameter) {
+
   cylinder(d=diameter, h=length, center=true);
+}
+
+// bows
+
+module bow(length, depth) {
+
+  l = length;
+  d = depth;
+  l2 = length / 2;
+  d1 = depth / 2;
+  dh = 0.9;
+  xh = 0.9;
+
+  cpoints = [
+    [ 0, 0 ], [ l2, d * -0.1 ], [ l2, d * 0.5 ], [ l2, d * 1.1 ], [ l, d ] ];
+  bpoints = _bezier_points(
+    cpoints, 10);
+  //color("red", 0.5) polypoints(bpoints) { sphere($fn=60, r=0.3); };
+  bpoints1 =
+    [ for (p = bpoints) p + [ 0, dh ] ];
+  ps = concat(bpoints, _reverse(bpoints1));
+
+  rotate([ 0, 90, 180 ]) union() {
+    linear_extrude(height=xh) polygon(ps);
+    mirror([ 1, 0, 0 ]) linear_extrude(height=xh) polygon(ps);
+  }
 }
 

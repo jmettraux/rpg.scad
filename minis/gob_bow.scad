@@ -41,7 +41,7 @@ hp = bpoint(bps, "head");
 
 base(text="", $fn=12);
 
-translate([ 0, -1.4, 0 ]) rotate([ 0, 0, 10 ]) {
+translate([ 0, -2, 0 ]) rotate([ 0, 0, 10 ]) {
 
   translate([ 0 , 0, bps[6] ]) {
     body(bps,
@@ -72,13 +72,13 @@ translate([ 0, -1.4, 0 ]) rotate([ 0, 0, 10 ]) {
   //    quarterstaff(height * 1.13, hh * 0.38);
   translate([ 2, -1, height * 0.86 ])
     rotate([ 20, -180, -90 ])
-      scimitar(height * 0.45, hh * 0.3);
+      scimitar(height * 0.5, hh * 0.3);
 
   //translate([ -hh * 0.2, -hh * 0.38, height * 0.51 ])
   //  rotate([ 190, 15, 0 ])
   //    long_sword(hh * 2.6, hh * 0.6); // scramax
   translate([ hh * -0.7, hh * -0.5, height * 0.64 ])
-    rotate([ -2.89, 0, 170 ])
+    rotate([ 0, 0, 170 ])
       round_shield(hh * 4.2, thickness=0.5);
 
   translate([ -3.5, 8.1, 13 ])
@@ -87,6 +87,6 @@ translate([ 0, -1.4, 0 ]) rotate([ 0, 0, 10 ]) {
 
   #translate([ -2, 6.9, height * 0.61 ])
     rotate([ 100, 0, 42 ])
-      cylinder(d=0.7, h=10.5, center=true); // arrow
+      cylinder(d=0.5, h=10.5, center=true); // arrow
 }
 
