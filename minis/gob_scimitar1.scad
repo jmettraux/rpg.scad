@@ -28,11 +28,11 @@ bps = body_points(
   to_right_ankle=-90,
   to_left_toe=[ 0, 10 ],
   to_right_toe=[ 0, -17 ],
-  to_left_elbow=[ -120, -20 ],
-  to_left_wrist=[ -41, -20 ],
+  to_left_elbow=[ -105, -20 ],
+  to_left_wrist=[ -18, -40 ],
   to_left_finger=[ 13, 0 ],
-  to_right_elbow=[ -110, 60 ],
-  to_right_wrist=[ -40, 30 ],
+  to_right_elbow=[ -110, 68 ],
+  to_right_wrist=[ -40, 25 ],
   to_right_finger=[ -30, 45 ]
 );
 //echo(bps);
@@ -64,12 +64,12 @@ translate([ 0, -2, 0 ]) rotate([ 0, 0, 5 ]) {
     sling_bag(bps);
   }
 
-  translate([ 1.0, 4.3, height * 0.52 ])
-    rotate([ -16, -45, 0 ])
+  translate([ 1.50, 4.7, height * 0.53 ])
+    rotate([ -16, -13, 0 ])
       scimitar(height * 0.5, hh * 0.3);
 
-  translate([ -6.9, 1.1, height * 0.24 ])
-    rotate([ -7, 0, 0 ])
+  translate([ -6.9, 1.31, height * 0.32 ])
+    rotate([ -7, 12, 0 ])
       roman_shield(height * 0.67, height * 0.4, 3);
 }
 

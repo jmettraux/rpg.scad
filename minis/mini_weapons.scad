@@ -61,7 +61,7 @@ module scimitar(length, width) {
     translate([ -gd * 1.2, gl * 0.2, 0 ])
       rotate([ 0, -90, 0 ])
         cylinder(r=0.4, h=2, center=true); // handle
-    linear_extrude(height=0.4, center=true) polygon(ps); // blade
+    linear_extrude(height=0.51, center=true) polygon(ps); // blade
   }
 }
 
