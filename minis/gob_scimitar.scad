@@ -1,7 +1,7 @@
 
 
 //
-// humans.scad
+// gob_scimitar.scad
 //
 
 include <minidoll.scad>;
@@ -15,7 +15,7 @@ height = 33 / 6 * 4;
 
 
 //
-// axeman
+// posture
 
 bps = body_points(
   height,
