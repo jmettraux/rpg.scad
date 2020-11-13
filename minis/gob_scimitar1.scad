@@ -28,9 +28,11 @@ bps = body_points(
   to_right_ankle=-90,
   to_left_toe=[ 0, 10 ],
   to_right_toe=[ 0, -17 ],
+
   to_left_elbow=[ -105, -20 ],
   to_left_wrist=[ -18, -40 ],
   to_left_finger=[ 13, 0 ],
+
   to_right_elbow=[ -110, 68 ],
   to_right_wrist=[ -40, 25 ],
   to_right_finger=[ -30, 45 ]
