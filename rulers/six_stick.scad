@@ -13,7 +13,7 @@ thickness = 5;
 notch_thickness = 1;
 nt2 = notch_thickness / 2;
 text_thickness = 0.8;
-font_size = 4.5 * 0.75;
+font_size = 3.7;
 
 module square_mark() {
   cube([ notch_thickness, notch_thickness, thickness ]);
@@ -21,6 +21,8 @@ module square_mark() {
     cube([ notch_thickness, notch_thickness, thickness ]);
   translate([ 0, 0, thickness - nt2 ])
     cube([ notch_thickness, thickness, notch_thickness ]);
+  //translate([ 0, 0, - 0.75 * notch_thickness ])
+  //  cube([ notch_thickness, thickness, notch_thickness ]);
 }
 
 difference() {
@@ -40,33 +42,38 @@ difference() {
     translate([ (i + 1) * itmm - 0.7, 0.42, thickness - text_thickness * 0.9 ])
       linear_extrude(text_thickness)
         text(str((i + 1) * 5, "ft"), size=font_size, halign="right");
+    //rotate([ 0, 180, 0 ])
+    //  translate([ -(i + 1) * itmm + 0.56, 0.8, - text_thickness * 0.9 ])
+    //    linear_extrude(text_thickness)
+    //      text(str((i + 1) * 5, "ft"), size=font_size, halign="left");
+
     rotate([ 90, 0, 0 ])
       translate([ (i + 1) * itmm - 0.7, 0.2, -text_thickness * 0.9 ])
         linear_extrude(text_thickness)
           text(str((i + 1) * 1.5, "m"), size=font_size, halign="right");
     rotate([ 90, 0, 180 ])
-      translate([ -(i + 1) * itmm + 0.7, 0.9, thickness - 0.9 * text_thickness ])
+      translate([ -(i + 1) * itmm + 0.7, 1.1, thickness - 0.9 * text_thickness ])
         linear_extrude(text_thickness)
-          text(str((i + 1), "sq"), size=font_size * 0.7, halign="left");
+          text(str((i + 1), "sq"), size=font_size, halign="left");
   }
 
   for (i = [ 1, 5 ]) {
     translate([ i * itmm + 0.2, 0.2, thickness - 0.9 * text_thickness ])
       linear_extrude(text_thickness)
-        text(">>", size=font_size, halign="left");
+        text(" >", size=font_size, halign="left");
     rotate([ 90, 0, 0 ])
       translate([ i * itmm + 0.2, 0.2, -0.9 * text_thickness ])
         linear_extrude(text_thickness)
-          text(">>", size=font_size, halign="left");
+          text(" >", size=font_size, halign="left");
     rotate([ 90, 0, 180 ])
       translate([ -i * itmm - 0.2, 0.2, thickness - 0.9 * text_thickness ])
         linear_extrude(text_thickness)
-        text("<<", size=font_size, halign="right");
+        text("< ", size=font_size, halign="right");
   }
 
-  translate([ 4.07 * itmm, 1.7, thickness - text_thickness * 0.9 ])
+  translate([ 4.07 * itmm, 1.05, thickness - text_thickness * 0.9 ])
     linear_extrude(text_thickness)
-      text("t-2", size=font_size * 0.63, halign="left");
+      text("t-2", size=font_size, halign="left");
         //
         // hand haxe / light hammer :-(
 }
