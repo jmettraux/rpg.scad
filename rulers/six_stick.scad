@@ -13,22 +13,31 @@ thickness = 5;
 notch_thickness = 1;
 nt2 = notch_thickness / 2;
 text_thickness = 0.8;
-font_size = 4.5;
+font_size = 4.5 * 0.75;
+
+module square_mark() {
+  cube([ notch_thickness, notch_thickness, thickness ]);
+  translate([ 0, thickness - nt2, 0 ])
+    cube([ notch_thickness, notch_thickness, thickness ]);
+  translate([ 0, 0, thickness - nt2 ])
+    cube([ notch_thickness, thickness, notch_thickness ]);
+}
 
 difference() {
 
   cube([ length, 5, 5 ]);
 
   for (i = [ 0 : l ]) {
-    translate([ - nt2 + i * itmm, 0, 0 ])
-      union() {
+
+    translate([ - nt2 + i * itmm, 0, 0 ]) square_mark();
+    if (i == 4) {
+      translate([ - nt2 + i * itmm + notch_thickness * 2, 0, 0 ])
         cube([ notch_thickness, notch_thickness, thickness ]);
-        translate([ 0, thickness - nt2, 0 ])
-          cube([ notch_thickness, notch_thickness, thickness ]);
-        translate([ 0, 0, thickness - nt2 ])
-          cube([ notch_thickness, thickness, notch_thickness ]);
-      }
-    translate([ (i + 1) * itmm - 0.7, 0.2, thickness - text_thickness * 0.9 ])
+      translate([ - nt2 + i * itmm + notch_thickness * 2, thickness - nt2, 0 ])
+        cube([ notch_thickness, notch_thickness, thickness ]);
+    }
+
+    translate([ (i + 1) * itmm - 0.7, 0.42, thickness - text_thickness * 0.9 ])
       linear_extrude(text_thickness)
         text(str((i + 1) * 5, "ft"), size=font_size, halign="right");
     rotate([ 90, 0, 0 ])
@@ -55,9 +64,9 @@ difference() {
         text("<<", size=font_size, halign="right");
   }
 
-  translate([ 3.07 * itmm, 0.35, thickness - text_thickness * 0.9 ])
+  translate([ 4.07 * itmm, 1.7, thickness - text_thickness * 0.9 ])
     linear_extrude(text_thickness)
-      text("hx/lh", size=font_size * 0.75, halign="left");
+      text("t-2", size=font_size * 0.63, halign="left");
         //
         // hand haxe / light hammer :-(
 }
