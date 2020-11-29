@@ -32,14 +32,15 @@ difference() {
   for (i = [ 0 : l ]) {
 
     translate([ - nt2 + i * itmm, 0, 0 ]) square_mark();
-    if (i == 4) {
-      translate([ - nt2 + i * itmm + notch_thickness * 2, 0, 0 ])
-        cube([ notch_thickness, notch_thickness, thickness ]);
-      translate([ - nt2 + i * itmm + notch_thickness * 2, thickness - nt2, 0 ])
-        cube([ notch_thickness, notch_thickness, thickness ]);
-    }
 
-    translate([ (i + 1) * itmm - 0.7, 0.42, thickness - text_thickness * 0.9 ])
+    //if (i == 4) {
+    //  translate([ - nt2 + i * itmm + notch_thickness * 2, 0, 0 ])
+    //    cube([ notch_thickness, notch_thickness, thickness ]);
+    //  translate([ - nt2 + i * itmm + notch_thickness * 2, thickness - nt2, 0 ])
+    //    cube([ notch_thickness, notch_thickness, thickness ]);
+    //}
+
+    translate([ (i + 1) * itmm - 0.7, 0.44, thickness - text_thickness * 0.9 ])
       linear_extrude(text_thickness)
         text(str((i + 1) * 5, "ft"), size=font_size, halign="right");
     //rotate([ 0, 180, 0 ])
@@ -71,7 +72,7 @@ difference() {
         text("< ", size=font_size, halign="right");
   }
 
-  translate([ 4.07 * itmm, 1.05, thickness - text_thickness * 0.9 ])
+  translate([ 4.04 * itmm, 0.44, thickness - text_thickness * 0.9 ])
     linear_extrude(text_thickness)
       text("t-2", size=font_size, halign="left");
         //
