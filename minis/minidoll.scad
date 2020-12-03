@@ -104,8 +104,8 @@ function body_points(
     llp3 = _to_point(fl, to_left_toe, llp2),
 
     rlp0 = _to_point(bw2, to_right_hip, sp0),
-    rlp1 = _to_point(sl, to_right_knee, rlp0),
-    rlp2 = _to_point(tl, to_right_ankle, rlp1),
+    rlp1 = _to_point(tl, to_right_knee, rlp0),
+    rlp2 = _to_point(sl, to_right_ankle, rlp1),
     rlp3 = _to_point(fl, to_right_toe, rlp2),
 
     lap0 = _to_point(sw2, to_left_shoulder, sp2),

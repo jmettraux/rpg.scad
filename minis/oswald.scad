@@ -1,7 +1,7 @@
 
 
 //
-// humans.scad
+// oswald.scad
 //
 
 include <minidoll.scad>;
