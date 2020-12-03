@@ -11,6 +11,17 @@ function body_points(
   basin_ratio=0,
   waist_ratio=0,
   shoulder_ratio=0,
+  head_height_ratio=0,
+  foot_length_ratio=0,
+  hand_length_ratio=0,
+  thigh_length_ratio=0,
+  shin_length_ratio=0,
+  arm_length_ratio=0,
+  forearm_length_ratio=0,
+  low_hip_length_ratio=0,
+  trunk_length_1_ratio=0,
+  trunk_length_2_ratio=0,
+  trunk_length_3_ratio=0,
   to_hip=[ 90, 0 ],
   to_navel=[ 90, 0 ],
   to_neck=[ 90, 0 ],
@@ -49,42 +60,62 @@ function body_points(
       shoulder_ratio == "female" ? 2.0 :
         shoulder_ratio,
 
-    hh = height / 8, // head height
-    bw2 = hh * br / 2, // basin width / 2
-    sw2 = hh * sr / 2, // shoulder width / 2
-    ww2 = hh * wr / 2, // wast width / 2
-    fl = hh * 0.7, // foot length
-    hl = hh * 0.6, // hand length
+    hhr = head_height_ratio == 0 ? (1 / 8) : head_height_ratio,
+    flr = foot_length_ratio == 0 ? 0.7 : foot_length_ratio,
+    hlr = hand_length_ratio == 0 ? 0.6 : hand_length_ratio,
+    tlr = thigh_length_ratio == 0 ? 2 : thigh_length_ratio,
+    slr = shin_length_ratio == 0 ? 2 : shin_length_ratio,
+    alr = arm_length_ratio == 0 ? 1.5 : arm_length_ratio,
+    falr = forearm_length_ratio == 0 ? 1.3 : forearm_length_ratio,
+    lhlr = low_hip_length_ratio == 0 ? 0.7 : low_hip_length_ratio,
+    tl1r = trunk_length_1_ratio == 0 ? 1.5 : trunk_length_1_ratio,
+    tl2r = trunk_length_2_ratio == 0 ? 0.5 : trunk_length_2_ratio,
+    tl3r = trunk_length_3_ratio == 0 ? 0.5 : trunk_length_3_ratio,
+
+    hh = hhr * height, // head height
+    bw2 = br * hh / 2, // basin width / 2
+    sw2 = sr * hh / 2, // shoulder width / 2
+    ww2 = wr * hh / 2, // wast width / 2
+    fl = flr * hh, // foot length
+    hl = hlr * hh, // hand length
+    tl = tlr * hh, // thigh length
+    sl = slr * hh, // shin length
+    al = alr * hh, // arm length
+    fal = falr * hh, // forearm length
+    tl1 = tl1r * hh, // trunk length 1
+    tl2 = tl2r * hh, // trunk length 2
+    tl3 = tl3r * hh, // trunk length 3
+    lhl = lhlr * hh, // low hip length
 
     sp0 = [ 0, 0, 0 ],
     sp1 = _to_point(hh, to_hip, sp0),
-    sp2 = _to_point(1.5 * hh, to_navel, sp1),
-    sp3 = _to_point(0.5 * hh, to_neck, sp2),
-    sp4 = _to_point(0.5 * hh, to_head, sp3),
+    sp2 = _to_point(tl1, to_navel, sp1),
+    sp3 = _to_point(tl2, to_neck, sp2),
+    sp4 = _to_point(tl3, to_head, sp3),
       //
-    sp1h = _to_point(0.7 * hh, to_low_hip, sp0),
+    sp1h = _to_point(lhl, to_low_hip, sp0),
     wal = _to_point(ww2, to_left_hip, sp1h),
     war = _to_point(ww2, to_right_hip, sp1h),
       // TODO bring back somehow
 
     llp0 = _to_point(bw2, to_left_hip, sp0),
-    llp1 = _to_point(2 * hh, to_left_knee, llp0),
-    llp2 = _to_point(2 * hh, to_left_ankle, llp1),
+    llp1 = _to_point(tl, to_left_knee, llp0),
+    llp2 = _to_point(sl, to_left_ankle, llp1),
     llp3 = _to_point(fl, to_left_toe, llp2),
 
     rlp0 = _to_point(bw2, to_right_hip, sp0),
-    rlp1 = _to_point(2 * hh, to_right_knee, rlp0),
-    rlp2 = _to_point(2 * hh, to_right_ankle, rlp1),
+    rlp1 = _to_point(sl, to_right_knee, rlp0),
+    rlp2 = _to_point(tl, to_right_ankle, rlp1),
     rlp3 = _to_point(fl, to_right_toe, rlp2),
 
     lap0 = _to_point(sw2, to_left_shoulder, sp2),
-    lap1 = _to_point(1.5 * hh, to_left_elbow, lap0),
-    lap2 = _to_point(1.3 * hh, to_left_wrist, lap1),
+    lap1 = _to_point(al, to_left_elbow, lap0),
+    lap2 = _to_point(fal, to_left_wrist, lap1),
     lap3 = _to_point(hl, to_left_finger, lap2),
 
     rap0 = _to_point(sw2, to_right_shoulder, sp2),
-    rap1 = _to_point(1.5 * hh, to_right_elbow, rap0),
-    rap2 = _to_point(1.3 * hh, to_right_wrist, rap1),
+    rap1 = _to_point(al, to_right_elbow, rap0),
+    rap2 = _to_point(fal, to_right_wrist, rap1),
     rap3 = _to_point(hl, to_right_finger, rap2),
 
     z0 = llp3.z,
