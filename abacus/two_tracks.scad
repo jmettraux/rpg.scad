@@ -49,12 +49,16 @@ module base() {
 }
 
 h4 = hei / 4;
+l9 = len1 / 5;
 
 module cyl() {
   translate([ 0, 0, -h4 ]) cylinder(d=holdia, h=hei * 2);
 }
 module cub() {
   translate([ 0, 0, h4 ]) cube(size=[ holdis, twi, hei * 2 ], center=true);
+}
+module tooth() {
+  translate([ 0, 0, -h4 ]) cube(l9, center=false);
 }
 
 dc = delta + cen2bor;
@@ -110,6 +114,14 @@ difference() {
 
   // TODO separation between fives and ones
 
-  // TODO teeth, to assemble track pairs with each other
+  // teeth
+
+  ty0 = -l9 * 0.8;
+  translate([ 0 * l9, ty0, 0 ]) tooth();
+  translate([ 2 * l9, ty0, 0 ]) tooth();
+  translate([ 4 * l9, ty0, 0 ]) tooth();
+  ty1 = -l9 * 0.7 + wid1 + l9 / 2;
+  translate([ 1 * l9, ty1, 0 ]) tooth();
+  translate([ 3 * l9, ty1, 0 ]) tooth();
 }
 
