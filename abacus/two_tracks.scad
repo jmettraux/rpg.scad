@@ -3,27 +3,29 @@ $fn=6;
 
 // unit is mm
 
-holdia = 10; // hole diameter
+baldia = 17; // ball diameter
+holdia = 12; // hole diameter
 holrad = holdia / 2;
-holdis = holdia * 1.2; // distance between two adjacent center holes
-holdis1 = holdia * 1.4;
+holdis = baldia; // hole distance, center to center
+holdis1 = baldia * 1.5;
+trkdis = baldia * 1.2; // distance between the two tracks
 cen2bor = holdia * 0.6; // center to border top
 
 delta = holdia / 2;
 
 len0 = cen2bor + 1 * holdis + holdis1 + 4 * holdis + cen2bor;
-wid0 = cen2bor + holdis1 + cen2bor;
+wid0 = cen2bor + trkdis + cen2bor;
 
 len1 = len0 + delta * 2;
 wid1 = wid0 + delta * 2;
 
-hei = 10; // height
-thk = 2; // thickness
+hei = 12; // height
+thk = 2.5; // thickness
 
 twi = 4; // track width
 swi = 1.1; // slit width
 
-sla = -14; // slit angle
+sla = -10; // slit angle
 
 
 module base() {
@@ -88,29 +90,29 @@ difference() {
   translate([ s1 + 3 * holdis, dc, 0 ]) cyl();
   translate([ s1 + 4 * holdis, dc, 0 ]) cyl();
 
-  translate([ dc, dc + holdis1, 0 ]) cyl();
-  translate([ dc + holdis, dc + holdis1, 0 ]) cyl();
+  translate([ dc, dc + trkdis, 0 ]) cyl();
+  translate([ dc + holdis, dc + trkdis, 0 ]) cyl();
 
-  translate([ s1 + 0 * holdis, dc + holdis1, 0 ]) cyl();
-  translate([ s1 + 1 * holdis, dc + holdis1, 0 ]) cyl();
-  translate([ s1 + 2 * holdis, dc + holdis1, 0 ]) cyl();
-  translate([ s1 + 3 * holdis, dc + holdis1, 0 ]) cyl();
-  translate([ s1 + 4 * holdis, dc + holdis1, 0 ]) cyl();
+  translate([ s1 + 0 * holdis, dc + trkdis, 0 ]) cyl();
+  translate([ s1 + 1 * holdis, dc + trkdis, 0 ]) cyl();
+  translate([ s1 + 2 * holdis, dc + trkdis, 0 ]) cyl();
+  translate([ s1 + 3 * holdis, dc + trkdis, 0 ]) cyl();
+  translate([ s1 + 4 * holdis, dc + trkdis, 0 ]) cyl();
 
   // tracks
 
   translate([ dch2, dc, 0 ]) cub();
-  translate([ dch2, dc + holdis1, 0 ]) cub();
+  translate([ dch2, dc + trkdis, 0 ]) cub();
 
   translate([ dch3 + 0 * holdis, dc, 0 ]) cub();
   translate([ dch3 + 1 * holdis, dc, 0 ]) cub();
   translate([ dch3 + 2 * holdis, dc, 0 ]) cub();
   translate([ dch3 + 3 * holdis, dc, 0 ]) cub();
 
-  translate([ dch3 + 0 * holdis, dc + holdis1, 0 ]) cub();
-  translate([ dch3 + 1 * holdis, dc + holdis1, 0 ]) cub();
-  translate([ dch3 + 2 * holdis, dc + holdis1, 0 ]) cub();
-  translate([ dch3 + 3 * holdis, dc + holdis1, 0 ]) cub();
+  translate([ dch3 + 0 * holdis, dc + trkdis, 0 ]) cub();
+  translate([ dch3 + 1 * holdis, dc + trkdis, 0 ]) cub();
+  translate([ dch3 + 2 * holdis, dc + trkdis, 0 ]) cub();
+  translate([ dch3 + 3 * holdis, dc + trkdis, 0 ]) cub();
 
   // TODO separation between fives and ones
 
