@@ -1,5 +1,5 @@
 
-$fn=12;
+$fn=6;
 
 // unit is mm
 
@@ -10,8 +10,8 @@ cen2bor = holdia * 1.1; // center to border top
 
 delta = holdia / 2;
 
-len0 = cen2bor + 2 * holdis + holdis1 + 5 * holdis + cen2bor;
-wid0 = cen2bor * 2;
+len0 = cen2bor + 1 * holdis + holdis1 + 4 * holdis + cen2bor;
+wid0 = cen2bor + holdis1 + cen2bor;
 
 len1 = len0 + delta * 2;
 wid1 = wid0 + delta * 2;
@@ -41,9 +41,40 @@ module base() {
   ];
   polyhedron(points, faces);
 }
+module cyl() {
+  cylinder(d=holdia, h=hei * 2);
+}
+
+dc = delta + cen2bor;
+h4 = -hei / 4;
+s1 = dc + holdis + holdis1;
 
 difference() {
+
   base();
   translate([ 0, 0, -thk ]) base();
+
+  // TODO slit for card
+
+  translate([ dc, dc, h4 ]) cyl();
+  translate([ dc + holdis, dc, h4 ]) cyl();
+
+  translate([ s1 + 0 * holdis, dc, h4 ]) cyl();
+  translate([ s1 + 1 * holdis, dc, h4 ]) cyl();
+  translate([ s1 + 2 * holdis, dc, h4 ]) cyl();
+  translate([ s1 + 3 * holdis, dc, h4 ]) cyl();
+  translate([ s1 + 4 * holdis, dc, h4 ]) cyl();
+
+  translate([ dc, dc + holdis1, h4 ]) cyl();
+  translate([ dc + holdis, dc + holdis1, h4 ]) cyl();
+
+  translate([ s1 + 0 * holdis, dc + holdis1, h4 ]) cyl();
+  translate([ s1 + 1 * holdis, dc + holdis1, h4 ]) cyl();
+  translate([ s1 + 2 * holdis, dc + holdis1, h4 ]) cyl();
+  translate([ s1 + 3 * holdis, dc + holdis1, h4 ]) cyl();
+  translate([ s1 + 4 * holdis, dc + holdis1, h4 ]) cyl();
+
+  // TODO tracks between holes
+  // TODO separation between fives and ones
 }
 
