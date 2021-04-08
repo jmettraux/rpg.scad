@@ -17,10 +17,13 @@ wid0 = cen2bor + holdis1 + cen2bor;
 len1 = len0 + delta * 2;
 wid1 = wid0 + delta * 2;
 
-hei = 9; // height
+hei = 10; // height
 thk = 2; // thickness
 
 twi = 4; // track width
+swi = 1.1; // slit width
+
+sla = -14; // slit angle
 
 
 module base() {
@@ -64,7 +67,11 @@ difference() {
   base();
   translate([ 0, 0, -thk ]) base();
 
-  // TODO slit for card
+  // slit
+
+  translate([ cen2bor * 0.63, wid1 / 2, hei + thk ])
+    rotate([ 0, sla, 0 ])
+      cube(size=[ swi, wid1, hei * 2 ], center=true);
 
   // holes
 
@@ -102,5 +109,7 @@ difference() {
   translate([ dch3 + 3 * holdis, dc + holdis1, 0 ]) cub();
 
   // TODO separation between fives and ones
+
+  // TODO teeth, to assemble track pairs with each other
 }
 
