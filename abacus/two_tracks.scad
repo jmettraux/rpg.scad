@@ -35,7 +35,7 @@ tood = 0.02; // tooth delta, to allow slotting
 
 module base() {
   cube(size=[ len1, wid1, hei ], center=false);
-  translate([ len1, wid1 / 2, 0 ]) cylinder(d=wid1, h=hei, $fn=36);
+  translate([ len1, wid1 / 2, 0 ]) cylinder(d=wid1, h=hei, $fn=12);
 }
 
 h4 = hei / 4;
@@ -65,7 +65,10 @@ difference() {
 
   translate([ cen2bor * 0.63, wid1 / 2, hei + thk ])
     rotate([ 0, sla, 0 ])
-      cube(size=[ swi, wid1, hei * 2 ], center=true);
+      cube(size=[ swi, wid1 * 1.1, hei * 2 ], center=true);
+  translate([ cen2bor * 0.63 - 3.5 * swi, wid1 / 2, hei + thk ])
+    rotate([ 0, sla, 0 ])
+      cube(size=[ swi, wid1 * 1.1, hei * 2 ], center=true);
 
   // holes
 
