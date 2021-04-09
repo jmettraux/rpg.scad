@@ -3,7 +3,7 @@ $fn=6;
 
 // unit is mm
 
-tracks = 1; // 1, 2, 3, or 4...
+tracks = 2; // 1, 2, 3, or 4...
 
 baldia = 17; // ball diameter
 holdia = 12; // hole diameter
