@@ -30,7 +30,7 @@ sla = -10; // slit angle
 //hih = 2; // hill height
 //hiw = 1.4; // hill thickness
 
-tood = 0.02; // tooth delta, to allow slotting
+tood = 0.01; // tooth delta, to allow slotting
 
 
 module base() {
