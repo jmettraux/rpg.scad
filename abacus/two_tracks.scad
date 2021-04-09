@@ -7,8 +7,8 @@ baldia = 17; // ball diameter
 holdia = 12; // hole diameter
 holrad = holdia / 2;
 holdis = baldia; // hole distance, center to center
-holdis1 = baldia * 1.5;
-trkdis = baldia * 1.2; // distance between the two tracks
+holdis1 = baldia * 1.4;
+trkdis = baldia * 1.11; // distance between the two tracks
 cen2bor = holdia * 0.6; // center to border top
 
 delta = holdia / 2;
@@ -22,7 +22,7 @@ wid1 = wid0 + delta * 2;
 hei = 12; // height
 thk = 2.5; // thickness
 
-twi = 4; // track width
+twi = 4.1; // track width
 swi = 1.1; // slit width
 
 sla = -10; // slit angle
