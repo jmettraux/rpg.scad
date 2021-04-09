@@ -13,11 +13,8 @@ cen2bor = holdia * 0.6; // center to border top
 
 delta = holdia / 2;
 
-len0 = cen2bor + 1 * holdis + holdis1 + 4 * holdis + cen2bor;
-wid0 = cen2bor + trkdis + cen2bor;
-
-len1 = len0 + delta * 2;
-wid1 = wid0 + delta * 2;
+len1 = cen2bor + 1 * holdis + holdis1 + 4 * holdis + cen2bor + delta * 2;
+wid1 = cen2bor + trkdis + cen2bor + delta * 2;
 
 hei = 8.4; // height
 thk = 2.5; // thickness
@@ -26,9 +23,6 @@ twi = 4.1; // track width
 swi = 0.84; // slit width
 
 sla = -10; // slit angle
-
-//hih = 2; // hill height
-//hiw = 1.4; // hill thickness
 
 tood = 0.01; // tooth delta, to allow slotting
 
@@ -59,7 +53,6 @@ s1 = dc + holdis + holdis1;
 difference() {
 
   base();
-  //translate([ 0, 0, -thk ]) base();
 
   // slit
 
@@ -105,9 +98,6 @@ difference() {
   translate([ dch3 + 2 * holdis, dc + trkdis, 0 ]) cub();
   translate([ dch3 + 3 * holdis, dc + trkdis, 0 ]) cub();
 
-  // hills
-  //#translate([ 0, -ty0, hei ]) cube(size=[ len1, hiw, hih ]);
-
   // teeth
 
   ty0 = -l9 * 0.8;
@@ -118,7 +108,6 @@ difference() {
   translate([ 4.9 * l9, ty0, 0 ]) tooth(); // cancel ghost border
 
   ty1 = -l9 * 0.7 + wid1 + l9 / 2;
-
   translate([ 1 * l9, ty1, 0 ]) tooth();
   translate([ 1 * l9 - tood, ty1, 0 ]) tooth(); //
   translate([ 1 * l9 + tood, ty1, 0 ]) tooth(); // allow slotting...
