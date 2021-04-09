@@ -7,7 +7,7 @@ baldia = 17; // ball diameter
 holdia = 12; // hole diameter
 holrad = holdia / 2;
 holdis = baldia; // hole distance, center to center
-holdis1 = baldia * 1.4;
+holdis1 = baldia * 1.3;
 trkdis = baldia * 1.11; // distance between the two tracks
 cen2bor = holdia * 0.6; // center to border top
 
@@ -19,7 +19,7 @@ wid0 = cen2bor + trkdis + cen2bor;
 len1 = len0 + delta * 2;
 wid1 = wid0 + delta * 2;
 
-hei = 12; // height
+hei = 6; // height
 thk = 2.5; // thickness
 
 twi = 4.1; // track width
@@ -27,27 +27,13 @@ swi = 1.1; // slit width
 
 sla = -10; // slit angle
 
+//hih = 2; // hill height
+//hiw = 1.4; // hill thickness
+
 
 module base() {
-  points = [
-    /* 0 */ [ 0, 0, 0 ],
-    /* 1 */ [ len1, 0, 0 ],
-    /* 2 */ [ len1, wid1, 0 ],
-    /* 3 */ [ 0, wid1, 0 ],
-    /* 4 */ [ delta, delta, hei ],
-    /* 5 */ [ len0 + delta, delta, hei ],
-    /* 6 */ [ len0 + delta, wid0 + delta, hei ],
-    /* 7 */ [ delta, wid0 + delta, hei ]
-  ];
-  faces = [
-    [ 0, 1, 2, 3 ], // bottom
-    [ 4, 5, 1, 0 ], // front
-    [ 7, 6, 5, 4 ], // top
-    [ 5, 6, 2, 1 ], // right
-    [ 6, 7, 3, 2 ], // back
-    [ 7, 4, 0, 3 ]  // left
-  ];
-  polyhedron(points, faces);
+  cube(size=[ len1, wid1, hei ], center=false);
+  translate([ len1, wid1 / 2, 0 ]) cylinder(d=wid1, h=hei, $fn=36);
 }
 
 h4 = hei / 4;
@@ -71,7 +57,7 @@ s1 = dc + holdis + holdis1;
 difference() {
 
   base();
-  translate([ 0, 0, -thk ]) base();
+  //translate([ 0, 0, -thk ]) base();
 
   // slit
 
@@ -114,14 +100,17 @@ difference() {
   translate([ dch3 + 2 * holdis, dc + trkdis, 0 ]) cub();
   translate([ dch3 + 3 * holdis, dc + trkdis, 0 ]) cub();
 
-  // TODO separation between fives and ones
+  // hills
+  //#translate([ 0, -ty0, hei ]) cube(size=[ len1, hiw, hih ]);
 
   // teeth
 
   ty0 = -l9 * 0.8;
   translate([ 0 * l9, ty0, 0 ]) tooth();
+  translate([ 0 * l9 - 1, ty0, 0 ]) tooth(); // cancel ghost border
   translate([ 2 * l9, ty0, 0 ]) tooth();
   translate([ 4 * l9, ty0, 0 ]) tooth();
+  translate([ 4.9 * l9, ty0, 0 ]) tooth(); // cancel ghost border
   ty1 = -l9 * 0.7 + wid1 + l9 / 2;
   translate([ 1 * l9, ty1, 0 ]) tooth();
   translate([ 3 * l9, ty1, 0 ]) tooth();
