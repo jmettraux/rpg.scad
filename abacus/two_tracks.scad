@@ -19,16 +19,18 @@ wid0 = cen2bor + trkdis + cen2bor;
 len1 = len0 + delta * 2;
 wid1 = wid0 + delta * 2;
 
-hei = 6; // height
+hei = 8.4; // height
 thk = 2.5; // thickness
 
 twi = 4.1; // track width
-swi = 1.1; // slit width
+swi = 0.84; // slit width
 
 sla = -10; // slit angle
 
 //hih = 2; // hill height
 //hiw = 1.4; // hill thickness
+
+tood = 0.02; // tooth delta, to allow slotting
 
 
 module base() {
@@ -111,8 +113,15 @@ difference() {
   translate([ 2 * l9, ty0, 0 ]) tooth();
   translate([ 4 * l9, ty0, 0 ]) tooth();
   translate([ 4.9 * l9, ty0, 0 ]) tooth(); // cancel ghost border
+
   ty1 = -l9 * 0.7 + wid1 + l9 / 2;
+
   translate([ 1 * l9, ty1, 0 ]) tooth();
+  translate([ 1 * l9 - tood, ty1, 0 ]) tooth(); //
+  translate([ 1 * l9 + tood, ty1, 0 ]) tooth(); // allow slotting...
+
   translate([ 3 * l9, ty1, 0 ]) tooth();
+  translate([ 3 * l9 - tood, ty1, 0 ]) tooth(); //
+  translate([ 3 * l9 + tood, ty1, 0 ]) tooth(); // allow slotting...
 }
 
