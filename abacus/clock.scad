@@ -12,8 +12,8 @@ holdis = baldia; // hole distance, center to center
 //trkdis = baldia * 1.11; // distance between the two tracks
 //cen2bor = holdia * 0.6; // center to border top
 
-hourrad = 1.9 * baldia;
-minuterad = 2.8 * baldia;
+hourrad = 2.7 * baldia;
+minuterad = 3.5 * baldia;
 
 twi = 2.8; // track width
 
@@ -40,17 +40,17 @@ difference() {
   // center triangle
 
   translate([ 0, 0, - hei * 0.5 ])
-    cylinder(d=hourrad * 1.55, h=hei * 2, $fn=7);
+    cylinder(d=hourrad * 1.70, h=hei * 2, $fn=6);
 
   // minute holes
 
-  mins = 24;
+  mins = 30;
   md = 360 / mins;
 
   for (i = [0:mins - 1]) {
     a = i * md;
     rotate([ 0, 0, a ]) translate([ minuterad, 0, 0 ]) cyl(a);
-    rotate([ 0, 0, a + md ]) translate([ minuterad, 0, 0 ]) canal();
+    rotate([ 0, 0, a + md ]) translate([ minuterad * 0.99, 0, 0 ]) canal();
   }
 
   // hour holes
@@ -62,7 +62,7 @@ difference() {
     a = i * hd;
 
     rotate([ 0, 0, a ]) translate([ hourrad, 0, 0 ]) cyl(a);
-    rotate([ 0, 0, a + 0.5 * hd ]) translate([ hourrad, 0, 0 ]) canal();
+    rotate([ 0, 0, a + 0.5 * hd ]) translate([ hourrad * 0.99, 0, 0 ]) canal();
 
     //a1 = -i * hd + hd - 90;
     //#rotate([ 0, 0, a1 + 0.5 * hd ])
