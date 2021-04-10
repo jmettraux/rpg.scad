@@ -75,5 +75,10 @@ difference() {
 
   translate([ hourrad, 0, 0 ]) rotate([ 0, 0, 90 ]) canal();
   translate([ minuterad * 1.03, 0, 0 ]) rotate([ 0, 0, 90 ]) canal();
+
+  // 12
+
+  translate([ hourrad * 0.8, -3.3, hei * 0.6 ]) rotate([ 0, 0, -90 ])
+    linear_extrude(hei * 0.6) text("12", size=6.1);
 }
 
