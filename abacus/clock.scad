@@ -58,9 +58,17 @@ difference() {
   hd = 360 / 12;
 
   for (i = [0:11]) {
+
     a = i * hd;
+
     rotate([ 0, 0, a ]) translate([ hourrad, 0, 0 ]) cyl(a);
     rotate([ 0, 0, a + 0.5 * hd ]) translate([ hourrad, 0, 0 ]) canal();
+
+    //a1 = -i * hd + hd - 90;
+    //#rotate([ 0, 0, a1 + 0.5 * hd ])
+    //  translate([ hourrad * 0.8, 0 + 4, hei ])
+    //    rotate([ 0, 0, -(a1 + 0.5 * hd) - 90 ])
+    //      text(str(i + 1), size=3);
   }
 
   // 12 o'clock canal
