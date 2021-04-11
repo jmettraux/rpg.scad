@@ -19,7 +19,13 @@ hei = 4.2; // height
 
 
 module base() {
-  cylinder(d = rad * 2.1 + baldia, h=hei, $fn=12);
+  difference() {
+    cylinder(d = rad * 2.1 + baldia, h=hei, $fn=12);
+    translate([ 0, 0, - hei * 0.5 ])
+      cylinder(d=rad * 1.60, h=hei * 2, $fn=12);
+  }
+  //translate([ 0, 0, hei * 0.5 ])
+  //  cube(size=[ baldia * 2, rad * 2, hei ], center=true);
 }
 module cyl(a) {
   translate([ 0, 0, - hei * 0.5 ])
@@ -35,25 +41,24 @@ difference() {
 
   base();
 
-  // hollow center
-
-  translate([ 0, 0, - hei * 0.5 ])
-    cylinder(d=rad * 1.70, h=hei * 2, $fn=12);
-
   // minute holes
 
   mins = 30;
   md = 360 / mins;
 
   for (i = [0:mins - 2]) {
-    a = i * md;
+
+    a = - i * md;
+
     rotate([ 0, 0, a ]) translate([ rad, 0, 0 ]) cyl(a);
     rotate([ 0, 0, a ]) translate([ rad * 0.99, 3.3, 0 ]) canal();
+
+    if ((i + 1) % 5 == 0) {
+
+      rotate([ 0, 0, a ]) translate([ rad * 0.80, 0, hei * 0.6 ])
+        rotate([ 0, 0, -73 ])
+          linear_extrude(hei * 0.6) text(str(i + 1), size=5.6);
+    }
   }
-
-  // 12
-
-  //translate([ hourrad * 0.8, -3.3, hei * 0.6 ]) rotate([ 0, 0, -90 ])
-  //  linear_extrude(hei * 0.6) text("12", size=6.1);
 }
 
