@@ -1,5 +1,12 @@
 
+//
+// initiative.scad
+//
+
 $fn=6;
+
+use <cadence.scad>;
+
 
 // unit is mm
 
@@ -17,6 +24,8 @@ twi = 2.8; // track width
 
 hei = 4.2; // height
 
+out = rad * 0.7; // outcentering...
+
 
 module base() {
   difference() {
@@ -26,6 +35,10 @@ module base() {
   }
   //translate([ 0, 0, hei * 0.5 ])
   //  cube(size=[ baldia * 2, rad * 2, hei ], center=true);
+  //module paslice(radius, depth, slice=45, radius1=0) {
+  translate([ out, 0, 0 ]) // that's the center of rotation ....
+    rotate([ 0, 0, 60 + 90 + 10 ])
+      paslice(rad * 1.2, hei, 140, rad * 0.6, $fn=36);
 }
 module cyl(a) {
   translate([ 0, 0, - hei * 0.5 ])
@@ -58,6 +71,17 @@ difference() {
       rotate([ 0, 0, a ]) translate([ rad * 0.80, 0, hei * 0.6 ])
         rotate([ 0, 0, -73 ])
           linear_extrude(hei * 0.6) text(str(i + 1), size=5.6);
+    }
+  }
+
+  translate([ out, 0, 0 ]) { // that's the center of rotation ....
+
+    dd = 360 / 30;
+
+    for(i = [0:7]) {
+      a = 90 + 45 + 2.5 + i * dd;
+      rotate([ 0, 0, a ]) translate([ rad * 1.05, 0, 0 ]) cyl(a);
+      #rotate([ 0, 0, a ]) translate([ rad * 1.05 - holdis, 0, 0 ]) cyl(a);
     }
   }
 }
