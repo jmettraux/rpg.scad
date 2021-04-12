@@ -12,13 +12,15 @@ lablen = 56.0; // label thickness
 labwid = baldia * 0.77;; // label widths
 sliwid = 0.8; // slit width
 
+weihei = 4.2 * 0.84; // weight height
+
 echo(labwid);
 
 
 union() {
-  sphere(d=baldia, $fn=36);
-  translate([ 0, 0, -baldia * 0.6 ])
-    cylinder(d=baldia * 0.5, h=baldia * 0.25, $fn=12);
+  #sphere(d=baldia, $fn=36);
+  translate([ 0, 0, -baldia / 2 - weihei * 0.205 ])
+    cylinder(d=baldia * 0.53, h=weihei, $fn=12, center=true);
 }
 
 translate([ 0, 0, lablen * 0.5 ])
