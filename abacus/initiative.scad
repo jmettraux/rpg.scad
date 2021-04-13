@@ -23,7 +23,7 @@ holdisc = baldia * 0.77;
 twi = 2.8; // track width
 //out = rad * 0.65; // outcentering...
 
-holcnt = 13; // hole count
+holcnt = 11; // hole count
 
 hei = 4.2; // height
 h4 = hei / 4;
@@ -71,9 +71,9 @@ difference() {
 
   // rounds track
 
-  cnt = 19;
+  cnt = 17;
 
-  translate([ holdis * 1, bw2 - baldia / 2, 0 ])
+  translate([ holdis * 0.9, bw2 - baldia / 2, 0 ])
     track(cnt, dis=holdisc, startFurrow=true);
   for (i = [1:2:cnt - 1]) {
     #translate([ (i + 1) * holdisc, baldia * 0.4, hei * 0.6 ])
@@ -82,12 +82,12 @@ difference() {
 
   // initiative track
 
-  translate([ holdis * 2, -holdis * 0.4, 0 ])
-    track(14);
+  translate([ holdis * 1.9, -holdis * 0.4, 0 ])
+    track(12);
 
   // turn track
 
-  translate([ holdis * 2, -holdis * 1.4, 0 ])
-    track(14, startFurrow=true);
+  translate([ holdis * 1.9, -holdis * 1.4, 0 ])
+    track(12, startFurrow=true);
 }
 
