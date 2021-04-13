@@ -59,7 +59,7 @@ module fur(dis=holdis) { // furrow
 
 module track(cnt, dis=holdis, furrows=true, startFurrow=false, endFurrow=false) {
   for(i = [0:cnt - 1]) {
-    if (i == 0 && startFurrow) translate([ 0, 0, 0 ]) fur(dis);
+    if (i == 0 && startFurrow) translate([ -dis / 3, 0, 0 ]) fur(dis);
     translate([ i * dis, 0, 0 ]) cyl();
     if (i < cnt - 1 || endFurrow) translate([ i * dis + dis / 2, 0, 0 ]) fur(dis);
   }
@@ -71,23 +71,29 @@ difference() {
 
   // rounds track
 
-  cnt = 17;
-
-  translate([ holdis * 0.9, bw2 - baldia / 2, 0 ])
-    track(cnt, dis=holdisc, startFurrow=true);
-  for (i = [1:2:cnt - 1]) {
-    #translate([ (i + 1) * holdisc, baldia * 0.4, hei * 0.6 ])
-      linear_extrude(hei * 0.6) text(str(i), size=7);
+  for(i = [0:12]) {
+    translate([ holdis + i * holdis, holdis * 1.4, 0 ])
+      rotate([ 0, 0, -60 ])
+        track(2);
   }
+  for(i = [1:12]) {
+    translate([ holdis * 0.8 + i * holdis, holdis * 1.1, 0 ])
+      rotate([ 0, 0, 60])
+        fur();
+  }
+  translate([ holdis * 0.8, bw2 - baldia * 0.3 - 1.2, 0 ])
+    fur();
+  //translate([ holdis * (holcnt + 2.8), bw2 - baldia * 0.3 - holdis + 1.4, 0 ])
+  //  fur();
 
   // initiative track
 
-  translate([ holdis * 1.9, -holdis * 0.4, 0 ])
+  translate([ holdis * 1.9, -holdis * 0.6, 0 ])
     track(12);
 
   // turn track
 
-  translate([ holdis * 1.9, -holdis * 1.4, 0 ])
+  translate([ holdis * 1.9, -holdis * 1.6, 0 ])
     track(12, startFurrow=true);
 }
 
