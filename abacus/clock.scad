@@ -21,7 +21,7 @@ hei = 4.2; // height
 
 
 module base() {
-  cylinder(d = minuterad * 2.1 + baldia, h=hei, $fn=12);
+  cylinder(d = minuterad * 2.33 + baldia, h=hei, $fn=12);
 }
 module cyl(a) {
   translate([ 0, 0, - hei * 0.5 ])
@@ -47,10 +47,19 @@ difference() {
   mins = 30;
   md = 360 / mins;
 
+  mr0 = minuterad;
+  mr1 = minuterad + baldia * 0.57;
+
   for (i = [0:mins - 1]) {
-    a = i * md;
-    rotate([ 0, 0, a ]) translate([ minuterad, 0, 0 ]) cyl(a);
-    rotate([ 0, 0, a + md ]) translate([ minuterad * 0.99, 0, 0 ]) canal();
+    a0 = i * md;
+    a1 = a0 + md * 0.5;
+    rotate([ 0, 0, a0 ]) translate([ mr0, 0, 0 ]) cyl(a0);
+    rotate([ 0, 0, a1 ]) translate([ mr1, 0, 0 ]) cyl(a1);
+
+    rotate([ 0, 0, a0 + md - 3 ]) translate([ mr0 * 1.07, 0, 0 ])
+      rotate([ 0, 0, 45 ]) canal();
+    rotate([ 0, 0, a1 + md - 2 ]) translate([ mr1 * 0.94, 0, 0 ])
+      rotate([ 0, 0, -45 ]) canal();
   }
 
   // hour holes
@@ -74,7 +83,7 @@ difference() {
   // 12 o'clock canal
 
   translate([ hourrad, 0, 0 ]) rotate([ 0, 0, 90 ]) canal();
-  translate([ minuterad * 1.03, 0, 0 ]) rotate([ 0, 0, 90 ]) canal();
+  translate([ minuterad * 1.20, 0, 0 ]) rotate([ 0, 0, 90 ]) canal();
 
   // 12
 
