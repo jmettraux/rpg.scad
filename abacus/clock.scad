@@ -24,7 +24,8 @@ module cyl(a) {
 }
 
 module base(rad) {
-  cylinder(r = rad, h=hei, $fn=32);
+  echo("base", rad);
+  cylinder(r = rad, h=hei, $fn=60);
 }
 
 module canal() {
@@ -50,7 +51,7 @@ module ring(hole_count, radius=-1, canal_length=-1) {
 
 difference() {
 
-  base(radc(39.7));
+  base(radc(36.9));
 
   cyl(90);
 
@@ -58,7 +59,9 @@ difference() {
   ring(12, radc(6) + baldia);
   ring(24);
   ring(30, radc(24) + baldia);
-  ring(30, radc(24) + baldia + baldia, baldia * 1.4);
+
+  rotate([ 0, 0, 360 / 60 ])
+    ring(30, radc(24) + baldia + baldia * 0.77, baldia * 1.4);
 
   translate([ 0, baldia * 5, hei * 0.9 ])
     cube(size=[ twi, baldia * 10, hei * 0.5 ], center=true);
