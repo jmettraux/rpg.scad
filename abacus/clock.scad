@@ -36,6 +36,7 @@ module ring(hole_count, radius=-1, canal_length=-1) {
 
   a = 360 / hole_count;
   r = radius < 0 ? rada(a) : radius;
+  echo(hole_count, r);
   l = canal_length < 0 ? baldia * 1.2 : canal_length;
 
   for (i = [ 0 : hole_count ]) {
@@ -49,21 +50,18 @@ module ring(hole_count, radius=-1, canal_length=-1) {
 
 difference() {
 
-  r = radc(65);
+  r = radc(42);
   base(r);
 
   cyl(90);
 
   ring(6);
-  ring(12);
+  ring(12, radc(6) + baldia);
   ring(24);
-  ring(31);
-  ring(42);
-  ring(12, radc(60) - baldia, baldia * 4.7);
-  ring(60);
+  ring(30, radc(24) + baldia);
+  ring(30, radc(24) + baldia + baldia, baldia * 1.4);
 
-  //translate([ 0, 0, -hei * 0.5 ])
-  //  rotate([ 0, 0, 90 ])
-  //    cylinder(r=radc(9), h=hei * 2);
+  translate([ 0, baldia * 5, hei * 0.9 ])
+    cube(size=[ twi, baldia * 10, hei * 0.5 ], center=true);
 }
 
