@@ -24,7 +24,7 @@ module cyl(a) {
 }
 
 module base(rad) {
-  cylinder(r = rad, h=hei, $fn=12);
+  cylinder(r = rad, h=hei, $fn=32);
 }
 
 module canal() {
@@ -50,8 +50,7 @@ module ring(hole_count, radius=-1, canal_length=-1) {
 
 difference() {
 
-  r = radc(42);
-  base(r);
+  base(radc(39.7));
 
   cyl(90);
 
