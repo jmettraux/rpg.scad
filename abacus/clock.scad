@@ -11,7 +11,8 @@ holdis = baldia; // hole distance, center to center
 
 twi = 2.8; // track width
 
-hei = 4.2; // height
+hei = 5.6; // height
+
 
 function rada(angle, c=holdis) = c / (2 * sin(angle / 2));
 function radc(hole_count, c=holdis) = rada(360 / hole_count, c);

@@ -25,7 +25,7 @@ twi = 2.8; // track width
 
 holcnt = 11; // hole count
 
-hei = 4.2; // height
+hei = 5.6; // height
 h4 = hei / 4;
 
 boalen = (holcnt + 2) * baldia; // board length
