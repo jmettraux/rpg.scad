@@ -26,13 +26,23 @@ module base(rad) {
   cylinder(r = rad, h=hei, $fn=12);
 }
 
-module ring(hole_count, radius=-1) {
+module canal() {
+  //translate([ 0, 0, hei * 0.9 ])
+  //  cube(size=[ twi, baldia, hei * 0.5 ], center=true);
+}
+
+module ring(hole_count, radius=-1, canal_length=-1) {
 
   a = 360 / hole_count;
   r = radius < 0 ? rada(a) : radius;
+  l = canal_length < 0 ? baldia * 1.2 : canal_length;
 
   for (i = [ 0 : hole_count ]) {
-    rotate([ 0, 0, i * a ]) translate([ 0, r, 0 ]) cyl(0);
+    rotate([ 0, 0, i * a ]) translate([ 0, r, 0 ])
+      cyl(0);
+    rotate([ 0, 0, i * a ]) translate([ 0, r, hei * 0.9 ])
+      rotate([ 0, 0, 90 ])
+        cube(size=[ twi, l, hei * 0.5 ], center=true);
   }
 }
 
@@ -48,16 +58,11 @@ difference() {
   ring(24);
   ring(31);
   ring(42);
-  ring(12, radc(60) - baldia);
+  ring(12, radc(60) - baldia, baldia * 4.7);
   ring(60);
 
   //translate([ 0, 0, -hei * 0.5 ])
   //  rotate([ 0, 0, 90 ])
   //    cylinder(r=radc(9), h=hei * 2);
 }
-
-//module canal() {
-//  translate([ 0, 0, hei * 0.9 ])
-//    cube(size=[ twi, baldia, hei * 0.5 ], center=true);
-//}
 
