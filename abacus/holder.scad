@@ -4,34 +4,28 @@
 // unit is mm
 
 swi = 0.84; // slit width
-sdp = 20; // slit depth
+swi2 = swi / 2;
 
-tsi = 30; // triangle side
-twi = 14; // triangle width
+tow = 20; // tooth width
+tot = 14; // tooth thickness
+toh = 28; // tooth height
 
-ttd = 40; // tri to tri distance
+bah = 5; // base height
 
-module tri() {
-  difference() {
-    rotate([ 90, 45, 0 ])
-      cube(size=[ tsi, tsi, twi ], center=true);
-    translate([ 0, 0, -tsi ])
-      cube(size=[ tsi * 2, tsi * 2, tsi * 2 ], center=true);
-  }
+module tooth() {
+  translate([ 0, 0, toh / 2 ])
+    cube(size=[ tow, tot, toh ], center=true);
+  translate([ 0, 0, toh ])
+    rotate([ 90, 0, 0 ]) cylinder(d=tow, h=tot, center=true);
 }
 
-difference() {
-
-  union() {
-    translate([ 0, -0.5 * ttd, 0 ])
-      tri();
-    translate([ 0, 0, tsi / 30 ])
-      cube(size=[ tsi, ttd, tsi / 15 ], center=true);
-    translate([ 0, 0.5 * ttd, 0 ])
-      tri();
-  }
-
-  translate([ 0, 0, sdp / 2 + tsi / 15 ])
-    cube(size=[ swi, ttd * 2, sdp ], center=true);
+module holder() {
+  translate([ -tow / 2 - swi2, 0, 0 ]) tooth();
+  translate([ tow / 2 + swi2, 0, 0 ]) tooth();
+  translate([ 0, 0, bah / 2 ])
+    rotate([ 0, 0, 0 ])
+      cylinder(d=tow * 2.5, h=bah, center=true, $fn=6);
 }
+
+holder();
 
