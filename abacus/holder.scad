@@ -6,11 +6,12 @@
 swi = 0.84; // slit width
 swi2 = swi / 2;
 
-tow = 20; // tooth width
-tot = 14; // tooth thickness
-toh = 28; // tooth height
+tow = 7; // tooth width
+tot = 10; // tooth thickness
+toh = 14; // tooth height
 
-bah = 5; // base height
+bah = 4; // base height
+bad = tow * 5; // base diameter
 
 module tooth() {
   translate([ 0, 0, toh / 2 ])
@@ -20,11 +21,13 @@ module tooth() {
 }
 
 module holder() {
+
   translate([ -tow / 2 - swi2, 0, 0 ]) tooth();
   translate([ tow / 2 + swi2, 0, 0 ]) tooth();
+
   translate([ 0, 0, bah / 2 ])
     rotate([ 0, 0, 0 ])
-      cylinder(d=tow * 2.5, h=bah, center=true, $fn=6);
+      cylinder(d=bad, h=bah, center=true, $fn=6);
 }
 
 holder();
