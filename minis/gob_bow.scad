@@ -1,7 +1,7 @@
 
 
 //
-// humans.scad
+// gob_bow.scad
 //
 
 include <minidoll.scad>;
@@ -13,9 +13,6 @@ $fn = 24;
 
 height = 33 / 6 * 4;
 
-
-//
-// axeman
 
 bps = body_points(
   height,
