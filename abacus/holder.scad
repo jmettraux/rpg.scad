@@ -1,17 +1,17 @@
 
-//$fn=6;
+$fn=36;
 
 // unit is mm
 
 swi = 0.84; // slit width
 swi2 = swi / 2;
 
-tow = 7; // tooth width
+tow = 5; // tooth width
 tot = 10; // tooth thickness
-toh = 14; // tooth height
+toh = 21; // tooth height
 
 bah = 4; // base height
-bad = tow * 5; // base diameter
+bad = 49; // base diameter
 
 module tooth() {
   translate([ 0, 0, toh / 2 ])
