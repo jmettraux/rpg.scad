@@ -42,8 +42,8 @@ bps = body_points(
   to_left_elbow=[ -40, 30 ],
   to_left_wrist=[ -30, -20 ],
   to_left_finger=[ 0, 0 ],
-  to_right_elbow=[ -130, 30 ],
-  to_right_wrist=[ -40, 25 ],
+  to_right_elbow=[ -100, 30 ],
+  to_right_wrist=[ -60, 40 ],
   to_right_finger=[ 0, 40 ]
 );
 //echo(bps);
@@ -80,8 +80,8 @@ translate([ 0, -2, 0 ]) rotate([ 0, 0, 5 ]) {
     rotate([ -21, 20, 40 ])
       bow(height * 0.4, hh * 0.7);
 
-  #translate([ -2, 6.9, height * 0.61 ])
-    rotate([ 100, 0, 42 ])
-      cylinder(d=0.5, h=10.5, center=true); // arrow
+  #translate([ -2, 6.9, height * 0.57 ])
+    rotate([ 120, 0, 42 ])
+      cylinder(d=0.8, h=10.5, center=true); // arrow
 }
 
