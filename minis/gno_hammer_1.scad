@@ -1,6 +1,6 @@
 
 //
-// gno_hammer.scad
+// gno_hammer_1.scad
 //
 
 include <minidoll.scad>;
@@ -17,26 +17,26 @@ bps = body_points(
 
   height,
 
-  to_hip=90,
-  to_navel=90,
+  to_hip=87,
+  to_navel=80,
   to_neck=90,
-  to_head=90,
+  to_head=70,
 
-  to_left_knee=[ -80, 20 ],
+  to_left_knee=[ -80, 40 ],
   to_left_ankle=-90,
-  to_left_toe=[ 0, 10 ],
+  to_left_toe=[ 0, 20 ],
 
-  to_right_knee=[ -80, -20 ],
+  to_right_knee=[ -80, -40 ],
   to_right_ankle=-90,
-  to_right_toe=[ 0, -17 ],
+  to_right_toe=[ 0, -20 ],
 
-  to_left_elbow=[ -60, 90 ],
-  to_left_wrist=[ -40, -90 ],
-  to_left_finger=[ -90, 0 ],
+  to_left_elbow=[ -85, 91 ],
+  to_left_wrist=[ -70, -50 ],
+  to_left_finger=[ -60, -80 ],
 
-  to_right_elbow=[ -70, -50 ],
-  to_right_wrist=[ -40, -35 ],
-  to_right_finger=[ 0, -35 ]
+  to_right_elbow=[ -4, -160 ],
+  to_right_wrist=[ -55, -35 ],
+  to_right_finger=[ -50, -25 ]
 );
 //echo(bps);
 hh = bpoint(bps, "head height");
@@ -61,8 +61,8 @@ translate([ 0, -2, 0 ]) rotate([ 0, 0, 5 ]) {
     //sling_bag(bps);
   }
 
-  translate([ 6.4, 4.7, height * 0.31 ])
-    rotate([ 0, 180, 90 ])
+  translate([ 1.9, 1.0, height * 0.49 ])
+    rotate([ -10, -120, -10 ])
       hammer(hh * 4.2, hh * 0.8);
 }
 
