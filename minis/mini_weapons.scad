@@ -176,3 +176,14 @@ module bow(length, depth) {
   }
 }
 
+// hammers
+
+module hammer(length, side, handle_diameter=-1) {
+
+  hd = handle_diameter < 0 ? 1.4 : handle_diameter;
+
+  cylinder(d=hd, h=length, center=true);
+  translate([ 0, 0, length / 2 ])
+    cube(size=[ side * 2, side, side ], center=true);
+}
+
