@@ -3,31 +3,35 @@
 
 // unit is mm
 
-len = 100; // length
-wid = 45; // width
-hei = 8.4; // height
-
-sla = 0; // slit angle
 swi = 0.84; // slit width
-ssd = swi * 3; // slit to slit distance
-mnt = 2.5; // min thickness
+sdp = 20; // slit depth
 
+tsi = 30; // triangle side
+twi = 14; // triangle width
+
+ttd = 40; // tri to tri distance
+
+module tri() {
+  difference() {
+    rotate([ 90, 45, 0 ])
+      cube(size=[ tsi, tsi, twi ], center=true);
+    translate([ 0, 0, -tsi ])
+      cube(size=[ tsi * 2, tsi * 2, tsi * 2 ], center=true);
+  }
+}
 
 difference() {
 
-  hull() {
-    cube(size=[ len, wid, hei ], center=false);
-    translate([ len + wid / 3, wid / 2, 0 ])
-      cylinder(d=wid / 3, h=hei, $fn=12);
+  union() {
+    translate([ 0, -0.5 * ttd, 0 ])
+      tri();
+    translate([ 0, 0, tsi / 30 ])
+      cube(size=[ tsi, ttd, tsi / 15 ], center=true);
+    translate([ 0, 0.5 * ttd, 0 ])
+      tri();
   }
-  echo(len + wid / 3 + wid / 2);
 
-  // slit
-
-  for (i = [ 1 : 47 ]) {
-    translate([ i * ssd, wid / 2, hei + mnt ])
-      rotate([ 0, sla, 0 ])
-        cube(size=[ swi, wid * 1.1, hei * 2 ], center=true);
-  }
+  translate([ 0, 0, sdp / 2 + tsi / 15 ])
+    cube(size=[ swi, ttd * 2, sdp ], center=true);
 }
 
