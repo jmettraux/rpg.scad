@@ -187,3 +187,7 @@ module hammer(length, side, handle_diameter=-1) {
     cube(size=[ side * 2, side, side ], center=true);
 }
 
+// seax
+
+// TODO
+
