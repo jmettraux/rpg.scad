@@ -10,7 +10,8 @@ tow = 5; // tooth width
 tot = 11; // tooth thickness
 toh = 21; // tooth height
 
-tec = 23; // teeth count
+//tec = 23; // teeth count
+tec = 13; // teeth count
 
 bah = 4; // base height
 
