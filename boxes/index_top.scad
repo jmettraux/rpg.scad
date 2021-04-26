@@ -5,14 +5,14 @@
 
 // unit is mm
 
-len = 187; // length
-dep = 77; // depth
-hei = 42; // height
+len = 189.2; // length
+dep = 78.4; // depth
+hei = 49; // height
 
 sle = 30; // slit length
-swi = 7; // slit width
+swi = 6.3; // slit width
 
-thi = 2; // thickness
+thi = 1; // thickness
 
 
 difference() {
