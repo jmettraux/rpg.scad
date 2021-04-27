@@ -12,7 +12,7 @@ hei = 49; // height
 sle = 30; // slit length
 swi = 6.3; // slit width
 
-thi = 1; // thickness
+thi = 1.6; // thickness
 
 
 difference() {
@@ -34,6 +34,18 @@ difference() {
       cube(size=[ thi, dep + thi, hei ], center=true);
     translate([ len / 2, 0, hei / 2 - thi / 2 ])
       cube(size=[ thi, dep + thi, hei ], center=true);
+
+    // reinforcements
+
+    translate([ 0, dep / 2 - thi * 0.3, thi * 2 ])
+      cube(size=[ len, thi * 1.4, thi * 2 ], center=true);
+    translate([ 0, -dep / 2 + thi * 0.3, thi * 2 ])
+      cube(size=[ len, thi * 1.4, thi * 2 ], center=true);
+
+    translate([ -len / 2 + thi * 0.5, 0, thi * 2 ])
+      cube(size=[ thi * 1.4, dep + thi, thi * 2 ], center=true);
+    translate([ len / 2 - thi * 0.5, 0, thi * 2 ])
+      cube(size=[ thi * 1.4, dep + thi, thi * 2 ], center=true);
   }
 
   // arches
