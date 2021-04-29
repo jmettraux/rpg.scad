@@ -189,5 +189,27 @@ module hammer(length, side, handle_diameter=-1) {
 
 // seax
 
-// TODO
+module seax(length, handle_length=-1, handle_radius=0.5) {
+
+  l = length;
+  hl = handle_length < 0 ? l / 3 : handle_length;
+  hr = handle_radius;
+  hd = hr * 2;
+
+  st = 0.6; // scabbard thickness
+
+    // handle
+    //translate([ 0, 0, -hl / 2 - gh / 2 ])
+  translate([ 0, 0, -hl / 3 ])
+    cylinder(d1=hd, d2=hd, h=hl, center=true);
+
+  translate([ -hr * 0.6, 0, 0 ]) difference() {
+    translate([ 0, 0, -hl ]) hull() {
+      cube([ hd * 2, st, hd ], center=true);
+      translate([ 0, 0, -l ]) rotate([ 90, 0, 0 ]) cylinder(r=hd, h=st);
+    }
+    translate([ -hd * 0.7, -st * 0.1, -l ])
+      cube([ hd * 1.1, st * 2, l * 2 ], center=true);
+  }
+}
 
