@@ -422,6 +422,38 @@ module pointy_cap(body_points) {
     }
 }
 
+module phrygian_cap(body_points, drift=-0.7, rotation=[ 10, 0, 0 ]) {
+
+  ro = rotation;
+  h = bpoint(body_points, "head");
+  hh = bpoint(body_points, "head height");
+  r = hh * 0.64;
+  rh = 0.2; // ring height
+
+  r0 = r;         h0 = hh * 0.28;      d0 = [ 0, 0, h0 ];
+  r1 = r * 1.0;   h1 = h0 + r * 0.3;   d1 = [ 0, -0.3, h1 ];
+  r2 = r * 0.73;  h2 = h1 + r * 0.3;   d2 = [ 0, -0.6, h2 ];
+  r3 = 0.6;       h3 = h2 + r * 0.21;  d3 = [ drift, 2, h3 ];
+
+  ro2 = [ -21, 0, 0 ];
+    // cylinder before final sphere has a differentation rotation
+
+  scale([ 0.8, 1, 1 ]) {
+    hull() {
+      translate(h + d0) rotate(ro) cylinder(r=r0, h=rh);
+      translate(h + d1) rotate(ro) cylinder(r=r1, h=rh);
+    }
+    hull() {
+      translate(h + d1) rotate(ro) cylinder(r=r1, h=rh);
+      translate(h + d2) rotate(ro + ro2) cylinder(r=r2, h=rh);
+    }
+    hull() {
+      translate(h + d2) rotate(ro + ro2) cylinder(r=r2, h=rh);
+      translate(h + d3) rotate(ro) sphere(r=r3);
+    }
+  }
+}
+
 module veil(
   body_points,
   thickness=0
