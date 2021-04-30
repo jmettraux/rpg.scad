@@ -1,5 +1,5 @@
 
-// cadence f5a7122.scad
+// cadence c542243.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -38,6 +38,12 @@ function _del(dict, key) =
 
 function _put(dict, key, value) =
   concat(_del(dict, key), [ [ key, value ] ]);
+
+function _assoc(arr, key, default, off=0) =
+  let (a = arr[off])
+    a == undef ? default :
+    a[0] == key ? a :
+      _assoc(arr, key, default, off + 1);
 
 
 //
