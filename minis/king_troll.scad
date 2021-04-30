@@ -1,6 +1,6 @@
 
 //
-// giant_boar.scad
+// king_troll.scad
 //
 
 include <minidoll.scad>;
@@ -19,7 +19,7 @@ bps = body_points(
   foot_length_ratio=1.1, // 0.7
 
   to_low_hip=50,
-  to_hip=50,
+  to_hip=60,
   to_navel=50,
   to_neck=50,
   to_head=50,
@@ -36,15 +36,15 @@ bps = body_points(
   to_left_wrist=[ -70, 0 ],
   //to_left_finger=[ -60, 0 ],
     //
-  to_right_elbow=[ -120, 14 ],
-  to_right_wrist=[ -70, 0 ]
-  //to_right_finger=[ -60, 0 ]
+  to_right_elbow=[ -110, 14 ],
+  to_right_wrist=[ -27, -10 ],
+  to_right_finger=[ -5, 0 ]
 );
 //echo(bps);
 hh = bpoint(bps, "head height");
 
 
-base(diameter=50, text="  KT0", font_size=5, font_spacing=0.95, $fn=12);
+base(diameter=50, text="  Troll", font_size=5, font_spacing=0.95, $fn=12);
 
 
 module trollHead(body_points, angle=-40) {
@@ -74,12 +74,15 @@ rotate([ 0, 0, 0 ]) {
 
     body(bps,
       diameter=hh * 0.2,
-      buttock_diameter=hh * 0.3,
-      ankle_diameter=hh * 0.21,
-      foot_diameter=hh * 0.2,
+      buttock_diameter=hh * 0.4,
+      knee_diameter=hh * 0.3,
+      ankle_diameter=hh * 0.29,
+      foot_diameter=hh * 0.3,
       shoulder_diameter=hh * 0.42,
       wrist_diameter=hh * 0.2,
-      palm_diameter=hh * 0.2);
+      palm_diameter=hh * 0.21,
+      waist_diameter=hh * 0.37
+    );
 
     //rotate([ 0, 0, 40 ]) union() {
     //  trollHead(bps);
@@ -97,4 +100,16 @@ rotate([ 0, 0, 0 ]) {
     //}
   }
 }
+
+#translate([ 0, 0, 0 ])
+  union() {
+    hull() {
+      translate([ 10, 10, 2.1 ]) sphere(d=5);
+      translate([ 10, 10, 2.1 + 12 ]) sphere(d=3);
+    }
+    hull() {
+      translate([ 10, 10, 2.1 + 12 ]) sphere(d=3);
+      translate([ 10, 10, 2.1 + 19 ]) sphere(d=3);
+    }
+  }
 

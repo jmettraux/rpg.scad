@@ -208,6 +208,7 @@ module body(
   elbow_diameter=0,
   wrist_diameter=0,
   palm_diameter=0,
+  waist_diameter=0,
   diameter=0
 ) {
 
@@ -233,38 +234,39 @@ module body(
   ed = elbow_diameter > 0 ? elbow_diameter : d;
   wd = wrist_diameter > 0 ? wrist_diameter : d;
   pd = palm_diameter > 0 ? palm_diameter : d;
+  wad = waist_diameter > 0 ? waist_diameter : d;
 
-  _hul(llps[0], bd, llps[1], kd); // TODO replace buttock
-  _hul(llps[1], kd, llps[2], ad);
-  _hul(llps[2], ad, llps[3], fd);
-  _hul(rlps[0], bd, rlps[1], kd); // TODO replace buttock
-  _hul(rlps[1], kd, rlps[2], ad);
-  _hul(rlps[2], ad, rlps[3], fd);
+  _hul(llps[0], bd, llps[1], kd); // left leg
+  _hul(llps[1], kd, llps[2], ad); // left foreleg
+  _hul(llps[2], ad, llps[3], fd); // left foot
+  _hul(rlps[0], bd, rlps[1], kd); // right leg
+  _hul(rlps[1], kd, rlps[2], ad); // right foreleg
+  _hul(rlps[2], ad, rlps[3], fd); // right foot
 
-  _hul(llps[0], bd, sps[0], bd); // TODO replace buttock
-  _hul(sps[0], bd, rlps[0], bd); // TODO replace buttock
+  _hul(llps[0], bd, sps[0], bd); // left butt cheek
+  _hul(sps[0], bd, rlps[0], bd); // right butt cheek
 
   _hul(sps[0], d, sps[1], d);
   _hul(sps[1], d, sps[2], d);
-  _hul(sps[2], d, sps[3], d);
-  _hul(sps[3], d, sps[4], d);
+  _hul(sps[2], d, sps[3], d); // lower neck
+  _hul(sps[3], d, sps[4], d); // top neck
 
-  _hul(laps[0], sd, sps[2], d);
-  _hul(sps[2], d, raps[0], sd);
+  _hul(laps[0], sd, sps[2], d); // left shoulder
+  _hul(sps[2], d, raps[0], sd); // right shoulder
 
-  _hul(laps[0], sd, laps[1], ed);
-  _hul(laps[1], ed, laps[2], wd);
-  _hul(laps[2], wd, laps[3], pd);
-  _hul(raps[0], sd, raps[1], ed);
-  _hul(raps[1], ed, raps[2], wd);
-  _hul(raps[2], wd, raps[3], pd);
+  _hul(laps[0], sd, laps[1], ed); // left arm
+  _hul(laps[1], ed, laps[2], wd); // left forearm
+  _hul(laps[2], wd, laps[3], pd); // left hand
+  _hul(raps[0], sd, raps[1], ed); // right arm
+  _hul(raps[1], ed, raps[2], wd); // right forearm
+  _hul(raps[2], wd, raps[3], pd); // right hand
 
-  hull() {
-    _bal(llps[0], d); _bal(rlps[0], d);
-    _bal(wps[0], d); _bal(wps[2], d);
+  hull() { // waist
+    _bal(llps[0], wad); _bal(rlps[0], wad);
+    _bal(wps[0], wad); _bal(wps[2], wad);
   }
-  hull() {
-    _bal(wps[0], d); _bal(wps[2], d);
+  hull() { // torso
+    _bal(wps[0], wad); _bal(wps[2], wad);
     _bal(laps[0], sd); _bal(sps[2], sd); _bal(raps[0], sd);
   }
 }
@@ -533,7 +535,6 @@ module sling_bag(body_points) {
   //      translate([ cd / 2, 0, 0 ]) cylinder(r=rc1, h=ch);
   //    }
 }
-
 
 /*
 translate([ 30, 0, 0 ]) {
