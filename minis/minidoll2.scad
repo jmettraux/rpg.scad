@@ -152,16 +152,17 @@ module draw_body_balls(body_points) {
 
 module draw_body_hulls(body_points, body_hulls) {
 
-  hs = [ for (h = body_hulls) if (is_list(h[0])) h ];
+  hs = [ for (h = body_hulls) if (is_list(h[1])) h ];
 
   dd = 0.7; // default diameter
 
   for (h = hs) {
     #hull() {
       for (p = h) {
-        _bal(
-          bpoint(body_points, p[0]),
-          _get(body_hulls, p[1], dd));
+        if ( ! is_string(p))
+          _bal(
+            bpoint(body_points, p[0]),
+            _get(body_hulls, p[1], dd));
       }
     }
   }
@@ -192,50 +193,67 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "shoulder diameter", 1.3 ],
     [ "neck diameter", 1.1 ],
 
-    [ [ "l hip", "leg diameter" ],
+    [ "l thigh",
+      [ "l hip", "leg diameter" ],
       [ "l knee", "knee diameter" ] ],
-    [ [ "l knee", "knee diameter" ],
+    [ "l shin",
+      [ "l knee", "knee diameter" ],
       [ "l ankle", "ankle diameter" ] ],
-    [ [ "l ankle", "ankle diameter" ],
+    [ "l palm",
+      [ "l ankle", "ankle diameter" ],
       [ "l ball", "ball diameter" ] ],
-    [ [ "l ball", "ball diameter" ],
+    [ "l toe",
+      [ "l ball", "ball diameter" ],
       [ "l toe", "toe diameter" ] ],
 
-    [ [ "r hip", "leg diameter" ],
+    [ "r thigh",
+      [ "r hip", "leg diameter" ],
       [ "r knee", "knee diameter" ] ],
-    [ [ "r knee", "knee diameter" ],
+    [ "r shin",
+      [ "r knee", "knee diameter" ],
       [ "r ankle", "ankle diameter" ] ],
-    [ [ "r ankle", "ankle diameter" ],
+    [ "r palm",
+      [ "r ankle", "ankle diameter" ],
       [ "r ball", "ball diameter" ] ],
-    [ [ "r ball", "ball diameter" ],
+    [ "r toe",
+      [ "r ball", "ball diameter" ],
       [ "r toe", "toe diameter" ] ],
 
-    [ [ "l hip", "hip diameter" ],
+    [ "basin",
+      [ "l hip", "hip diameter" ],
       [ "r hip", "hip diameter" ],
       [ "l waist", "waist diameter" ],
       [ "r waist", "waist diameter" ] ],
-    [ [ "l waist", "waist diameter" ],
+    [ "torso",
+      [ "l waist", "waist diameter" ],
       [ "r waist", "waist diameter" ],
       [ "l shoulder", "shoulder diameter" ],
       [ "r shoulder", "shoulder diameter" ],
       [ "shoulder", "neck diameter" ],
       [ "neck", "neck diameter" ] ],
 
-    [ [ "neck", "neck diameter" ],
+    [ "neck",
+      [ "neck", "neck diameter" ],
       [ "head", "neck diameter" ] ],
 
-    [ [ "l shoulder", "shoulder diameter" ],
+    [ "l arm",
+      [ "l shoulder", "shoulder diameter" ],
       [ "l elbow", "elbow diameter" ] ],
-    [ [ "l elbow", "elbow diameter" ],
+    [ "l forearm",
+      [ "l elbow", "elbow diameter" ],
       [ "l wrist", "wrist diameter" ] ],
-    [ [ "l wrist", "wrist diameter" ],
+    [ "l hand",
+      [ "l wrist", "wrist diameter" ],
       [ "l hand", "hand diameter" ] ],
 
-    [ [ "r shoulder", "shoulder diameter" ],
+    [ "r arm",
+      [ "r shoulder", "shoulder diameter" ],
       [ "r elbow", "elbow diameter" ] ],
-    [ [ "r elbow", "elbow diameter" ],
+    [ "r forearm",
+      [ "r elbow", "elbow diameter" ],
       [ "r wrist", "wrist diameter" ] ],
-    [ [ "r wrist", "wrist diameter" ],
+    [ "r hand",
+      [ "r wrist", "wrist diameter" ],
       [ "r hand", "hand diameter" ] ],
   ]);
 
