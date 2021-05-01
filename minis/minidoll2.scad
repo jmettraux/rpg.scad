@@ -34,31 +34,35 @@ function bpoint(body_points, name, default=undef)=
 
 
 default_humanoid_body = [
+
   [ "height", 33 ],
   [ "head ratio", 1 / 8 ], // to compute head height
-  [ "basin ratio", 3 / 4 ], // from now on, ratios are head height based
-  [ "thigh ratio", 2 ],
-  [ "shin ratio", 2 ],
+
+  [ "knee ratio", 2 ],
+  [ "ankle ratio", 2 ],
   [ "ball ratio", 0.4 ],
   [ "toe ratio", 0.3 ],
   [ "waist ratio", 1 ],
   [ "back ratio", 1 ],
   [ "shoulder ratio", 3 / 4 ],
   [ "neck ratio", 1 / 4 ],
-  [ "plate ratio", 1.1 ],
   [ "elbow ratio", 1.5 ],
   [ "wrist ratio", 1 ],
   [ "hand ratio", 1 / 2 ],
 
-  [ "l hip", 0, 90, "basin ratio", "origin" ],
-  [ "l knee", -90, 0, "thigh ratio", "l hip" ],
-  [ "l ankle", -90, 0, "shin ratio", "l knee" ],
+  [ "side hip ratio", 3 / 4 ], // from now on, ratios are head height based
+  [ "side waist ratio", 0.7 ],
+  [ "side shoulder ratio", 1.1 ],
+
+  [ "l hip", 0, 90, "side hip ratio", "origin" ],
+  [ "l knee", -90, 0, "knee ratio", "l hip" ],
+  [ "l ankle", -90, 0, "ankle ratio", "l knee" ],
   [ "l ball", 0, 0, "ball ratio", "l ankle" ],
   [ "l toe", 0, 0, "toe ratio", "l ball" ],
 
-  [ "r hip", 0, -90, "basin ratio", "origin" ],
-  [ "r knee", -90, 0, "thigh ratio", "r hip" ],
-  [ "r ankle", -90, 0, "shin ratio", "r knee" ],
+  [ "r hip", 0, -90, "side hip ratio", "origin" ],
+  [ "r knee", -90, 0, "knee ratio", "r hip" ],
+  [ "r ankle", -90, 0, "ankle ratio", "r knee" ],
   [ "r ball", 0, 0, "ball ratio", "r ankle" ],
   [ "r toe", 0, 0, "toe ratio", "r ball" ],
 
@@ -67,12 +71,15 @@ default_humanoid_body = [
   [ "shoulder", 90, 0, "shoulder ratio", "back" ],
   [ "neck", 90, 0, "neck ratio", "shoulder" ],
 
-  [ "l shoulder", 0, 90, "plate ratio", "shoulder" ],
+  [ "l waist", 0, 90, "side waist ratio", "waist" ],
+  [ "r waist", 0, -90, "side waist ratio", "waist" ],
+
+  [ "l shoulder", 0, 90, "side shoulder ratio", "shoulder" ],
   [ "l elbow", -90, 0, "elbow ratio", "l shoulder" ],
   [ "l wrist", -90, 0, "wrist ratio", "l elbow" ],
   [ "l hand", -90, 0, "hand ratio", "l wrist" ],
 
-  [ "r shoulder", 0, -90, "plate ratio", "shoulder" ],
+  [ "r shoulder", 0, -90, "side shoulder ratio", "shoulder" ],
   [ "r elbow", -90, 0, "elbow ratio", "r shoulder" ],
   [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
   [ "r hand", -90, 0, "hand ratio", "r wrist" ],
@@ -84,7 +91,6 @@ default_humanoid_body = [
 // scaffolding tests...
 
 bps = default_humanoid_body;
-
 
 color("yellow") _bal(bpoint(bps, "l hip"), 1);
 color("yellow") _bal(bpoint(bps, "l knee"), 1);
@@ -103,6 +109,9 @@ color("blue") _bal(bpoint(bps, "waist"), 1);
 color("blue") _bal(bpoint(bps, "back"), 1);
 color("blue") _bal(bpoint(bps, "shoulder"), 1);
 color("cyan") _bal(bpoint(bps, "neck"), 1);
+
+color("blue") _bal(bpoint(bps, "l waist"), 1);
+color("blue") _bal(bpoint(bps, "r waist"), 1);
 
 color("red") _bal(bpoint(bps, "l shoulder"), 1);
 color("red") _bal(bpoint(bps, "l elbow"), 1);
