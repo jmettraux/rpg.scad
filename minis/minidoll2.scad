@@ -26,7 +26,7 @@ function bpoint(body_points, name, default=undef)=
   let(
     p = _assoc(body_points, name, default),
     h = _get(body_points, "height"),
-    hh = h * _get(body_points, "head ratio"),
+    hh = h * _get(body_points, "head height ratio"),
     l = hh * _get(body_points, p[3])
   )
   name == "origin" ? [ 0, 0, 0 ] :
@@ -36,23 +36,29 @@ function bpoint(body_points, name, default=undef)=
 default_humanoid_body = [
 
   [ "height", 33 ],
-  [ "head ratio", 1 / 8 ], // to compute head height
+  [ "head height ratio", 1 / 8 ], // to compute head height
 
+  [ "side hip ratio", 3 / 4 ], // from now on, ratios are head height based
   [ "knee ratio", 2 ],
   [ "ankle ratio", 2 ],
   [ "ball ratio", 0.4 ],
   [ "toe ratio", 0.3 ],
+
+  [ "side waist ratio", 0.7 ],
+
+    // origin to waist : 1
+    // waist to back : 1
+    // back to neck : 1
   [ "waist ratio", 1 ],
   [ "back ratio", 1 ],
-  [ "shoulder ratio", 3 / 4 ],
-  [ "neck ratio", 1 / 4 ],
+  [ "shoulder ratio", 1 / 2 ],
+  [ "neck ratio", 1 / 2 ],
+  [ "head ratio", 0.42 ],
+
+  [ "side shoulder ratio", 1.1 ],
   [ "elbow ratio", 1.5 ],
   [ "wrist ratio", 1 ],
   [ "hand ratio", 1 / 2 ],
-
-  [ "side hip ratio", 3 / 4 ], // from now on, ratios are head height based
-  [ "side waist ratio", 0.7 ],
-  [ "side shoulder ratio", 1.1 ],
 
   [ "l hip", 0, 90, "side hip ratio", "origin" ],
   [ "l knee", -90, 0, "knee ratio", "l hip" ],
@@ -70,6 +76,7 @@ default_humanoid_body = [
   [ "back", 90, 0, "back ratio", "waist" ],
   [ "shoulder", 90, 0, "shoulder ratio", "back" ],
   [ "neck", 90, 0, "neck ratio", "shoulder" ],
+  [ "head", 90, 0, "head ratio", "neck" ],
 
   [ "l waist", 0, 90, "side waist ratio", "waist" ],
   [ "r waist", 0, -90, "side waist ratio", "waist" ],
@@ -109,6 +116,7 @@ color("blue") _bal(bpoint(bps, "waist"), 1);
 color("blue") _bal(bpoint(bps, "back"), 1);
 color("blue") _bal(bpoint(bps, "shoulder"), 1);
 color("cyan") _bal(bpoint(bps, "neck"), 1);
+color("cyan") _bal(bpoint(bps, "head"), 1);
 
 color("blue") _bal(bpoint(bps, "l waist"), 1);
 color("blue") _bal(bpoint(bps, "r waist"), 1);
