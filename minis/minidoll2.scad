@@ -33,7 +33,7 @@ function bpoint(body_points, name, default=undef)=
   _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));
 
 
-default_humanoid_body = [
+default_humanoid_body_points = [
 
   [ "height", 33 ],
   [ "head height ratio", 1 / 8 ], // to compute head height
@@ -91,22 +91,26 @@ default_humanoid_body = [
   [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
   [ "r hand", -90, 0, "hand ratio", "r wrist" ],
 ];
-//function make_humanoid(entries)=
+
+function make_humanoid(entries)=
+  concat(entries, default_humanoid_body_points);
 
 
 //
 // scaffolding tests...
 
-bps = default_humanoid_body;
+bps = make_humanoid([
+  [ "knee ratio", 3 ],
+  [ "hand ratio", 1 ]
+    ]);
 
 module draw_body_balls(body_points) {
   for (p = body_points) {
     p0 = p[0];
     if (_sindex(p0, "ratio") == undef && _sindex(p0, "height") == undef) {
-      echo(p);
       c =
-        _sstr(p0, 0, 2) == "l " ? "green" :
-        _sstr(p0, 0, 2) == "r " ? "red" :
+        _sstr(p0, 0, 2) == "l " ? "#0000FF" :
+        _sstr(p0, 0, 2) == "r " ? "#FF0000" :
         "yellow";
       color(c) _bal(bpoint(body_points, p0));
     }
