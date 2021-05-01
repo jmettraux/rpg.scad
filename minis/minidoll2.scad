@@ -22,6 +22,9 @@ module _bal(p, d) {
   translate(p) sphere(d);
 };
 
+function bpoints(body_points)=
+  [ for (p = body_points) if (len(p) > 2) bpoint(body_points, p[0]) ];
+
 function bpoint(body_points, name, default=undef)=
   let(
     p = _assoc(body_points, name, default),
@@ -30,6 +33,7 @@ function bpoint(body_points, name, default=undef)=
     l = hh * _get(body_points, p[3])
   )
   name == "origin" ? [ 0, 0, 0 ] :
+  name == "z" ? - min([ for (p = bpoints(body_points)) p.z ]) :
   _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));
 
 
@@ -38,13 +42,13 @@ default_humanoid_body_points = [
   [ "height", 33 ],
   [ "head height ratio", 1 / 8 ], // to compute head height
 
-  [ "side hip ratio", 3 / 4 ], // from now on, ratios are head height based
+  [ "side hip ratio", 0.5 ], // from now on, ratios are head height based
   [ "knee ratio", 2 ],
   [ "ankle ratio", 2 ],
   [ "ball ratio", 0.4 ],
   [ "toe ratio", 0.3 ],
 
-  [ "side waist ratio", 0.7 ],
+  [ "side waist ratio", 0.56 ],
 
     // origin to waist : 1
     // waist to back : 1
@@ -171,20 +175,27 @@ module draw_body_hulls(body_points, body_hulls) {
 $fn=12;
 
 bps = make_humanoid_body_points([
-  [ "knee ratio", 3 ],
+  [ "knee ratio", 2 ],
   [ "hand ratio", 0.5 ],
   [ "r knee", -60 ],
   [ "l knee", -100, -20 ],
   [ "l ankle", -110, -10 ],
     ]);
-draw_body_balls(bps);
 
-draw_body_hulls(bps, [
-  [ "knee diameter", 1 ],
-  [ "leg diameter", 1.2 ],
-  [ [ "l hip", "leg diameter" ],
-    [ "l knee", "knee diameter" ] ],
-  [ [ "l knee", "knee diameter" ],
-    [ "l ankle", "ankle diameter" ] ],
-]);
+translate([ 0, 0, bpoint(bps, "z") ])
+  draw_body_balls(bps);
+
+translate([ 0, 0, bpoint(bps, "z") ])
+  draw_body_hulls(bps, [
+    [ "knee diameter", 1 ],
+    [ "leg diameter", 1.2 ],
+    [ [ "l hip", "leg diameter" ],
+      [ "l knee", "knee diameter" ] ],
+    [ [ "l knee", "knee diameter" ],
+      [ "l ankle", "ankle diameter" ] ],
+    [ [ "r hip", "leg diameter" ],
+      [ "r knee", "knee diameter" ] ],
+    [ [ "r knee", "knee diameter" ],
+      [ "r ankle", "ankle diameter" ] ],
+  ]);
 
