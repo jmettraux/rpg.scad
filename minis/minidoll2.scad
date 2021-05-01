@@ -39,7 +39,8 @@ default_humanoid_body = [
   [ "basin ratio", 3 / 4 ], // from now on, ratios are head height based
   [ "thigh ratio", 2 ],
   [ "shin ratio", 2 ],
-  [ "foot ratio", 0.7 ],
+  [ "ball ratio", 0.4 ],
+  [ "toe ratio", 0.3 ],
   [ "waist ratio", 1 ],
   [ "back ratio", 1 ],
   [ "shoulder ratio", 3 / 4 ],
@@ -52,11 +53,14 @@ default_humanoid_body = [
   [ "l hip", 0, 90, "basin ratio", "origin" ],
   [ "l knee", -90, 0, "thigh ratio", "l hip" ],
   [ "l ankle", -90, 0, "shin ratio", "l knee" ],
-  [ "l toe", 0, 0, "foot ratio", "l ankle" ],
+  [ "l ball", 0, 0, "ball ratio", "l ankle" ],
+  [ "l toe", 0, 0, "toe ratio", "l ball" ],
+
   [ "r hip", 0, -90, "basin ratio", "origin" ],
   [ "r knee", -90, 0, "thigh ratio", "r hip" ],
   [ "r ankle", -90, 0, "shin ratio", "r knee" ],
-  [ "r toe", 0, 0, "foot ratio", "r ankle" ],
+  [ "r ball", 0, 0, "ball ratio", "r ankle" ],
+  [ "r toe", 0, 0, "toe ratio", "r ball" ],
 
   [ "waist", 90, 0, "waist ratio", "origin" ],
   [ "back", 90, 0, "back ratio", "waist" ],
@@ -67,6 +71,7 @@ default_humanoid_body = [
   [ "l elbow", -90, 0, "elbow ratio", "l shoulder" ],
   [ "l wrist", -90, 0, "wrist ratio", "l elbow" ],
   [ "l hand", -90, 0, "hand ratio", "l wrist" ],
+
   [ "r shoulder", 0, -90, "plate ratio", "shoulder" ],
   [ "r elbow", -90, 0, "elbow ratio", "r shoulder" ],
   [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
@@ -80,23 +85,30 @@ default_humanoid_body = [
 
 bps = default_humanoid_body;
 
+
+color("yellow") _bal(bpoint(bps, "l hip"), 1);
+color("yellow") _bal(bpoint(bps, "l knee"), 1);
+color("yellow") _bal(bpoint(bps, "l ankle"), 1);
+color("yellow") _bal(bpoint(bps, "l ball"), 1);
+color("yellow") _bal(bpoint(bps, "l toe"), 1);
+
+color("yellow") _bal(bpoint(bps, "r hip"), 1);
+color("yellow") _bal(bpoint(bps, "r knee"), 1);
+color("yellow") _bal(bpoint(bps, "r ankle"), 1);
+color("yellow") _bal(bpoint(bps, "r ball"), 1);
+color("yellow") _bal(bpoint(bps, "r toe"), 1);
+
 color("blue") _bal(bpoint(bps, "origin"), 1);
-_bal(bpoint(bps, "l hip"), 1);
-_bal(bpoint(bps, "l knee"), 1);
-_bal(bpoint(bps, "l ankle"), 1);
-_bal(bpoint(bps, "l toe"), 1);
-_bal(bpoint(bps, "r hip"), 1);
-_bal(bpoint(bps, "r knee"), 1);
-_bal(bpoint(bps, "r ankle"), 1);
-_bal(bpoint(bps, "r toe"), 1);
 color("blue") _bal(bpoint(bps, "waist"), 1);
 color("blue") _bal(bpoint(bps, "back"), 1);
 color("blue") _bal(bpoint(bps, "shoulder"), 1);
 color("cyan") _bal(bpoint(bps, "neck"), 1);
+
 color("red") _bal(bpoint(bps, "l shoulder"), 1);
 color("red") _bal(bpoint(bps, "l elbow"), 1);
 color("red") _bal(bpoint(bps, "l wrist"), 1);
 color("red") _bal(bpoint(bps, "l hand"), 1);
+
 color("red") _bal(bpoint(bps, "r shoulder"), 1);
 color("red") _bal(bpoint(bps, "r elbow"), 1);
 color("red") _bal(bpoint(bps, "r wrist"), 1);
