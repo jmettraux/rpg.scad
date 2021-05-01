@@ -92,19 +92,45 @@ default_humanoid_body_points = [
   [ "r hand", -90, 0, "hand ratio", "r wrist" ],
 ];
 
-function make_humanoid(entries)=
-  concat(entries, default_humanoid_body_points);
+function _merge_body_ratio(v0, entry)=
+  entry;
+
+function _merge_body_point(v0, entry)=
+  let(
+    l = len(entry)
+  )
+  l > 4 ? entry :
+  l == 4 ? [ v0[0], entry[1], entry[2], entry[3], v0[4] ] :
+  l == 3 ? [ v0[0], entry[1], entry[2], v0[3], v0[4] ] :
+  [ v0[0], entry[1], 0, v0[3], v0[4] ];
+
+function _merge_body_entry(points, entry)=
+  let (
+    k = entry[0],
+    v0 = _assoc(points, k)
+  )
+  _app(
+    points,
+    k == "height" ? entry :
+    _sindex(k, " ratio") ? _merge_body_ratio(v0, entry) :
+    _merge_body_point(v0, entry));
 
 
-//
-// scaffolding tests...
+function _merge_body_entries(points, entries, i=0)=
+  let (
+    e = entries[i]
+  )
+  e == undef ? points :
+  _merge_body_entries(_merge_body_entry(points, e), entries, i + 1);
 
-bps = make_humanoid([
-  [ "knee ratio", 3 ],
-  [ "hand ratio", 1 ]
-    ]);
+function make_humanoid_body_points(entries)=
+  _merge_body_entries(default_humanoid_body_points, entries);
+
 
 module draw_body_balls(body_points) {
+
+  _bal(bpoint(body_points, "origin"));
+
   for (p = body_points) {
     p0 = p[0];
     if (_sindex(p0, "ratio") == undef && _sindex(p0, "height") == undef) {
@@ -116,5 +142,16 @@ module draw_body_balls(body_points) {
     }
   }
 }
+
+
+//
+// scaffolding tests...
+
+bps = make_humanoid_body_points([
+  [ "knee ratio", 3 ],
+  [ "hand ratio", 1 ],
+  [ "r knee", -60 ],
+  [ "l knee", -100, -30 ],
+    ]);
 draw_body_balls(bps);
 
