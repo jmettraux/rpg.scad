@@ -97,12 +97,13 @@ function _merge_body_ratio(v0, entry)=
 
 function _merge_body_point(v0, entry)=
   let(
+    k = entry[0],
     l = len(entry)
   )
   l > 4 ? entry :
-  l == 4 ? [ v0[0], entry[1], entry[2], entry[3], v0[4] ] :
-  l == 3 ? [ v0[0], entry[1], entry[2], v0[3], v0[4] ] :
-  [ v0[0], entry[1], 0, v0[3], v0[4] ];
+  l == 4 ? [ k, entry[1], entry[2], entry[3], v0[4] ] :
+  l == 3 ? [ k, entry[1], entry[2], v0[3], v0[4] ] :
+  [ k, entry[1], 0, v0[3], v0[4] ];
 
 function _merge_body_entry(points, entry)=
   let (
@@ -115,7 +116,6 @@ function _merge_body_entry(points, entry)=
     _sindex(k, " ratio") ? _merge_body_ratio(v0, entry) :
     _merge_body_point(v0, entry));
 
-
 function _merge_body_entries(points, entries, i=0)=
   let (
     e = entries[i]
@@ -123,13 +123,16 @@ function _merge_body_entries(points, entries, i=0)=
   e == undef ? points :
   _merge_body_entries(_merge_body_entry(points, e), entries, i + 1);
 
+
 function make_humanoid_body_points(entries)=
   _merge_body_entries(default_humanoid_body_points, entries);
 
 
 module draw_body_balls(body_points) {
 
-  _bal(bpoint(body_points, "origin"));
+  d = 0.7;
+
+  _bal(bpoint(body_points, "origin"), d);
 
   for (p = body_points) {
     p0 = p[0];
@@ -138,7 +141,25 @@ module draw_body_balls(body_points) {
         _sstr(p0, 0, 2) == "l " ? "#0000FF" :
         _sstr(p0, 0, 2) == "r " ? "#FF0000" :
         "yellow";
-      color(c) _bal(bpoint(body_points, p0));
+      color(c) _bal(bpoint(body_points, p0), d);
+    }
+  }
+}
+
+module draw_body_hulls(body_points, body_hulls) {
+
+  hs = [ for (h = body_hulls) if (is_list(h[0])) h ];
+  ds = [ for (h = body_hulls) if ( ! is_list(h[0])) h ];
+
+  dd = 0.7; // default diameter
+
+  for (h = hs) {
+    #hull() {
+      for (p = h) {
+        echo(p);
+        d = _get(ds, p[1], dd);
+        _bal(bpoint(body_points, p[0]), d);
+      }
     }
   }
 }
@@ -147,11 +168,23 @@ module draw_body_balls(body_points) {
 //
 // scaffolding tests...
 
+$fn=12;
+
 bps = make_humanoid_body_points([
   [ "knee ratio", 3 ],
-  [ "hand ratio", 1 ],
+  [ "hand ratio", 0.5 ],
   [ "r knee", -60 ],
-  [ "l knee", -100, -30 ],
+  [ "l knee", -100, -20 ],
+  [ "l ankle", -110, -10 ],
     ]);
 draw_body_balls(bps);
+
+draw_body_hulls(bps, [
+  [ "knee diameter", 1 ],
+  [ "leg diameter", 1.2 ],
+  [ [ "l hip", "leg diameter" ],
+    [ "l knee", "knee diameter" ] ],
+  [ [ "l knee", "knee diameter" ],
+    [ "l ankle", "ankle diameter" ] ],
+]);
 
