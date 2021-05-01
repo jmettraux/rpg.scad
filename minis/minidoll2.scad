@@ -25,17 +25,38 @@ module _bal(p, d) {
 function bpoints(body_points)=
   [ for (p = body_points) if (len(p) > 2) bpoint(body_points, p[0]) ];
 
-function bpoint(body_points, name, default=undef)=
+function bpoint_z(body_points)=
+  - min([ for (p = bpoints(body_points)) p.z ]);
+
+function bpoint_mid(body_points, p)=
+  [ 0, 0, 0 ];
+  //let(
+  //  h = _get(body_points, "height"),
+  //  hh = h * _get(body_points, "head height ratio"),
+  //  p1 = bpoint(body_points, p[1]),
+  //  p0 = bpoint(body_points, p1[4]),
+  //  l1 = hh * _get(body_points, p1[3])
+  //)
+  //_to_point(l0 * p[2], [ p1[1], p1[2] ], [ 0, 0, 0 ]);
+  ////109|function _to_point(length, angles, sp=[ 0, 0, 0 ]) =
+  ////[ "r thigh", "r knee", 0.5 ],
+
+function bpoint_point(body_points, p)=
   let(
-    p = _assoc(body_points, name, default),
     h = _get(body_points, "height"),
     hh = h * _get(body_points, "head height ratio"),
     l = hh * _get(body_points, p[3])
   )
-  name == "origin" ? [ 0, 0, 0 ] :
-  name == "z" ? - min([ for (p = bpoints(body_points)) p.z ]) :
   _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));
 
+function bpoint(body_points, name, default=undef)=
+  let(
+    p = _assoc(body_points, name, default)
+  )
+  name == "origin" ? [ 0, 0, 0 ] :
+  is_string(p[1]) ? bpoint_mid(body_points, p) :
+  name == "z" ? bpoint_z(body_points) :
+  bpoint_point(body_points, p);
 
 default_humanoid_body_points = [
 
@@ -94,6 +115,8 @@ default_humanoid_body_points = [
   [ "r elbow", -90, 0, "elbow ratio", "r shoulder" ],
   [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
   [ "r hand", -90, 0, "hand ratio", "r wrist" ],
+
+  //[ "r thigh", "r knee", 0.5 ],
 ];
 
 function _merge_body_ratio(v0, entry)=
