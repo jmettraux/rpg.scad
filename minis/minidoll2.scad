@@ -55,14 +55,14 @@ default_humanoid_body_points = [
     // back to neck : 1
   [ "waist ratio", 1 ],
   [ "back ratio", 1 ],
-  [ "shoulder ratio", 1 / 2 ],
-  [ "neck ratio", 1 / 2 ],
+  [ "shoulder ratio", 0.5 ],
+  [ "neck ratio", 0.4 ],
   [ "head ratio", 0.42 ],
 
   [ "side shoulder ratio", 1.1 ],
   [ "elbow ratio", 1.5 ],
   [ "wrist ratio", 1 ],
-  [ "hand ratio", 1 / 2 ],
+  [ "hand ratio", 0.5 ],
 
   [ "l hip", 0, 90, "side hip ratio", "origin" ],
   [ "l knee", -90, 0, "knee ratio", "l hip" ],
@@ -153,16 +153,15 @@ module draw_body_balls(body_points) {
 module draw_body_hulls(body_points, body_hulls) {
 
   hs = [ for (h = body_hulls) if (is_list(h[0])) h ];
-  ds = [ for (h = body_hulls) if ( ! is_list(h[0])) h ];
 
   dd = 0.7; // default diameter
 
   for (h = hs) {
     #hull() {
       for (p = h) {
-        echo(p);
-        d = _get(ds, p[1], dd);
-        _bal(bpoint(body_points, p[0]), d);
+        _bal(
+          bpoint(body_points, p[0]),
+          _get(body_hulls, p[1], dd));
       }
     }
   }
@@ -191,6 +190,7 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "leg diameter", 1.2 ],
     [ "hip diameter", 1.2 ],
     [ "shoulder diameter", 1.3 ],
+    [ "neck diameter", 1.1 ],
 
     [ [ "l hip", "leg diameter" ],
       [ "l knee", "knee diameter" ] ],
@@ -217,9 +217,12 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ [ "l waist", "waist diameter" ],
       [ "r waist", "waist diameter" ],
       [ "l shoulder", "shoulder diameter" ],
-      [ "r shoulder", "shoulder diameter" ] ],
-    [ [ "shoulder", "neck diameter" ],
+      [ "r shoulder", "shoulder diameter" ],
+      [ "shoulder", "neck diameter" ],
       [ "neck", "neck diameter" ] ],
+
+    [ [ "neck", "neck diameter" ],
+      [ "head", "neck diameter" ] ],
 
     [ [ "l shoulder", "shoulder diameter" ],
       [ "l elbow", "elbow diameter" ] ],
