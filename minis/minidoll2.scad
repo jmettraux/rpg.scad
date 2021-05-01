@@ -6,7 +6,7 @@
 include <minilib.scad>;
 
 // point
-//   [ name, inclination, azimuth, distance, parent_name ]
+//   [ name, inclination, azimuth, distance_ratio, parent_name ]
 
 // body_points
 //   points: dict
@@ -24,27 +24,81 @@ module _bal(p, d) {
 
 function bpoint(body_points, name, default=undef)=
   let(
-    p = _assoc(body_points, name, default)
+    p = _assoc(body_points, name, default),
+    h = _get(body_points, "height"),
+    hh = h * _get(body_points, "head ratio"),
+    l = hh * _get(body_points, p[3])
   )
   name == "origin" ? [ 0, 0, 0 ] :
-  _to_point(p[3], [ p[1], p[2] ], bpoint(body_points, p[4]));
+  _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));
+
+
+default_humanoid_body = [
+  [ "height", 33 ],
+  [ "head ratio", 1 / 8 ], // to compute head height
+  [ "basin ratio", 3 / 4 ], // from now on, ratios are head height based
+  [ "thigh ratio", 2 ],
+  [ "shin ratio", 2 ],
+  [ "foot ratio", 0.7 ],
+  [ "waist ratio", 1 ],
+  [ "back ratio", 1 ],
+  [ "shoulder ratio", 3 / 4 ],
+  [ "neck ratio", 1 / 4 ],
+  [ "plate ratio", 1.1 ],
+  [ "elbow ratio", 1.5 ],
+  [ "wrist ratio", 1 ],
+  [ "hand ratio", 1 / 2 ],
+
+  [ "l hip", 0, 90, "basin ratio", "origin" ],
+  [ "l knee", -90, 0, "thigh ratio", "l hip" ],
+  [ "l ankle", -90, 0, "shin ratio", "l knee" ],
+  [ "l toe", 0, 0, "foot ratio", "l ankle" ],
+  [ "r hip", 0, -90, "basin ratio", "origin" ],
+  [ "r knee", -90, 0, "thigh ratio", "r hip" ],
+  [ "r ankle", -90, 0, "shin ratio", "r knee" ],
+  [ "r toe", 0, 0, "foot ratio", "r ankle" ],
+
+  [ "waist", 90, 0, "waist ratio", "origin" ],
+  [ "back", 90, 0, "back ratio", "waist" ],
+  [ "shoulder", 90, 0, "shoulder ratio", "back" ],
+  [ "neck", 90, 0, "neck ratio", "shoulder" ],
+
+  [ "l shoulder", 0, 90, "plate ratio", "shoulder" ],
+  [ "l elbow", -90, 0, "elbow ratio", "l shoulder" ],
+  [ "l wrist", -90, 0, "wrist ratio", "l elbow" ],
+  [ "l hand", -90, 0, "hand ratio", "l wrist" ],
+  [ "r shoulder", 0, -90, "plate ratio", "shoulder" ],
+  [ "r elbow", -90, 0, "elbow ratio", "r shoulder" ],
+  [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
+  [ "r hand", -90, 0, "hand ratio", "r wrist" ],
+];
+//function make_humanoid(entries)=
 
 
 //
 // scaffolding tests...
 
-bps = [
-  [ "origin", 0, 0, 0, undef ],
-  [ "left hip", 45, 45, 3, "origin" ],
-  [ "left knee", 60, 60, 7, "left hip" ],
-  [ "right hip", 45, -45, 3, "origin" ],
-  [ "right knee", 60, -60, 7, "right hip" ],
-];
+bps = default_humanoid_body;
 
-//echo(bpoint(bps, "left hip"));
-_bal(bpoint(bps, "origin"), 1);
-_bal(bpoint(bps, "left hip"), 1);
-_bal(bpoint(bps, "left knee"), 1);
-_bal(bpoint(bps, "right hip"), 1);
-_bal(bpoint(bps, "right knee"), 1);
+color("blue") _bal(bpoint(bps, "origin"), 1);
+_bal(bpoint(bps, "l hip"), 1);
+_bal(bpoint(bps, "l knee"), 1);
+_bal(bpoint(bps, "l ankle"), 1);
+_bal(bpoint(bps, "l toe"), 1);
+_bal(bpoint(bps, "r hip"), 1);
+_bal(bpoint(bps, "r knee"), 1);
+_bal(bpoint(bps, "r ankle"), 1);
+_bal(bpoint(bps, "r toe"), 1);
+color("blue") _bal(bpoint(bps, "waist"), 1);
+color("blue") _bal(bpoint(bps, "back"), 1);
+color("blue") _bal(bpoint(bps, "shoulder"), 1);
+color("cyan") _bal(bpoint(bps, "neck"), 1);
+color("red") _bal(bpoint(bps, "l shoulder"), 1);
+color("red") _bal(bpoint(bps, "l elbow"), 1);
+color("red") _bal(bpoint(bps, "l wrist"), 1);
+color("red") _bal(bpoint(bps, "l hand"), 1);
+color("red") _bal(bpoint(bps, "r shoulder"), 1);
+color("red") _bal(bpoint(bps, "r elbow"), 1);
+color("red") _bal(bpoint(bps, "r wrist"), 1);
+color("red") _bal(bpoint(bps, "r hand"), 1);
 
