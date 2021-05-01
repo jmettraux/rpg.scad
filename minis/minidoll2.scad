@@ -99,35 +99,18 @@ default_humanoid_body = [
 
 bps = default_humanoid_body;
 
-color("yellow") _bal(bpoint(bps, "l hip"), 1);
-color("yellow") _bal(bpoint(bps, "l knee"), 1);
-color("yellow") _bal(bpoint(bps, "l ankle"), 1);
-color("yellow") _bal(bpoint(bps, "l ball"), 1);
-color("yellow") _bal(bpoint(bps, "l toe"), 1);
-
-color("yellow") _bal(bpoint(bps, "r hip"), 1);
-color("yellow") _bal(bpoint(bps, "r knee"), 1);
-color("yellow") _bal(bpoint(bps, "r ankle"), 1);
-color("yellow") _bal(bpoint(bps, "r ball"), 1);
-color("yellow") _bal(bpoint(bps, "r toe"), 1);
-
-color("blue") _bal(bpoint(bps, "origin"), 1);
-color("blue") _bal(bpoint(bps, "waist"), 1);
-color("blue") _bal(bpoint(bps, "back"), 1);
-color("blue") _bal(bpoint(bps, "shoulder"), 1);
-color("cyan") _bal(bpoint(bps, "neck"), 1);
-color("cyan") _bal(bpoint(bps, "head"), 1);
-
-color("blue") _bal(bpoint(bps, "l waist"), 1);
-color("blue") _bal(bpoint(bps, "r waist"), 1);
-
-color("red") _bal(bpoint(bps, "l shoulder"), 1);
-color("red") _bal(bpoint(bps, "l elbow"), 1);
-color("red") _bal(bpoint(bps, "l wrist"), 1);
-color("red") _bal(bpoint(bps, "l hand"), 1);
-
-color("red") _bal(bpoint(bps, "r shoulder"), 1);
-color("red") _bal(bpoint(bps, "r elbow"), 1);
-color("red") _bal(bpoint(bps, "r wrist"), 1);
-color("red") _bal(bpoint(bps, "r hand"), 1);
+module draw_body_balls(body_points) {
+  for (p = body_points) {
+    p0 = p[0];
+    if (_sindex(p0, "ratio") == undef && _sindex(p0, "height") == undef) {
+      echo(p);
+      c =
+        _sstr(p0, 0, 2) == "l " ? "green" :
+        _sstr(p0, 0, 2) == "r " ? "red" :
+        "yellow";
+      color(c) _bal(bpoint(body_points, p0));
+    }
+  }
+}
+draw_body_balls(bps);
 

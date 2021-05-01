@@ -1,5 +1,5 @@
 
-// cadence 18d1c57.scad
+// cadence 82e04cf.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -76,6 +76,29 @@ function _slist(list, from=0, to) =
 
 function _reverse(list) =
   [ for (i = [ len(list) - 1 : -1 : 0 ]) list[i] ];
+
+
+//
+// string functions
+
+function _sstr(s, from=0, length=undef, r="") =
+  let(
+    i = from < 0 ? len(s) + from : from,
+    l = length == undef ? len(s) : length,
+    s0 = s[i]
+  )
+  (s0 == undef || l < 1) ? r :
+  str(r, s[i], _sstr(s, i + 1, l - 1));
+
+function _sindex(s, s1, i=0) =
+  let(
+    l = len(s1),
+    s0 = _sstr(s, i, l)
+  )
+  len(s0) < l ? undef :
+  s0 == s1 ? i :
+  _sindex(s, s1, i + 1);
+
 
 //
 // point functions
