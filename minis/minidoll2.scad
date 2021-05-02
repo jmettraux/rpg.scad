@@ -25,40 +25,69 @@ module _bal(p, d) {
 function bpoints(body_points)=
   [ for (p = body_points) if (len(p) > 2) bpoint(body_points, p[0]) ];
 
-function bpoint_z(body_points)=
+function _bpoint_z(body_points)=
   - min([ for (p = bpoints(body_points)) p.z ]);
 
-  //[ "r thigh", "r knee", 0.5 ],
-  //  [ "r knee", -90, 0, "knee ratio", "r hip" ],
+function _bpoint_hh(body_points)=
+    _get(body_points, "height") * _get(body_points, "head height ratio");
+
+  // [ "r thigh", "r knee", 0.5 ],
+  //   [ "r knee", -90, 0, "knee ratio", "r hip" ],
   //
-function bpoint_mid(body_points, p)=
+function _bpoint_mid(body_points, p)=
   let(
-    h = _get(body_points, "height"),
-    hh = h * _get(body_points, "head height ratio"),
     p1 = _assoc(body_points, p[1]),
     p0 = bpoint(body_points, p1[4]), // p1's parent
-    l1 = hh * _get(body_points, p1[3])
+    l1 = _bpoint_hh(body_points) * _get(body_points, p1[3])
   )
-  //[ l1, p[2], [ p1[1], p1[2] ], p0 ];
   _to_point(l1 * p[2], [ p1[1], p1[2] ], p0);
 
-function bpoint_point(body_points, p)=
+function _bpoint_v1(body_points, pname)= // when receiving one point name
   let(
-    h = _get(body_points, "height"),
-    hh = h * _get(body_points, "head height ratio"),
+    p0name = _assoc(body_points, pname)[4],
+    p0 = bpoint(body_points, p0name),
+    p = bpoint(body_points, pname)
+  )
+  p - p0;
+function _bpoint_v2(body_points, pnames)= // when receive two point names
+  let(
+    pa = bpoint(body_points, pnames[0]),
+    pb = bpoint(body_points, pnames[1])
+  )
+  pb - pa;
+
+  // [ "sternum", "back", 0.4, "back", [ "l shoulder", "r shoulder" ] ],
+  //
+function _bpoint_cross(body_points, p)=
+  let(
+    p0 = bpoint(body_points, p[1]),
+    l = p[2] * _bpoint_hh(body_points),
+    v0 = is_string(p[3]) ?
+      _bpoint_v1(body_points, p[3]) : _bpoint_v2(body_points, p[3]),
+    v1 = is_string(p[4]) ?
+      _bpoint_v1(body_points, p[4]) : _bpoint_v2(body_points, p[4]),
+    cro = cross(v0, v1),
+    ele_dir = _to_spherical(cro)[1]
+  )
+  _to_point(l, ele_dir, p0);
+
+function _bpoint_point(body_points, p)=
+  let(
     r = is_string(p[3]) ? _get(body_points, p[3]) : p[3],
-    l = hh * r
+    l = _bpoint_hh(body_points) * r
   )
   _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));
 
 function bpoint(body_points, name, default=undef)=
   let(
-    p = _assoc(body_points, name, default)
+    p = _assoc(body_points, name, default),
+    s1 = is_string(p[1])
   )
   name == "origin" ? [ 0, 0, 0 ] :
-  is_string(p[1]) ? bpoint_mid(body_points, p) :
-  name == "z" ? bpoint_z(body_points) :
-  bpoint_point(body_points, p);
+  s1 && len(p) > 4 ? _bpoint_cross(body_points, p) :
+  s1 ? _bpoint_mid(body_points, p) :
+  name == "z" ? _bpoint_z(body_points) :
+  _bpoint_point(body_points, p);
 
 default_humanoid_body_points = [
 
@@ -120,6 +149,8 @@ default_humanoid_body_points = [
 
   [ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
   [ "l thigh", "l knee", 0.4 ], // ...
+
+  [ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
 
   //[ "r x", 0, 0, 2.5, "r thigh" ], literal ratio
 ];
@@ -209,10 +240,15 @@ bps = make_humanoid_body_points([
   [ "r knee", -60 ],
   [ "l knee", -100, -20 ],
   [ "l ankle", -110, -10 ],
+  [ "l shoulder", 0, 100 ],
+  [ "r shoulder", 0, -80 ],
     ]);
 
 translate([ 0, 0, bpoint(bps, "z") ])
   draw_body_balls(bps);
+
+//translate([ 0, 0, bpoint(bps, "z") ])
+//  color("red") _bal(bpoint(bps, "sternum"), 1.1, $fn=12);
 
 translate([ 0, 0, bpoint(bps, "z") ])
   draw_body_hulls(bps, [
@@ -261,6 +297,7 @@ translate([ 0, 0, bpoint(bps, "z") ])
       [ "r waist", "waist diameter" ],
       [ "l shoulder", "shoulder diameter" ],
       [ "r shoulder", "shoulder diameter" ],
+      [ "sternum", "neck diameter" ],
       [ "shoulder", "neck diameter" ],
       [ "neck", "neck diameter" ] ],
 
