@@ -46,7 +46,8 @@ function bpoint_point(body_points, p)=
   let(
     h = _get(body_points, "height"),
     hh = h * _get(body_points, "head height ratio"),
-    l = hh * _get(body_points, p[3])
+    r = is_string(p[3]) ? _get(body_points, p[3]) : p[3],
+    l = hh * r
   )
   _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));
 
@@ -119,6 +120,8 @@ default_humanoid_body_points = [
 
   [ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
   [ "l thigh", "l knee", 0.4 ], // ...
+
+  //[ "r x", 0, 0, 2.5, "r thigh" ], literal ratio
 ];
 
 function _merge_body_ratio(v0, entry)=
