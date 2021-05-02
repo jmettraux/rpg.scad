@@ -28,18 +28,19 @@ function bpoints(body_points)=
 function bpoint_z(body_points)=
   - min([ for (p = bpoints(body_points)) p.z ]);
 
+  //[ "r thigh", "r knee", 0.5 ],
+  //  [ "r knee", -90, 0, "knee ratio", "r hip" ],
+  //
 function bpoint_mid(body_points, p)=
-  [ 0, 0, 0 ];
-  //let(
-  //  h = _get(body_points, "height"),
-  //  hh = h * _get(body_points, "head height ratio"),
-  //  p1 = bpoint(body_points, p[1]),
-  //  p0 = bpoint(body_points, p1[4]),
-  //  l1 = hh * _get(body_points, p1[3])
-  //)
-  //_to_point(l0 * p[2], [ p1[1], p1[2] ], [ 0, 0, 0 ]);
-  ////109|function _to_point(length, angles, sp=[ 0, 0, 0 ]) =
-  ////[ "r thigh", "r knee", 0.5 ],
+  let(
+    h = _get(body_points, "height"),
+    hh = h * _get(body_points, "head height ratio"),
+    p1 = _assoc(body_points, p[1]),
+    p0 = bpoint(body_points, p1[4]), // p1's parent
+    l1 = hh * _get(body_points, p1[3])
+  )
+  //[ l1, p[2], [ p1[1], p1[2] ], p0 ];
+  _to_point(l1 * p[2], [ p1[1], p1[2] ], p0);
 
 function bpoint_point(body_points, p)=
   let(
@@ -116,7 +117,8 @@ default_humanoid_body_points = [
   [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
   [ "r hand", -90, 0, "hand ratio", "r wrist" ],
 
-  //[ "r thigh", "r knee", 0.5 ],
+  [ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
+  [ "l thigh", "l knee", 0.4 ], // ...
 ];
 
 function _merge_body_ratio(v0, entry)=
@@ -168,6 +170,7 @@ module draw_body_balls(body_points) {
         _sstr(p0, 0, 2) == "l " ? "#0000FF" :
         _sstr(p0, 0, 2) == "r " ? "#FF0000" :
         "yellow";
+echo(p0, bpoint(body_points, p0));
       color(c) _bal(bpoint(body_points, p0), d);
     }
   }
@@ -195,7 +198,7 @@ module draw_body_hulls(body_points, body_hulls) {
 //
 // scaffolding tests...
 
-$fn=12;
+//$fn=12;
 
 bps = make_humanoid_body_points([
   [ "knee ratio", 2 ],
@@ -212,12 +215,14 @@ translate([ 0, 0, bpoint(bps, "z") ])
   draw_body_hulls(bps, [
     [ "knee diameter", 1 ],
     [ "leg diameter", 1.2 ],
+    [ "thigh diameter", 1.4 ],
     [ "hip diameter", 1.2 ],
     [ "shoulder diameter", 1.3 ],
     [ "neck diameter", 1.1 ],
 
     [ "l thigh",
       [ "l hip", "leg diameter" ],
+      [ "l thigh", "thigh diameter" ],
       [ "l knee", "knee diameter" ] ],
     [ "l shin",
       [ "l knee", "knee diameter" ],
@@ -231,6 +236,7 @@ translate([ 0, 0, bpoint(bps, "z") ])
 
     [ "r thigh",
       [ "r hip", "leg diameter" ],
+      [ "r thigh", "thigh diameter" ],
       [ "r knee", "knee diameter" ] ],
     [ "r shin",
       [ "r knee", "knee diameter" ],
