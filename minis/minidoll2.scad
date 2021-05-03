@@ -116,6 +116,7 @@ default_humanoid_body_points = [
   [ "wrist ratio", 1 ],
   [ "hand ratio", 0.5 ],
 
+    // relative points
   [ "l hip",        0,  90, "side hip ratio", "origin" ],
   [ "l knee",     -90,   0, "knee ratio", "l hip" ],
   [ "l ankle",    -90,   0, "ankle ratio", "l knee" ],
@@ -147,9 +148,11 @@ default_humanoid_body_points = [
   [ "r wrist",    -90,   0, "wrist ratio", "r elbow" ],
   [ "r hand",     -90,   0, "hand ratio", "r wrist" ],
 
+    // line points
   [ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
   [ "l thigh", "l knee", 0.4 ], // ...
 
+    // cross points
   [ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
 
   //[ "r x", 0, 0, 2.5, "r thigh" ], literal ratio
@@ -319,5 +322,8 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "r hand",
       [ "r wrist", "wrist diameter" ],
       [ "r hand", "hand diameter" ] ],
+
+    //[ "xyz",
+    //  [ "bez", "origin", "tail", "control tail" ] ],
   ]);
 
