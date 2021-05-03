@@ -5,18 +5,6 @@
 
 include <minilib.scad>;
 
-// point
-//   [ name, inclination, azimuth, distance_ratio, parent_name ]
-
-// body_points
-//   points: dict
-
-// hull
-//  [ point_name_0, diameter_0, pn1, d1, ... ]
-
-// body
-//   points: dict
-//   hulls: array (point names)
 
 module _bal(p, d) {
   translate(p) sphere(d);
@@ -214,26 +202,56 @@ module draw_body_balls(body_points) {
         _sstr(p0, 0, 2) == "l " ? "#0000FF" :
         _sstr(p0, 0, 2) == "r " ? "#FF0000" :
         "yellow";
-echo(p0, bpoint(body_points, p0));
+//echo(p0, bpoint(body_points, p0));
       color(c) _bal(bpoint(body_points, p0), d);
+    }
+  }
+}
+
+module _draw_hull(body_points, body_hulls, h) {
+
+  dd = _get(body_hulls, "default diameter", 0.7);
+
+  #hull() {
+    for (p = h) {
+      if ( ! is_string(p))
+        _bal(
+          bpoint(body_points, p[0]),
+          _get(body_hulls, p[1], dd));
+    }
+  }
+}
+
+module _draw_bezier_hull(body_points, body_hulls, h) {
+
+  dd = _get(body_hulls, "default diameter", 0.7);
+  bsc = _get(body_hulls, "bezier sample count", 6);
+
+  ps0 = _slist(h, 2);
+  ps = [ for (p = ps0) bpoint(body_points, p[0]) ];
+  ps1 = _bezier_points(ps, bsc);
+
+  ds = [ ps0[0][1], _slist(ps0, -1)[0][1] ];
+  dl = (ds[1] - ds[0]) / (bsc + 1);
+
+  for (i = [ 0 : len(ps1) - 2 ]) {
+    #hull() {
+      _bal(ps1[i], ds[0] + i * dl);
+      _bal(ps1[i + 1], ds[0] + (i + 1) * dl);
     }
   }
 }
 
 module draw_body_hulls(body_points, body_hulls) {
 
-  hs = [ for (h = body_hulls) if (is_list(h[1])) h ];
-
-  dd = 0.7; // default diameter
+  hs = [ for (h = body_hulls) if (is_list(h[2]) || is_list(h[1])) h ];
 
   for (h = hs) {
-    #hull() {
-      for (p = h) {
-        if ( ! is_string(p))
-          _bal(
-            bpoint(body_points, p[0]),
-            _get(body_hulls, p[1], dd));
-      }
+    if (h[1] == "bez") {
+      _draw_bezier_hull(body_points, body_hulls, h);
+    }
+    else {
+      _draw_hull(body_points, body_hulls, h);
     }
   }
 }
@@ -260,6 +278,11 @@ bps = make_humanoid_body_points([
   //[ "l wingbase", "l shoulder", 2.4 ],
   //[ "r wingbase", "r shoulder", 2.4 ],
   //[ "l wing0", "l wingbase", 3, "back", "l shoulder" ],
+
+  [ "tailbase", "origin", "waist", 0.3 ],
+  [ "tail 1c1", -80, 0, 2, "tailbase" ],
+  [ "tail 1c0", 180 - 15, 0, 3, "tailbase" ],
+  [ "tail 1", 180 + 45, 0, 5.3, "tailbase" ],
     ]);
 
 translate([ 0, 0, bpoint(bps, "z") ])
@@ -276,6 +299,8 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "hip diameter", 1.2 ],
     [ "shoulder diameter", 1.3 ],
     [ "neck diameter", 1.1 ],
+    [ "tail diameter", 1.2 ],
+    [ "tail end diameter", 0.2 ],
 
     [ "l thigh",
       [ "l hip", "leg diameter" ],
@@ -342,6 +367,12 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "r hand",
       [ "r wrist", "wrist diameter" ],
       [ "r hand", "hand diameter" ] ],
+
+    [ "tail 1", "bez",
+      [ "tailbase", "tail diameter" ],
+      [ "tail 1c0" ],
+      [ "tail 1c1" ],
+      [ "tail 1", "tail end diameter" ] ],
 
     //[ "xyz",
     //  [ "bez", "origin", "tail", "control tail" ] ],
