@@ -116,36 +116,36 @@ default_humanoid_body_points = [
   [ "wrist ratio", 1 ],
   [ "hand ratio", 0.5 ],
 
-  [ "l hip", 0, 90, "side hip ratio", "origin" ],
-  [ "l knee", -90, 0, "knee ratio", "l hip" ],
-  [ "l ankle", -90, 0, "ankle ratio", "l knee" ],
-  [ "l ball", 0, 0, "ball ratio", "l ankle" ],
-  [ "l toe", 0, 0, "toe ratio", "l ball" ],
+  [ "l hip",        0,  90, "side hip ratio", "origin" ],
+  [ "l knee",     -90,   0, "knee ratio", "l hip" ],
+  [ "l ankle",    -90,   0, "ankle ratio", "l knee" ],
+  [ "l ball",       0,   0, "ball ratio", "l ankle" ],
+  [ "l toe",        0,   0, "toe ratio", "l ball" ],
 
-  [ "r hip", 0, -90, "side hip ratio", "origin" ],
-  [ "r knee", -90, 0, "knee ratio", "r hip" ],
-  [ "r ankle", -90, 0, "ankle ratio", "r knee" ],
-  [ "r ball", 0, 0, "ball ratio", "r ankle" ],
-  [ "r toe", 0, 0, "toe ratio", "r ball" ],
+  [ "r hip",        0, -90, "side hip ratio", "origin" ],
+  [ "r knee",     -90,   0, "knee ratio", "r hip" ],
+  [ "r ankle",    -90,   0, "ankle ratio", "r knee" ],
+  [ "r ball",       0,   0, "ball ratio", "r ankle" ],
+  [ "r toe",        0,   0, "toe ratio", "r ball" ],
 
-  [ "waist", 90, 0, "waist ratio", "origin" ],
-  [ "back", 90, 0, "back ratio", "waist" ],
-  [ "shoulder", 90, 0, "shoulder ratio", "back" ],
-  [ "neck", 90, 0, "neck ratio", "shoulder" ],
-  [ "head", 90, 0, "head ratio", "neck" ],
+  [ "waist",       90,   0, "waist ratio", "origin" ],
+  [ "back",        90,   0, "back ratio", "waist" ],
+  [ "shoulder",    90,   0, "shoulder ratio", "back" ],
+  [ "neck",        90,   0, "neck ratio", "shoulder" ],
+  [ "head",        90,   0, "head ratio", "neck" ],
 
-  [ "l waist", 0, 90, "side waist ratio", "waist" ],
-  [ "r waist", 0, -90, "side waist ratio", "waist" ],
+  [ "l waist",      0,  90, "side waist ratio", "waist" ],
+  [ "r waist",      0, -90, "side waist ratio", "waist" ],
 
-  [ "l shoulder", 0, 90, "side shoulder ratio", "shoulder" ],
-  [ "l elbow", -90, 0, "elbow ratio", "l shoulder" ],
-  [ "l wrist", -90, 0, "wrist ratio", "l elbow" ],
-  [ "l hand", -90, 0, "hand ratio", "l wrist" ],
+  [ "l shoulder",   0,  90, "side shoulder ratio", "shoulder" ],
+  [ "l elbow",    -90,   0, "elbow ratio", "l shoulder" ],
+  [ "l wrist",    -90,   0, "wrist ratio", "l elbow" ],
+  [ "l hand",     -90,   0, "hand ratio", "l wrist" ],
 
-  [ "r shoulder", 0, -90, "side shoulder ratio", "shoulder" ],
-  [ "r elbow", -90, 0, "elbow ratio", "r shoulder" ],
-  [ "r wrist", -90, 0, "wrist ratio", "r elbow" ],
-  [ "r hand", -90, 0, "hand ratio", "r wrist" ],
+  [ "r shoulder",   0, -90, "side shoulder ratio", "shoulder" ],
+  [ "r elbow",    -90,   0, "elbow ratio", "r shoulder" ],
+  [ "r wrist",    -90,   0, "wrist ratio", "r elbow" ],
+  [ "r hand",     -90,   0, "hand ratio", "r wrist" ],
 
   [ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
   [ "l thigh", "l knee", 0.4 ], // ...
@@ -155,29 +155,20 @@ default_humanoid_body_points = [
   //[ "r x", 0, 0, 2.5, "r thigh" ], literal ratio
 ];
 
-function _merge_body_ratio(v0, entry)=
-  entry;
-
-function _merge_body_point(v0, entry)=
+function _rework_body_entry(points, entry)=
   let(
-    k = entry[0],
-    l = len(entry)
-  )
-  l > 4 ? entry :
-  l == 4 ? [ k, entry[1], entry[2], entry[3], v0[4] ] :
-  l == 3 ? [ k, entry[1], entry[2], v0[3], v0[4] ] :
-  [ k, entry[1], 0, v0[3], v0[4] ];
-
-function _merge_body_entry(points, entry)=
-  let (
     k = entry[0],
     v0 = _assoc(points, k)
   )
-  _app(
-    points,
-    k == "height" ? entry :
-    _sindex(k, " ratio") ? _merge_body_ratio(v0, entry) :
-    _merge_body_point(v0, entry));
+  [ for (i = [ 0 : len(v0) - 1 ]) entry[i] == undef ? v0[i] : entry[i] ];
+
+function _merge_body_entry(points, entry)=
+  let(
+    k = entry[0]
+  )
+  k == "-" ? _del(points, entry[1]) :
+  _assoc(points, k) == undef ? _app(points, entry) :
+  _app(points, _rework_body_entry(points, entry));
 
 function _merge_body_entries(points, entries, i=0)=
   let (
@@ -234,6 +225,9 @@ module draw_body_hulls(body_points, body_hulls) {
 
 //$fn=12;
 
+  //[ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
+  //[ "l thigh", "l knee", 0.4 ], // ...
+  //[ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
 bps = make_humanoid_body_points([
   [ "knee ratio", 2 ],
   [ "hand ratio", 0.5 ],
@@ -242,6 +236,7 @@ bps = make_humanoid_body_points([
   [ "l ankle", -110, -10 ],
   [ "l shoulder", 0, 100 ],
   [ "r shoulder", 0, -80 ],
+  //[ "sternum2", "back", 0.75, "back", [ "l shoulder", "r shoulder" ] ],
     ]);
 
 translate([ 0, 0, bpoint(bps, "z") ])
