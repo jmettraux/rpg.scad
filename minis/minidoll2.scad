@@ -34,13 +34,22 @@ function _bpoint_hh(body_points)=
   // [ "r thigh", "r knee", 0.5 ],
   //   [ "r knee", -90, 0, "knee ratio", "r hip" ],
   //
-function _bpoint_mid(body_points, p)=
+function _bpoint_lin(body_points, p)=
   let(
     p1 = _assoc(body_points, p[1]),
     p0 = bpoint(body_points, p1[4]), // p1's parent
     l1 = _bpoint_hh(body_points) * _get(body_points, p1[3])
   )
   _to_point(l1 * p[2], [ p1[1], p1[2] ], p0);
+
+  // [ "l chop", "l waist", "l shoulder", 3 ],
+function _bpoint_mid(body_points, p)=
+  let(
+    p1 = bpoint(body_points, p[1]),
+    p2 = bpoint(body_points, p[2]),
+    sx = _to_spherical(p2 - p1)
+  )
+  _to_point(sx[0] * p[3], sx[1], p1);
 
 function _bpoint_v1(body_points, pname)= // when receiving one point name
   let(
@@ -81,11 +90,13 @@ function _bpoint_point(body_points, p)=
 function bpoint(body_points, name, default=undef)=
   let(
     p = _assoc(body_points, name, default),
-    s1 = is_string(p[1])
+    s1 = is_string(p[1]),
+    s2 = is_string(p[2])
   )
   name == "origin" ? [ 0, 0, 0 ] :
   s1 && len(p) > 4 ? _bpoint_cross(body_points, p) :
-  s1 ? _bpoint_mid(body_points, p) :
+  s1 && s2 ? _bpoint_mid(body_points, p) :
+  s1 ? _bpoint_lin(body_points, p) :
   name == "z" ? _bpoint_z(body_points) :
   _bpoint_point(body_points, p);
 
@@ -148,9 +159,14 @@ default_humanoid_body_points = [
   [ "r wrist",    -90,   0, "wrist ratio", "r elbow" ],
   [ "r hand",     -90,   0, "hand ratio", "r wrist" ],
 
+
     // line points
   [ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
   [ "l thigh", "l knee", 0.4 ], // ...
+
+    // mid points
+  [ "r chop", "r waist", "r shoulder", 0.5 ], // right between rwai and rsho...
+  [ "l chop", "l waist", "l shoulder", 0.5 ],
 
     // cross points
   [ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
@@ -240,6 +256,10 @@ bps = make_humanoid_body_points([
   [ "l shoulder", 0, 100 ],
   [ "r shoulder", 0, -80 ],
   //[ "sternum2", "back", 0.75, "back", [ "l shoulder", "r shoulder" ] ],
+
+  //[ "l wingbase", "l shoulder", 2.4 ],
+  //[ "r wingbase", "r shoulder", 2.4 ],
+  //[ "l wing0", "l wingbase", 3, "back", "l shoulder" ],
     ]);
 
 translate([ 0, 0, bpoint(bps, "z") ])
