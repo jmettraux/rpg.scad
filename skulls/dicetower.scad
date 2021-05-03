@@ -13,8 +13,8 @@ difference() {
     translate([ 0, -27, 0 ])
       cylinder(d1=75, d2=50,  h=45, $fn=6);
 
-    translate([ 0, -50, 1 ])
-      cube(size=[ 35, 40, 2 ], center=true);
+    //translate([ 0, -50, 1 ])
+    //  cube(size=[ 35, 40, 2 ], center=true);
   }
 
   translate([ 0, 5, 65 ]) rotate([ 0, 11, 90 ])
@@ -26,4 +26,9 @@ difference() {
   translate([ 0, 40 - 1.0, 75 ]) rotate([ 120, 0, 0 ])
     cylinder(d=50, h=80, $fn=8);
 }
+
+
+translate([ 0, -58, 0.73 ])
+  rotate([ 0, -90, 0 ])
+    cylinder(d=3, h=36, center=true, $fn=3);
 
