@@ -43,9 +43,9 @@ module hex(hole=false) {
 
 translate([ 0, -smar, 0 ]) intersection() {
 
-  h = hei * 2.5;
+  h = hei * 2.8;
 
-  cylinder(d1=dia * 1.4, d2=0, h=h, $fn=12);
+  cylinder(d1=dia * 1.1, d2=0, h=h, $fn=12);
 
   translate([ 0, -smar, 0 ]) cylinder(d=dia + lew + thi, h=h, $fn=6);
 }
