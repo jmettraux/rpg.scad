@@ -178,11 +178,8 @@ function _merge_body_entry(points, entry)=
   _app(points, _rework_body_entry(points, entry));
 
 function _merge_body_entries(points, entries, i=0)=
-  let (
-    e = entries[i]
-  )
-  e == undef ? points :
-  _merge_body_entries(_merge_body_entry(points, e), entries, i + 1);
+  entries[i] == undef ? points :
+  _merge_body_entries(_merge_body_entry(points, entries[i]), entries, i + 1);
 
 
 function make_humanoid_body_points(entries)=
@@ -256,43 +253,10 @@ module draw_body_hulls(body_points, body_hulls) {
   }
 }
 
+default_humanoid_body_hulls = [
 
-//
-// scaffolding tests...
+    // diameters
 
-//$fn=12;
-
-  //[ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
-  //[ "l thigh", "l knee", 0.4 ], // ...
-  //[ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
-bps = make_humanoid_body_points([
-  [ "knee ratio", 2 ],
-  [ "hand ratio", 0.5 ],
-  [ "r knee", -60 ],
-  [ "l knee", -100, -20 ],
-  [ "l ankle", -110, -10 ],
-  [ "l shoulder", 0, 100 ],
-  [ "r shoulder", 0, -80 ],
-  //[ "sternum2", "back", 0.75, "back", [ "l shoulder", "r shoulder" ] ],
-
-  //[ "l wingbase", "l shoulder", 2.4 ],
-  //[ "r wingbase", "r shoulder", 2.4 ],
-  //[ "l wing0", "l wingbase", 3, "back", "l shoulder" ],
-
-  [ "tailbase", "origin", "waist", 0.3 ],
-  [ "tail 1c1", -80, 0, 2, "tailbase" ],
-  [ "tail 1c0", 180 - 15, 0, 3, "tailbase" ],
-  [ "tail 1", 180 + 45, 0, 5.3, "tailbase" ],
-    ]);
-
-translate([ 0, 0, bpoint(bps, "z") ])
-  draw_body_balls(bps);
-
-//translate([ 0, 0, bpoint(bps, "z") ])
-//  color("red") _bal(bpoint(bps, "sternum"), 1.1, $fn=12);
-
-translate([ 0, 0, bpoint(bps, "z") ])
-  draw_body_hulls(bps, [
     [ "knee diameter", 1 ],
     [ "leg diameter", 1.2 ],
     [ "thigh diameter", 1.4 ],
@@ -301,6 +265,8 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "neck diameter", 1.1 ],
     [ "tail diameter", 1.2 ],
     [ "tail end diameter", 0.2 ],
+
+    // hulls
 
     [ "l thigh",
       [ "l hip", "leg diameter" ],
@@ -367,14 +333,62 @@ translate([ 0, 0, bpoint(bps, "z") ])
     [ "r hand",
       [ "r wrist", "wrist diameter" ],
       [ "r hand", "hand diameter" ] ],
+  ];
 
-    [ "tail 1", "bez",
-      [ "tailbase", "tail diameter" ],
-      [ "tail 1c0" ],
-      [ "tail 1c1" ],
-      [ "tail 1", "tail end diameter" ] ],
+function _merge_hull_entry(hulls, entry)=
+  entry[0] == "?" ? _del(hulls, entry[1]) :
+  _app(hulls, entry);
 
-    //[ "xyz",
-    //  [ "bez", "origin", "tail", "control tail" ] ],
-  ]);
+function _merge_hull_entries(hulls, entries, i=0)=
+  entries[i] == undef ? hulls :
+  _merge_hull_entries(_merge_hull_entry(hulls, entries[i]), entries, i + 1);
+
+function make_humanoid_body_hulls(entries)=
+  _merge_hull_entries(default_humanoid_body_hulls, entries);
+
+
+//
+// scaffolding tests...
+
+//$fn=12;
+
+  //[ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
+  //[ "l thigh", "l knee", 0.4 ], // ...
+  //[ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
+bps = make_humanoid_body_points([
+  [ "knee ratio", 2 ],
+  [ "hand ratio", 0.5 ],
+  [ "r knee", -60 ],
+  [ "l knee", -100, -20 ],
+  [ "l ankle", -110, -10 ],
+  [ "l shoulder", 0, 100 ],
+  [ "r shoulder", 0, -80 ],
+  //[ "sternum2", "back", 0.75, "back", [ "l shoulder", "r shoulder" ] ],
+
+  //[ "l wingbase", "l shoulder", 2.4 ],
+  //[ "r wingbase", "r shoulder", 2.4 ],
+  //[ "l wing0", "l wingbase", 3, "back", "l shoulder" ],
+
+  [ "tailbase", "origin", "waist", 0.3 ],
+  [ "tail 1c1", -80, 0, 2, "tailbase" ],
+  [ "tail 1c0", 180 - 15, 0, 3, "tailbase" ],
+  [ "tail 1", 180 + 45, 0, 5.3, "tailbase" ],
+    ]);
+
+translate([ 0, 0, bpoint(bps, "z") ])
+  draw_body_balls(bps);
+
+//translate([ 0, 0, bpoint(bps, "z") ])
+//  color("red") _bal(bpoint(bps, "sternum"), 1.1, $fn=12);
+
+hs = make_humanoid_body_hulls([
+  [ "tail 1", "bez",
+    [ "tailbase", "tail diameter" ],
+    [ "tail 1c0" ],
+    [ "tail 1c1" ],
+    [ "tail 1", "tail end diameter" ] ],
+      ]);
+
+translate([ 0, 0, bpoint(bps, "z") ])
+  draw_body_hulls(bps, hs);
 
