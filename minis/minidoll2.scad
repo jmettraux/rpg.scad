@@ -132,20 +132,25 @@ module draw_body_balls(body_points) {
   }
 }
 
-module _draw_hull(body_points, body_hulls, h) {
+function _get_dia(body_hulls, hull_name, p)=
+  let(
+    p0 = p[0],
+    dd = _get(body_hulls, "default diameter", 0.7),
+    hd = _get(body_hulls, str(hull_name, " diameter"), dd),
+    pd = _get(body_hulls, str(p0, " diameter"), hd),
+    p1 = p[1]
+  )
+  is_num(p1) ? p1 :
+  is_string(p1) ? _get(body_hulls, p1, pd) :
+  pd;
 
-  dd = _get(body_hulls, "default diameter", 0.7);
+module _draw_hull(body_points, body_hulls, h) {
 
   #hull() {
     for (p = h) {
       if ( ! is_string(p)) {
-        xyz =
-          bpoint(body_points, p[0]);
-        dia =
-          p[1] == undef ? dd :
-          is_string(p[1]) ? _get(body_hulls, p[1], dd) :
-          p[1];
-        if (xyz && dia) _bal(xyz, dia);
+        xyz = bpoint(body_points, p[0]);
+        if (xyz) _bal(xyz, _get_dia(body_hulls, h[0], p));
       }
     }
   }

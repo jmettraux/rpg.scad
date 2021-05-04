@@ -158,6 +158,9 @@ quadruped_body_points = [
 
 default_spine_hulls = [
 
+  //[ "neck diameter", 3 ],
+  //[ "spine1 diameter", 3 ],
+
   [ "spine0", [ "origin" ], [ "waist" ] ],
   [ "spine1", [ "waist" ], [ "back" ] ],
   [ "spine2", [ "back" ], [ "shoulder" ] ],
@@ -169,7 +172,7 @@ default_spine_hulls = [
 
   [ "l shoulder", [ "l shoulder", ], [ "shoulder" ] ],
   [ "r shoulder", [ "r shoulder" ], [ "shoulder" ] ],
-  ];
+    ];
 
 default_leg_hulls = [
 
