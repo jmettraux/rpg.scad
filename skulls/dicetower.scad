@@ -1,5 +1,5 @@
 
-// skull.scad
+// dicetower.scad
 
 // unit is mm
 
