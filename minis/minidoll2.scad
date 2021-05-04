@@ -14,7 +14,7 @@ function bpoints(body_points)=
   [ for (p = body_points) if (len(p) > 2) bpoint(body_points, p[0]) ];
 
 function _bpoint_z(body_points)=
-  - min([ for (p = bpoints(body_points)) p.z ]);
+  - min(concat([ 0 ], [ for (p = bpoints(body_points)) p.z ]));
 
 function _bpoint_hh(body_points)=
     _get(body_points, "height") * _get(body_points, "head height ratio");
