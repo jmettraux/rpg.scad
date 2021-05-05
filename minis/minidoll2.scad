@@ -71,7 +71,8 @@ function _bpoint_cross(body_points, p)=
 
 function _bpoint_point(body_points, p)=
   let(
-    r = is_string(p[3]) ? _get(body_points, p[3]) : p[3],
+    dr = 1.0, // default ratio
+    r = is_string(p[3]) ? _get(body_points, p[3], dr) : p[3],
     l = _bpoint_hh(body_points) * r
   )
   _to_point(l, [ p[1], p[2] ], bpoint(body_points, p[4]));

@@ -110,6 +110,11 @@ quadruped_body_points = [
 
     // relative points
 
+  [ "l waist",      0,  90, "side waist ratio", "waist" ],
+  [ "r waist",      0, -90, "side waist ratio", "waist" ],
+  [ "l back",      0,  90, "side back ratio", "back" ],
+  [ "r back",      0, -90, "side back ratio", "back" ],
+
   [ "l hip",        0,  90, "side hip ratio", "origin" ],
   [ "l knee",     -20,   0, "knee ratio", "l hip" ],
   [ "l ankle",   -160,   0, "ankle ratio", "l knee" ],
@@ -150,6 +155,21 @@ quadruped_body_points = [
   //[ "l chop", "l waist", "l shoulder", 0.5 ],
   //  // cross points
   //[ "sternum", "back", 0.25, "back", [ "l shoulder", "r shoulder" ] ],
+    ];
+
+tail_4_points = [
+  //[ "tail 0 ratio", 2 ],
+  [ "tail 0", -180, 0, "tail 0 ratio", "origin" ],
+  [ "tail 1", -180, 0, "tail 1 ratio", "tail 0" ],
+  [ "tail 2", -180, 0, "tail 2 ratio", "tail 1" ],
+  [ "tail 3", -180, 0, "tail 3 ratio", "tail 2" ],
+    ];
+
+tail_2_points = [
+  [ "tail 0 ratio", 3 ],
+  [ "tail 1 ratio", 2 ],
+  [ "tail 0", -180, 0, "tail 0 ratio", "origin" ],
+  [ "tail 1", -180, 0, "tail 1 ratio", "tail 0" ],
     ];
 
 
