@@ -166,13 +166,14 @@ module _draw_bezier_hull(body_points, body_hulls, h) {
   ps = [ for (p = ps0) bpoint(body_points, p[0]) ];
   ps1 = _bezier_points(ps, bsc);
 
-  ds = [ ps0[0][1], _slist(ps0, -1)[0][1] ];
-  dl = (ds[1] - ds[0]) / (bsc + 1);
+  d0 = _get_dia(body_hulls, h[0], ps0[0]);
+  d1 = _get_dia(body_hulls, h[0], _slist(ps0, -1)[0]);
+  dl = (d1 - d0) / (bsc + 1);
 
   for (i = [ 0 : len(ps1) - 2 ]) {
     #hull() {
-      _bal(ps1[i], ds[0] + i * dl);
-      _bal(ps1[i + 1], ds[0] + (i + 1) * dl);
+      _bal(ps1[i], d0 + i * dl);
+      _bal(ps1[i + 1], d0 + (i + 1) * dl);
     }
   }
 }
