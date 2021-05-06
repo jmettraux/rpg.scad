@@ -162,7 +162,7 @@ module _draw_bezier_hull(body_points, body_hulls, h) {
   dd = _get(body_hulls, "default diameter", 0.7);
   bsc = _get(body_hulls, "bezier sample count", 6);
 
-  ps0 = _slist(h, 2);
+  ps0 = [ for (p = h) if (is_list(p) && p[2] != "hub") p ];
   ps = [ for (p = ps0) bpoint(body_points, p[0]) ];
   ps1 = _bezier_points(ps, bsc);
 
@@ -170,10 +170,14 @@ module _draw_bezier_hull(body_points, body_hulls, h) {
   d1 = _get_dia(body_hulls, h[0], _slist(ps0, -1)[0]);
   dl = (d1 - d0) / (bsc + 1);
 
+  hp = [ for (p = h) if (is_list(p) && p[2] == "hub") p ][0];
+  hd = hp ? _get_dia(body_hulls, h[0], hp) : -1;
+
   for (i = [ 0 : len(ps1) - 2 ]) {
     #hull() {
       _bal(ps1[i], d0 + i * dl);
       _bal(ps1[i + 1], d0 + (i + 1) * dl);
+      if (hp) _bal(bpoint(body_points, hp[0]), hd);
     }
   }
 }
