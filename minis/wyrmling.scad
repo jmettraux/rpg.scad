@@ -38,13 +38,13 @@ bps =
 
       [ "l wing 1", 120, 10, "wing 1 ratio", "l back" ],
       [ "l wing 2", 90, 0, 3.5, "l wing 1" ],
-      [ "l wing 3", -100, 0, 7, "l wing 2" ],
-      [ "l wing 4", -80, 0, 3.8, "l wing 3" ],
+      [ "l wing 3", -110, 10, 7, "l wing 2" ],
+      [ "l wing 4", -60, 0, 4.6, "l wing 3" ],
 
       [ "r wing 1", 120, -10, "wing 1 ratio", "r back" ],
       [ "r wing 2", 90, 0, 3.5, "r wing 1" ],
-      [ "r wing 3", -100, 0, 7, "r wing 2" ],
-      [ "r wing 4", -80, 0, 3.8, "r wing 3" ],
+      [ "r wing 3", -110, -10, 7, "r wing 2" ],
+      [ "r wing 4", -60, 0, 4.6, "r wing 3" ],
         ]);
 
 //echo("z:", bpoint(bps, "z"));
@@ -54,7 +54,6 @@ translate([ 0, dy, bpoint(bps, "z") ]) {
   draw_body_balls(bps);
 }
 
-//hs = default_humanoid_body_hulls;
 hs =
   _merge_hull_entries(
     concat(default_spine_hulls, default_leg_hulls, default_arm_hulls),
@@ -69,14 +68,20 @@ hs =
         [ "tail 1", 0.1 ] ],
 
       [ "l wing 1", [ "l back" ], [ "l wing 1" ] ],
-      [ "l wing 2", [ "l wing 1" ], [ "l wing 2" ] ],
-      [ "l wing 3", [ "l wing 2" ], [ "l wing 3" ] ],
-      [ "l wing 4", [ "l wing 3" ], [ "l wing 4" ] ],
+      [ "l wing 3", "bez",
+        [ "l wing 1", undef, "hub" ],
+        [ "l wing 2" ], [ "l wing 3" ], [ "l wing 4" ] ],
+      [ "l wing 4", "bez",
+        [ "l wing 1", undef, "hub" ],
+        [ "l wing 4" ], [ "l wing 1" ], [ "l back" ] ],
 
       [ "r wing 1", [ "r back" ], [ "r wing 1" ] ],
-      [ "r wing 2", [ "r wing 1" ], [ "r wing 2" ] ],
-      [ "r wing 3", [ "r wing 2" ], [ "r wing 3" ] ],
-      [ "r wing 4", [ "r wing 3" ], [ "r wing 4" ] ],
+      [ "r wing 3", "bez",
+        [ "r wing 1", undef, "hub" ],
+        [ "r wing 2" ], [ "r wing 3" ], [ "r wing 4" ] ],
+      [ "r wing 4", "bez",
+        [ "r wing 1", undef, "hub" ],
+        [ "r wing 4" ], [ "r wing 1" ], [ "r back" ] ],
     ]);
 
 translate([ 0, dy, bpoint(bps, "z") ])
