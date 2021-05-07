@@ -65,10 +65,10 @@ bps =
       [ "r wing 4", -70, 0, 4.6, "r wing 3" ],
         ]);
 
-translate([ 0, dy, bpoint(bps, "z") + dz ]) {
-  color("red") _bal(bpoint(bps, "origin"));
-  draw_body_balls(bps);
-}
+//translate([ 0, dy, bpoint(bps, "z") + dz ]) {
+//  color("red") _bal(bpoint(bps, "origin"));
+//  draw_body_balls(bps);
+//}
 
 hs =
   _merge_hull_entries(
@@ -156,7 +156,35 @@ hs =
 translate([ 0, dy, bpoint(bps, "z") + dz ])
   draw_body_hulls(bps, hs);
 
-
 //translate([ 0, 0, bpoint(bps, "z") + dz ])
 //  color("cyan") _bal(bpoint(bps, "hip"), 1.4);
+
+
+module head(hh) {
+
+  ebd = hh / 2;
+  ebd2 = ebd / 2;
+
+  translate([ 0, hh / 2, - hh / 6 ]) {
+
+    translate([ -ebd2 * 1.1, -ebd2 / 2, ebd2 / 2 ]) sphere(d=ebd, $fn=36);
+    translate([ ebd2 * 1.1, -ebd2 / 2, ebd2 / 2 ]) sphere(d=ebd, $fn=36);
+
+    hull() {
+      translate([ -ebd2, ebd * 0.5, 0 ])
+        rotate([ -90, 0, 0 ])
+          cylinder(d1=ebd * 1.1, d2=ebd * 0.7, h=hh * 2.1, center=true, $fn=24);
+      translate([ ebd2, ebd * 0.5, 0 ])
+        rotate([ -90, 0, 0 ])
+          cylinder(d1=ebd * 1.1, d2=ebd * 0.7, h=hh * 2.1, center=true, $fn=24);
+    }
+  }
+}
+
+z = bpoint(bps, "z");
+hp = bpoint(bps, "head");
+
+translate([ 0, 0, z + hp.z ])
+  rotate([ -45, 0, 0 ])
+    head(33 / 6);
 
