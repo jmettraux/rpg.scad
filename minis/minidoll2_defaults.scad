@@ -172,6 +172,28 @@ tail_2_points = [
   [ "tail 1", -180, 0, "tail 1 ratio", "tail 0" ],
     ];
 
+default_head_points = [
+
+  [ "front jaw", 0, 0, "front jaw ratio", "center jaw" ],
+  [ "center jaw", 0, 0, "center jaw ratio", "back jaw" ],
+  [ "back jaw", 0, 0, "back jaw ratio", "origin" ],
+
+  [ "front", 45, 0, "front ratio", "origin" ],
+  [ "orbit", -20, 0, "orbit ratio", "front" ],
+  [ "nose", -20, 0, "nose ratio", "orbit" ],
+  [ "tip", -20, 0, "tip ratio", "nose" ],
+
+  [ "occipital", -45, 0, "occipital ratio", "origin" ],
+
+  [ "l front jaw", 0,  90, "side front jaw ratio", "front jaw" ],
+  [ "r front jaw", 0, -90, "side front jaw ratio", "front jaw" ],
+  [ "l center jaw", 0,  90, "side center jaw ratio", "center jaw" ],
+  [ "r center jaw", 0, -90, "side center jaw ratio", "center jaw" ],
+  [ "l back jaw", 0,  90, "side back jaw ratio", "back jaw" ],
+  [ "r back jaw", 0, -90, "side back jaw ratio", "back jaw" ],
+// TODO
+    ];
+
 
 //
 // hulls

@@ -13,7 +13,7 @@ dz = -1.7;
 #base(text=" W", font_size=5, font_spacing=0.95, $fn=12);
 
 bps =
-  _merge_body_entries(
+  _merge_point_entries(
     concat(quadruped_body_points, tail_2_points),
     [
       [ "side hip ratio", 0.5 ],
@@ -22,6 +22,9 @@ bps =
       [ "l ankle", -100,   0 ],
       [ "l ball",   -70, -40 ],
       [ "l toe",    -20,  10 ],
+
+      [ "l ball 1", -130, -10,  0.6, "l ball" ],
+      [ "r ball 1", -130,  10,  0.6, "r ball" ],
 
       [ "r knee",    43, -40 ],
       [ "r ankle", -100,   0 ],
@@ -146,6 +149,9 @@ hs =
         [ "crest shoulder" ], [ "shoulder" ], [ "crest neck" ], [ "neck" ],
         [ "head" ] ],
 
+      [ "l ball 1", [ "l ball" ], [ "l ball 1" ] ],
+      [ "r ball 1", [ "r ball" ], [ "r ball 1" ] ],
+
       [ "l hand sca", [ 2, 1, 1 ] ],
       [ "r hand sca", [ 2, 1, 1 ] ],
       [ "l ball sca", [ 2, 1, 1 ] ],
@@ -154,40 +160,15 @@ hs =
 
 translate([ 0, dy, bpoint(bps, "z") + dz ]) {
   color("red") _bal(bpoint(bps, "origin"));
-  draw_body_balls(bps); }
+  draw_points(bps); }
+
+//enumerate_points(bps);
 
 translate([ 0, dy, bpoint(bps, "z") + dz ])
-  draw_body_hulls(bps, hs);
+  draw_hulls(bps, hs);
 
 //translate([ 0, 0, bpoint(bps, "z") + dz ])
 //  color("cyan") _bal(bpoint(bps, "hip"), 1.4);
 
-
-module head(hh) {
-
-  ebd = hh / 2;
-  ebd2 = ebd / 2;
-
-  translate([ 0, hh / 2, - hh / 6 ]) {
-
-    translate([ -ebd2 * 1.1, -ebd2 / 2, ebd2 / 2 ]) sphere(d=ebd, $fn=36);
-    translate([ ebd2 * 1.1, -ebd2 / 2, ebd2 / 2 ]) sphere(d=ebd, $fn=36);
-
-    hull() {
-      translate([ -ebd2, ebd * 0.5, 0 ])
-        rotate([ -90, 0, 0 ])
-          cylinder(d1=ebd * 1.1, d2=ebd * 0.7, h=hh * 2.1, center=true, $fn=24);
-      translate([ ebd2, ebd * 0.5, 0 ])
-        rotate([ -90, 0, 0 ])
-          cylinder(d1=ebd * 1.1, d2=ebd * 0.7, h=hh * 2.1, center=true, $fn=24);
-    }
-  }
-}
-
-//z = bpoint(bps, "z");
-//hp = bpoint(bps, "head");
-//
-//translate([ 0, 0, z + hp.z ])
-//  rotate([ -45, 0, 0 ])
-//    head(33 / 6);
+//hps = // head points
 

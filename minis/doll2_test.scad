@@ -33,7 +33,7 @@ bps = make_humanoid_body_points([
     ]);
 
 translate([ 0, 0, bpoint(bps, "z") ])
-  draw_body_balls(bps);
+  draw_points(bps);
 
 translate([ 0, 0, bpoint(bps, "z") ])
   color("cyan") _bal(bpoint(bps, "tail in"), 1.1, $fn=12);
@@ -48,5 +48,5 @@ hs = make_humanoid_body_hulls([
       ]);
 
 translate([ 0, 0, bpoint(bps, "z") ])
-  draw_body_hulls(bps, hs);
+  draw_hulls(bps, hs);
 
