@@ -28,6 +28,12 @@ bps =
       [ "r ball",   -70,  40 ],
       [ "r toe",    -20, -10 ],
 
+      [ "l wrist",  -80,   0 ],
+      [ "r wrist",  -80,   0 ],
+
+      [ "l hand",   -60,  40 ],
+      [ "r hand",   -60, -40 ],
+
       [ "waist",     80,   0 ],
       [ "back",      80,   0 ],
       [ "shoulder",  80,   0 ],
@@ -64,11 +70,6 @@ bps =
       [ "r wing 3", -110, -10, 7, "r wing 2" ],
       [ "r wing 4", -70, 0, 4.6, "r wing 3" ],
         ]);
-
-//translate([ 0, dy, bpoint(bps, "z") + dz ]) {
-//  color("red") _bal(bpoint(bps, "origin"));
-//  draw_body_balls(bps);
-//}
 
 hs =
   _merge_hull_entries(
@@ -144,14 +145,16 @@ hs =
       [ "crest s",
         [ "crest shoulder" ], [ "shoulder" ], [ "crest neck" ], [ "neck" ],
         [ "head" ] ],
-      //[ "crest waist",
-      //[ "crest back",
-      //[ "crest shoulder",
-      //[ "crest neck",
 
-      //[ "l basin", [] ],
-      //[ "l thigh", [] ],
+      [ "l hand sca", [ 2, 1, 1 ] ],
+      [ "r hand sca", [ 2, 1, 1 ] ],
+      [ "l ball sca", [ 2, 1, 1 ] ],
+      [ "r ball sca", [ 2, 1, 1 ] ],
     ]);
+
+translate([ 0, dy, bpoint(bps, "z") + dz ]) {
+  color("red") _bal(bpoint(bps, "origin"));
+  draw_body_balls(bps); }
 
 translate([ 0, dy, bpoint(bps, "z") + dz ])
   draw_body_hulls(bps, hs);
@@ -181,10 +184,10 @@ module head(hh) {
   }
 }
 
-z = bpoint(bps, "z");
-hp = bpoint(bps, "head");
-
-translate([ 0, 0, z + hp.z ])
-  rotate([ -45, 0, 0 ])
-    head(33 / 6);
+//z = bpoint(bps, "z");
+//hp = bpoint(bps, "head");
+//
+//translate([ 0, 0, z + hp.z ])
+//  rotate([ -45, 0, 0 ])
+//    head(33 / 6);
 

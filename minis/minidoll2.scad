@@ -133,17 +133,36 @@ module draw_body_balls(body_points) {
   }
 }
 
+function _ssindex(s, k, k1=undef)=
+  is_string(s) && (_sindex(s, k) || (k1 && _sindex(s, k1)));
+
+function __get(dict, ak, bk0, bk1, default)=
+  _get(dict, str(ak, " ", bk0), _get(dict, str(ak, " ", bk1), default));
+
+function _get_sca(body_hulls, hull_name, p)=
+  let(
+    p0 = p[0],
+    dk = __get(body_hulls, "default", "scale", "sca", [ 1, 1, 1 ]),
+    hk = __get(body_hulls, hull_name, "scale", "sca", dk),
+    pk = __get(body_hulls, p0, "scale", "sca", hk),
+    p2 = p[2],
+    p2k = _ssindex(p2, " scale", " sca") ? _get(body_hulls, p2, pk) : pk
+  )
+  _is_point(p2) ? p2 :
+  p2k;
+
 function _get_dia(body_hulls, hull_name, p)=
   let(
     p0 = p[0],
-    dd = _get(body_hulls, "default diameter", 0.7),
-    hd = _get(body_hulls, str(hull_name, " diameter"), dd),
-    pd = _get(body_hulls, str(p0, " diameter"), hd),
-    p1 = p[1]
+    dd = __get(body_hulls, "default", "diameter", "dia", 0.7),
+    hd = __get(body_hulls, hull_name, "diameter", "dia", dd),
+    pd = __get(body_hulls, p0, "diameter", "dia", hd),
+    p1 = p[1],
+    p1d = _ssindex(p1, " diameter", " dia") ? _get(body_hulls, p1, pd) : pd
   )
   is_num(p1) ? p1 :
-  is_string(p1) ? _get(body_hulls, p1, pd) :
-  pd;
+  p1d;
+
 
 module _draw_hull(body_points, body_hulls, h) {
 
@@ -151,7 +170,12 @@ module _draw_hull(body_points, body_hulls, h) {
     for (p = h) {
       if ( ! is_string(p)) {
         xyz = bpoint(body_points, p[0]);
-        if (xyz) _bal(xyz, _get_dia(body_hulls, h[0], p));
+        if (xyz) {
+echo("xyz", h[0], p);
+          translate(xyz)
+            scale(_get_sca(body_hulls, h[0], p))
+              sphere(_get_dia(body_hulls, h[0], p));
+        }
       }
     }
   }
@@ -187,7 +211,9 @@ module draw_body_hulls(body_points, body_hulls) {
   hs = [ for (h = body_hulls) if (is_list(h[2]) || is_list(h[1])) h ];
 
   for (h = hs) {
-    if (h[1] == "bez") {
+    if (_ends_with(h[0], " sca") || _ends_with(h[0], " scale")) {
+    }
+    else if (h[1] == "bez") {
       _draw_bezier_hull(body_points, body_hulls, h);
     }
     else {

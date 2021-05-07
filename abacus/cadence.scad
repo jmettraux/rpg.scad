@@ -1,5 +1,5 @@
 
-// cadence 3945a26.scad
+// cadence d109fd3.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -12,6 +12,10 @@
 
 function _normalize_angle(a) =
   ((a >= 0 && a <= 360) ? a : _normalize_angle(a + (a < 0 ? 360 : -360)));
+
+
+function _is_point(p) =
+  is_list(p) && len(p) == 3 && is_num(p.x) && is_num(p.y) && is_num(p.z);
 
 
 //
@@ -42,9 +46,9 @@ function _put(dict, key, value) =
 
 function _assoc(arr, key, default, off=0) =
   let (a = arr[off])
-    a == undef ? default :
-    a[0] == key ? a :
-      _assoc(arr, key, default, off + 1);
+  a == undef ? default :
+  a[0] == key ? a :
+  _assoc(arr, key, default, off + 1);
 
 function _app(arr, entry) =
   concat(_del(arr, entry[0]), [ entry ]);
@@ -58,7 +62,7 @@ function _idx(list, index, default=undef) =
     i = index < 0 ? len(list) + index : index,
     r = list[i]
   )
-    r == undef ? default : r;
+  r == undef ? default : r;
 
   // sublist
   //
@@ -98,6 +102,12 @@ function _sindex(s, s1, i=0) =
   len(s0) < l ? undef :
   s0 == s1 ? i :
   _sindex(s, s1, i + 1);
+
+
+function _ends_with(l, l1)=
+  is_string(l) ? (_sstr(l, len(l) - len(l1)) == l1) :
+  is_list(l) ? (_slist(l, len(l) - len(l1)) == l1) :
+  false;
 
 
 //
