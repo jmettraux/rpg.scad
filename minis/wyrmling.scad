@@ -37,11 +37,11 @@ bps =
       [ "l hand",   -60,  40 ],
       [ "r hand",   -60, -40 ],
 
-      [ "waist",     80,   0 ],
-      [ "back",      80,   0 ],
-      [ "shoulder",  80,   0 ],
-      [ "neck",      80,   0 ],
-      [ "head",      80,   0 ],
+      [ "waist",     70,   0 ],
+      [ "back",      60,   0 ],
+      [ "shoulder",  50,   0 ],
+      [ "neck",      40,   0 ],
+      [ "head",      30,   0 ],
 
       [ "crest origin",
         "origin", -1, "waist", [ "l hip", "r hip" ] ],
@@ -66,12 +66,12 @@ bps =
       [ "l wing 1", 120, 10, "wing 1 ratio", "l back" ],
       [ "l wing 2", 90, 0, 3.5, "l wing 1" ],
       [ "l wing 3", -110, 10, 7, "l wing 2" ],
-      [ "l wing 4", -70, 0, 4.6, "l wing 3" ],
+      [ "l wing 4", -70, 0, 4.2, "l wing 3" ],
 
       [ "r wing 1", 120, -10, "wing 1 ratio", "r back" ],
       [ "r wing 2", 90, 0, 3.5, "r wing 1" ],
       [ "r wing 3", -110, -10, 7, "r wing 2" ],
-      [ "r wing 4", -70, 0, 4.6, "r wing 3" ],
+      [ "r wing 4", -70, 0, 4.2, "r wing 3" ],
         ]);
 
 hs =
