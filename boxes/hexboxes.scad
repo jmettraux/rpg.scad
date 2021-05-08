@@ -6,20 +6,22 @@
 lew = 0.2 * 2; // leeway
 dia = 100; // hex diameter
 thi = 1.8; // thickness
-lih = 10; // lid height
 
-//hei = 56; // height, for minis
-hei = 28; // height, for dice
+hei = 56; // heights, for minis
+lih = 12; //
+
+//hei = 28; // heights, for dice
+//lih = 12; //
 
 bigr = (dia + thi) / 2;
 smar = bigr * cos(30);
 
-label = "fortis fortuna adiuvat";
-font = "Fira Mono";
-font_size = 6.3;
-font_spacing = 0.8;
-label_dx = 45.7;
-label_dy = 2.1;
+//label = "fortis fortuna adiuvat";
+//font = "Fira Mono";
+//font_size = 6.3;
+//font_spacing = 0.8;
+//label_dx = 45.7;
+//label_dy = 2.1;
 
 
 module hex(height, diameter, hole=false) {
@@ -46,11 +48,11 @@ translate([ 0, 0, 0 ]) hex(hei, dia);
 
 difference() {
 
-  translate([ 0, dia, 0 ]) hex(lih, dia + thi + lew, hole=true);
+  translate([ 0, dia * 0.93, 0 ]) hex(lih, dia + thi + lew, hole=true);
 
-  #translate([ label_dx, dia + label_dy, - thi / 2 ])
-    linear_extrude(thi / 2)
-      mirror([ 1, 0, 0 ])
-        text(label, size=font_size, font=font, spacing=font_spacing);
+  //#translate([ label_dx, (dia * 0.93) + label_dy, - thi / 2 ])
+  //  linear_extrude(thi / 2)
+  //    mirror([ 1, 0, 0 ])
+  //      text(label, size=font_size, font=font, spacing=font_spacing);
 }
 
