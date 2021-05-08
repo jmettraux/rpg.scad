@@ -7,11 +7,11 @@ lew = 0.2 * 2; // leeway
 dia = 100; // hex diameter
 thi = 1.8; // thickness
 
-hei = 56; // heights, for minis
-lih = 12; //
-
-//hei = 28; // heights, for dice
+//hei = 56; // heights, for minis
 //lih = 12; //
+
+hei = 28; // heights, for dice
+lih = 12; //
 
 bigr = (dia + thi) / 2;
 smar = bigr * cos(30);
