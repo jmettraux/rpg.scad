@@ -56,28 +56,35 @@ bps =
       [ "crest neck",
         "neck", -1, "neck", [ "l shoulder", "r shoulder" ] ],
 
-  //[ "sternum2", "back", 0.75, "back", [ "l shoulder", "r shoulder" ] ],
-
       [ "tail 0",    -47,   0 ],
       [ "tail 0 c", -130, -10,  2.5, "origin" ],
       [ "tail 1",      -2,  100 ],
       [ "tail 1 c",    0,   0,  2, "tail 0" ],
 
-      [ "l wing 1", 120, 10, "wing 1 ratio", "l back" ],
+      [ "l wing 1", 120, 10, 1, "l back" ],
+      [ "l wing 10", 210, 10, 2.1, "l back" ],
+      [ "l wing 2", 90, 0, 3.5, "l wing 1" ],
+      [ "l wing 2c", 170, 0, 3.5, "l back" ],
       [ "l wing 2", 90, 0, 3.5, "l wing 1" ],
       [ "l wing 3", -110, 10, 7, "l wing 2" ],
-      [ "l wing 4", -70, 0, 4.2, "l wing 3" ],
+      [ "l wing 4", -82, 0, 4.0, "l wing 3" ],
 
-      [ "r wing 1", 120, -10, "wing 1 ratio", "r back" ],
+      [ "r wing 1", 120, -10, 1, "r back" ],
+      [ "r wing 10", 210, -10, 2.1, "r back" ],
+      [ "r wing 2", 90, 0, 3.5, "r wing 1" ],
+      [ "r wing 2c", 170, 0, 3.5, "r back" ],
       [ "r wing 2", 90, 0, 3.5, "r wing 1" ],
       [ "r wing 3", -110, -10, 7, "r wing 2" ],
-      [ "r wing 4", -70, 0, 4.2, "r wing 3" ],
+      [ "r wing 4", -82, 0, 4.0, "r wing 3" ],
         ]);
 
-hs =
+bhs =
   _merge_hull_entries(
     concat(default_spine_hulls, default_leg_hulls, default_arm_hulls),
     [
+      [ "l wing 10 dia", 1.4 ],
+      [ "r wing 10 dia", 1.4 ],
+
       [ "tail 0", "bez",
         [ "origin", 1.8 ],
         [ "tail 0 c" ],
@@ -87,21 +94,19 @@ hs =
         [ "tail 1 c" ],
         [ "tail 1", 0.1 ] ],
 
-      [ "l wing 1", [ "l back" ], [ "l wing 1" ] ],
-      [ "l wing 3", "bez",
-        [ "l wing 1", undef, "hub" ],
-        [ "l wing 2" ], [ "l wing 3" ], [ "l wing 4" ] ],
-      [ "l wing 4", "bez",
-        [ "l wing 1", undef, "hub" ],
-        [ "l wing 4" ], [ "l wing 1" ], [ "l back" ] ],
+      [ "l wing 1", [ "l back", 2.1 ], [ "l wing 1" ], [ "l wing 10" ] ],
+      [ "l wing 2", [ "l wing 1" ], [ "l wing 2" ], [ "l wing 10" ] ],
+      [ "l wing 4", [ "l wing 10" ], [ "l wing 4" ], [ "l wing 3" ] ],
+      [ "l wing 2c", "bez",
+        [ "l wing 2" ], [ "l wing 2c" ], [ "l wing 3" ],
+        [ "l wing 10", undef, "hub" ] ],
 
-      [ "r wing 1", [ "r back" ], [ "r wing 1" ] ],
-      [ "r wing 3", "bez",
-        [ "r wing 1", undef, "hub" ],
-        [ "r wing 2" ], [ "r wing 3" ], [ "r wing 4" ] ],
-      [ "r wing 4", "bez",
-        [ "r wing 1", undef, "hub" ],
-        [ "r wing 4" ], [ "r wing 1" ], [ "r back" ] ],
+      [ "r wing 1", [ "r back", 2.1 ], [ "r wing 1" ], [ "r wing 10" ] ],
+      [ "r wing 2", [ "r wing 1" ], [ "r wing 2" ], [ "r wing 10" ] ],
+      [ "r wing 4", [ "r wing 10" ], [ "r wing 4" ], [ "r wing 3" ] ],
+      [ "r wing 2c", "bez",
+        [ "r wing 2" ], [ "r wing 2c" ], [ "r wing 3" ],
+        [ "r wing 10", undef, "hub" ] ],
 
       [ "abdomen",
         [ "origin", 1.1 ],
@@ -161,18 +166,16 @@ hs =
 //enumerate_points(bps);
 
 translate([ 0, dy, bpoint(bps, "z") + dz ]) {
-  color("red") _bal(bpoint(bps, "origin"));
-  draw_points(bps); }
-
-translate([ 0, dy, bpoint(bps, "z") + dz ])
-  draw_hulls(bps, hs);
+  //color("red") _bal(bpoint(bps, "l wing 4"));
+  draw_points(bps);
+  draw_hulls(bps, bhs); }
 
 //translate([ 0, 0, bpoint(bps, "z") + dz ])
 //  color("cyan") _bal(bpoint(bps, "hip"), 1.4);
 
 ph = bpoint(bps, "head");
-echo(ph);
-echo(bpoint(bps, "neck"));
+//echo(ph);
+//echo(bpoint(bps, "neck"));
 
 hps = _merge_point_entries(
   default_head_points,
@@ -189,6 +192,6 @@ hhs =
 translate([ 0, ph.y + dy - 5, bpoint(bps, "z") + ph.z + dz - 2 ])
   rotate([ -30, 0, 0 ]) {
     //draw_points(hps);
-    draw_hulls(hps, hhs);
+    //draw_hulls(hps, hhs);
   }
 
