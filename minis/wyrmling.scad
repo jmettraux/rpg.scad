@@ -158,11 +158,11 @@ hs =
       [ "r ball sca", [ 2, 1, 1 ] ],
     ]);
 
+//enumerate_points(bps);
+
 translate([ 0, dy, bpoint(bps, "z") + dz ]) {
   color("red") _bal(bpoint(bps, "origin"));
   draw_points(bps); }
-
-//enumerate_points(bps);
 
 translate([ 0, dy, bpoint(bps, "z") + dz ])
   draw_hulls(bps, hs);
@@ -170,5 +170,25 @@ translate([ 0, dy, bpoint(bps, "z") + dz ])
 //translate([ 0, 0, bpoint(bps, "z") + dz ])
 //  color("cyan") _bal(bpoint(bps, "hip"), 1.4);
 
-//hps = // head points
+ph = bpoint(bps, "head");
+echo(ph);
+echo(bpoint(bps, "neck"));
+
+hps = _merge_point_entries(
+  default_head_points,
+  [
+    [ "height", 49 ],
+  ]);
+
+hhs =
+  _merge_hull_entries(
+    default_head_hulls,
+    [
+    ]);
+
+translate([ 0, ph.y + dy - 5, bpoint(bps, "z") + ph.z + dz - 2 ])
+  rotate([ -30, 0, 0 ]) {
+    //draw_points(hps);
+    draw_hulls(hps, hhs);
+  }
 

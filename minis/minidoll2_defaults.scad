@@ -172,18 +172,45 @@ tail_2_points = [
   [ "tail 1", -180, 0, "tail 1 ratio", "tail 0" ],
     ];
 
+  // not for humans though...
+  //
 default_head_points = [
+
+  [ "height", 33 ],
+  [ "head height ratio", 1 / 8 ], // to compute head height
+
+  [ "front jaw ratio", 1 / 2 ],
+  [ "center jaw ratio", 2 / 3 ],
+  [ "back jaw ratio", 2 / 3 ],
+
+  [ "front ratio", 1 / 1 ],
+  [ "orbit ratio", 1 / 2 ],
+  [ "nose ratio", 1 / 2 ],
+  [ "tip ratio", 1 / 2 ],
+
+  [ "occipital ratio", 1 / 3 ],
+
+  [ "side front jaw ratio", 1 / 4 ],
+  [ "side center jaw ratio", 1 / 3 ],
+  [ "side back jaw ratio", 1 / 3 ],
+
+  [ "side front ratio", 1 / 2 ],
+  [ "side orbit ratio", 1 / 2 ],
+  [ "side nose ratio", 1 / 2 ],
+  [ "side tip ratio", 1 / 4 ],
+
+  [ "side occipital ratio", 1 / 3 ],
 
   [ "front jaw", 0, 0, "front jaw ratio", "center jaw" ],
   [ "center jaw", 0, 0, "center jaw ratio", "back jaw" ],
   [ "back jaw", 0, 0, "back jaw ratio", "origin" ],
 
-  [ "front", 45, 0, "front ratio", "origin" ],
-  [ "orbit", -20, 0, "orbit ratio", "front" ],
-  [ "nose", -20, 0, "nose ratio", "orbit" ],
-  [ "tip", -20, 0, "tip ratio", "nose" ],
+  [ "front", 60, 0, "front ratio", "origin" ],
+  [ "orbit", -10, 0, "orbit ratio", "front" ],
+  [ "nose", -30, 0, "nose ratio", "orbit" ],
+  [ "tip", -10, 0, "tip ratio", "nose" ],
 
-  [ "occipital", -45, 0, "occipital ratio", "origin" ],
+  [ "occipital", 180 - 80, 0, "occipital ratio", "origin" ],
 
   [ "l front jaw", 0,  90, "side front jaw ratio", "front jaw" ],
   [ "r front jaw", 0, -90, "side front jaw ratio", "front jaw" ],
@@ -191,8 +218,49 @@ default_head_points = [
   [ "r center jaw", 0, -90, "side center jaw ratio", "center jaw" ],
   [ "l back jaw", 0,  90, "side back jaw ratio", "back jaw" ],
   [ "r back jaw", 0, -90, "side back jaw ratio", "back jaw" ],
-// TODO
+
+  [ "l front", 0,  90, "side front ratio", "front" ],
+  [ "r front", 0, -90, "side front ratio", "front" ],
+  [ "l orbit", 0,  90, "side orbit ratio", "orbit" ],
+  [ "r orbit", 0, -90, "side orbit ratio", "orbit" ],
+  [ "l nose", 0,  90, "side nose ratio", "nose" ],
+  [ "r nose", 0, -90, "side nose ratio", "nose" ],
+  [ "l tip", 0,  90, "side tip ratio", "tip" ],
+  [ "r tip", 0, -90, "side tip ratio", "tip" ],
+
+  [ "l occipital", 0,  90, "side occipital ratio", "occipital" ],
+  [ "r occipital", 0, -90, "side occipital ratio", "occipital" ],
     ];
+
+default_head_hulls = [
+  //[ "front jaw",
+  //  [ "l front jaw" ], [ "r front jaw" ],
+  //  [ "l center jaw" ], [ "r center jaw" ] ],
+  //[ "center jaw",
+  //  [ "l center jaw" ], [ "r center jaw" ],
+  //  [ "l back jaw" ], [ "r back jaw" ] ],
+  [ "core",
+    [ "l back jaw" ], [ "r back jaw" ],
+    [ "l occipital" ], [ "r occipital" ],
+    [ "l front" ], [ "r front" ] ],
+  [ "front",
+    [ "l front" ], [ "r front" ],
+    [ "l orbit" ], [ "r orbit" ] ],
+  [ "orbit",
+    [ "l orbit" ], [ "r orbit" ],
+    [ "l nose" ], [ "r nose" ] ],
+  [ "nose",
+    [ "l nose" ], [ "r nose" ],
+    [ "l tip" ], [ "r tip" ] ],
+  [ "front tongue",
+    [ "l front jaw" ], [ "r front jaw" ],
+    [ "l center jaw" ], [ "r center jaw" ],
+    [ "nose" ], [ "orbit" ] ],
+  [ "back tongue",
+    [ "l center jaw" ], [ "r center jaw" ],
+    [ "l back jaw" ], [ "r back jaw" ],
+    [ "orbit" ], [ "front" ] ],
+      ];
 
 
 //
