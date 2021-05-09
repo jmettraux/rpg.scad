@@ -215,7 +215,7 @@ hps = _merge_point_entries(
 
     [ "tip 1", -80, 0, 0.3, "tip" ],
 
-    [ "nose 1", "orbit", 3.2 ],
+    [ "nose 1", "orbit", 2.8 ],
 
     [ "crest", 110, 0, 1.0, "origin" ],
   ]);
