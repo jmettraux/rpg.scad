@@ -9,8 +9,8 @@ thi = 2.0; // thickness
 
 //hei = 56; // heights, for minis
 //lih = 12; //
-hei = 28; // heights, for dice
-lih = 12; //
+hei = 28;       // heights, for dice
+lih = 14 + 3.5; //
 
 bigr = (dia + thi) / 2;
 smar = bigr * cos(30);
@@ -38,5 +38,6 @@ translate([ 0, 0, 0 ]) hex(hei, dia);
 
 // lid
 
-translate([ 0, dia * 0.93, 0 ]) hex(lih, dia + thi + lew, hole=true);
+//translate([ 0, dia * 0.93, 0 ]) hex(lih, dia + thi + lew, hole=true);
+translate([ 0, dia * 0.93, 0 ]) hex(lih, dia + thi + lew, hole=false);
 
