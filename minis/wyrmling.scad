@@ -42,6 +42,11 @@ bps =
       [ "l hand",   -60,  40 ],
       [ "r hand",   -60, -40 ],
 
+      [ "l hand r", -60, -10, 0.9, "l wrist" ],
+      [ "l hand l", -60,  90, 0.9, "l wrist" ],
+      [ "r hand r", -60, -90, 0.9, "r wrist" ],
+      [ "r hand l", -60,  10, 0.9, "r wrist" ],
+
       [ "waist",     70,   0 ],
       [ "back",      60,   0 ],
       [ "shoulder",  50,   0 ],
@@ -176,10 +181,15 @@ bhs =
       [ "r toe l", [ "r ball" ], [ "r toe l" ] ],
       [ "r toe r", [ "r ball" ], [ "r toe r" ] ],
 
-      [ "l hand sca", [ 2, 1, 1 ] ],
-      [ "r hand sca", [ 2, 1, 1 ] ],
+      //[ "l hand sca", [ 2, 1, 1 ] ],
+      //[ "r hand sca", [ 2, 1, 1 ] ],
       [ "l ball sca", [ 2, 1, 1 ] ],
       [ "r ball sca", [ 2, 1, 1 ] ],
+
+      [ "l hand l", [ "l wrist" ], [ "l hand l" ] ],
+      [ "l hand r", [ "l wrist" ], [ "l hand r" ] ],
+      [ "r hand l", [ "r wrist" ], [ "r hand l" ] ],
+      [ "r hand r", [ "r wrist" ], [ "r hand r" ] ],
     ]);
 
 //enumerate_points(bps);
