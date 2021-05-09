@@ -65,7 +65,7 @@ bps =
       [ "l wing 10", 210, 10, 2.1, "l back" ],
       [ "l wing 2", 90, 0, 3.5, "l wing 1" ],
       [ "l wing 2c", 170, 0, 3.5, "l back" ],
-      [ "l wing 2", 90, 0, 3.5, "l wing 1" ],
+      [ "l wing 20", -50, 0, 0.9, "l wing 2" ],
       [ "l wing 3", -110, 10, 7, "l wing 2" ],
       [ "l wing 4", -82, 0, 4.0, "l wing 3" ],
 
@@ -73,6 +73,7 @@ bps =
       [ "r wing 10", 210, -10, 2.1, "r back" ],
       [ "r wing 2", 90, 0, 3.5, "r wing 1" ],
       [ "r wing 2c", 170, 0, 3.5, "r back" ],
+      [ "r wing 20", -50, 0, 0.9, "r wing 2" ],
       [ "r wing 2", 90, 0, 3.5, "r wing 1" ],
       [ "r wing 3", -110, -10, 7, "r wing 2" ],
       [ "r wing 4", -82, 0, 4.0, "r wing 3" ],
@@ -101,12 +102,20 @@ bhs =
         [ "l wing 2" ], [ "l wing 2c" ], [ "l wing 3" ],
         [ "l wing 10", undef, "hub" ] ],
 
+      [ "l wing 20", "bez",
+        [ "l wing 1" ], [ "l wing 2" ], [ "l wing 20" ],
+        [ "l wing 2", undef, "hub" ] ],
+
       [ "r wing 1", [ "r back", 2.1 ], [ "r wing 1" ], [ "r wing 10" ] ],
       [ "r wing 2", [ "r wing 1" ], [ "r wing 2" ], [ "r wing 10" ] ],
       [ "r wing 4", [ "r wing 10" ], [ "r wing 4" ], [ "r wing 3" ] ],
       [ "r wing 2c", "bez",
         [ "r wing 2" ], [ "r wing 2c" ], [ "r wing 3" ],
         [ "r wing 10", undef, "hub" ] ],
+
+      [ "r wing 20", "bez",
+        [ "r wing 1" ], [ "r wing 2" ], [ "r wing 20" ],
+        [ "r wing 2", undef, "hub" ] ],
 
       [ "abdomen",
         [ "origin", 1.1 ],
@@ -166,8 +175,8 @@ bhs =
 //enumerate_points(bps);
 
 translate([ 0, dy, bpoint(bps, "z") + dz ]) {
-  //color("red") _bal(bpoint(bps, "l wing 4"));
-  //draw_points(bps);
+  //color("cyan") _bal(bpoint(bps, "l wing 20"), 0.8, $fn=36);
+  draw_points(bps);
   draw_hulls(bps, bhs);
     }
 
