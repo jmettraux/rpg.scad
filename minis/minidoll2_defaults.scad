@@ -185,6 +185,7 @@ default_head_points = [
 
   [ "front ratio", 1 / 1 ],
   [ "orbit ratio", 1 / 2 ],
+  [ "cheek ratio", 1 / 3 ],
   [ "nose ratio", 1 / 2 ],
   [ "tip ratio", 1 / 2 ],
 
@@ -196,6 +197,7 @@ default_head_points = [
 
   [ "side front ratio", 1 / 2 ],
   [ "side orbit ratio", 1 / 2 ],
+  [ "side cheek ratio", 0.6 ],
   [ "side nose ratio", 1 / 2 ],
   [ "side tip ratio", 1 / 4 ],
 
@@ -207,6 +209,7 @@ default_head_points = [
 
   [ "front", 60, 0, "front ratio", "origin" ],
   [ "orbit", -10, 0, "orbit ratio", "front" ],
+  [ "cheek", -90, 0, "cheek ratio", "orbit" ],
   [ "nose", -30, 0, "nose ratio", "orbit" ],
   [ "tip", -10, 0, "tip ratio", "nose" ],
 
@@ -219,10 +222,15 @@ default_head_points = [
   [ "l back jaw", 0,  90, "side back jaw ratio", "back jaw" ],
   [ "r back jaw", 0, -90, "side back jaw ratio", "back jaw" ],
 
+  [ "l top jaw", "l back jaw", "l front", 0.5 ],
+  [ "r top jaw", "r back jaw", "r front", 0.5 ],
+
   [ "l front", 0,  90, "side front ratio", "front" ],
   [ "r front", 0, -90, "side front ratio", "front" ],
   [ "l orbit", 0,  90, "side orbit ratio", "orbit" ],
   [ "r orbit", 0, -90, "side orbit ratio", "orbit" ],
+  [ "l cheek", 0,  90, "side cheek ratio", "cheek" ],
+  [ "r cheek", 0, -90, "side cheek ratio", "cheek" ],
   [ "l nose", 0,  90, "side nose ratio", "nose" ],
   [ "r nose", 0, -90, "side nose ratio", "nose" ],
   [ "l tip", 0,  90, "side tip ratio", "tip" ],
@@ -233,33 +241,25 @@ default_head_points = [
     ];
 
 default_head_hulls = [
-  //[ "front jaw",
-  //  [ "l front jaw" ], [ "r front jaw" ],
-  //  [ "l center jaw" ], [ "r center jaw" ] ],
-  //[ "center jaw",
-  //  [ "l center jaw" ], [ "r center jaw" ],
-  //  [ "l back jaw" ], [ "r back jaw" ] ],
-  [ "core",
+
+  [ "back",
     [ "l back jaw" ], [ "r back jaw" ],
     [ "l occipital" ], [ "r occipital" ],
     [ "l front" ], [ "r front" ] ],
-  [ "front",
+  [ "middle",
     [ "l front" ], [ "r front" ],
-    [ "l orbit" ], [ "r orbit" ] ],
-  [ "orbit",
+    [ "l top jaw" ], [ "r top jaw" ],
     [ "l orbit" ], [ "r orbit" ],
-    [ "l nose" ], [ "r nose" ] ],
+    [ "l cheek" ], [ "r cheek" ],
+    [ "l nose" ], [ "r nose" ], ],
   [ "nose",
     [ "l nose" ], [ "r nose" ],
     [ "l tip" ], [ "r tip" ] ],
   [ "front tongue",
     [ "l front jaw" ], [ "r front jaw" ],
     [ "l center jaw" ], [ "r center jaw" ],
-    [ "nose" ], [ "orbit" ] ],
-  [ "back tongue",
-    [ "l center jaw" ], [ "r center jaw" ],
-    [ "l back jaw" ], [ "r back jaw" ],
-    [ "orbit" ], [ "front" ] ],
+    [ "nose" ], [ "orbit" ], [ "front" ],
+    [ "l back jaw" ], [ "r back jaw" ] ],
       ];
 
 

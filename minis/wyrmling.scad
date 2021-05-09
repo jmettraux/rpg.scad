@@ -167,8 +167,9 @@ bhs =
 
 translate([ 0, dy, bpoint(bps, "z") + dz ]) {
   //color("red") _bal(bpoint(bps, "l wing 4"));
-  draw_points(bps);
-  draw_hulls(bps, bhs); }
+  //draw_points(bps);
+  draw_hulls(bps, bhs);
+    }
 
 //translate([ 0, 0, bpoint(bps, "z") + dz ])
 //  color("cyan") _bal(bpoint(bps, "hip"), 1.4);
@@ -181,17 +182,33 @@ hps = _merge_point_entries(
   default_head_points,
   [
     [ "height", 49 ],
+    [ "side nose ratio", 0.3 ],
+
+    [ "tip 1", -80, 0, 0.3, "tip" ],
+
+    [ "nose 1", "orbit", 3.2 ],
+
+    [ "crest", 110, 0, 1.0, "origin" ],
   ]);
 
-hhs =
-  _merge_hull_entries(
-    default_head_hulls,
-    [
-    ]);
+hhs = _merge_hull_entries(
+  default_head_hulls,
+  [
 
-translate([ 0, ph.y + dy - 5, bpoint(bps, "z") + ph.z + dz - 2 ])
+    [ "nose 1",
+      [ "nose 1" ], [ "tip 1" ], [ "l tip" ], [ "r tip" ],
+      [ "orbit" ], [ "l nose" ], [ "r nose" ] ],
+
+    [ "crest",
+      [ "front", 0.4 ], [ "crest", 0.4 ], [ "occipital", 0.4 ] ],
+  ]);
+
+//enumerate_points(hps);
+
+translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ])
   rotate([ -30, 0, 0 ]) {
+    //color("cyan") _bal(bpoint(hps, "crest"), 0.8, $fn=36);
     //draw_points(hps);
-    //draw_hulls(hps, hhs);
+    draw_hulls(hps, hhs);
   }
 
