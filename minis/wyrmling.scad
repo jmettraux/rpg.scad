@@ -31,6 +31,11 @@ bps =
       [ "r ball",   -70,  40 ],
       [ "r toe",    -20, -10 ],
 
+      [ "l toe l", -20, -30, 0.7, "l ball" ],
+      [ "l toe r", -20, 50, 0.7, "l ball" ],
+      [ "r toe l", -20, -50, 0.7, "r ball" ],
+      [ "r toe r", -20, 30, 0.7, "r ball" ],
+
       [ "l wrist",  -80,   0 ],
       [ "r wrist",  -80,   0 ],
 
@@ -166,6 +171,11 @@ bhs =
       [ "l ball 1", [ "l ball" ], [ "l ball 1" ] ],
       [ "r ball 1", [ "r ball" ], [ "r ball 1" ] ],
 
+      [ "l toe l", [ "l ball" ], [ "l toe l" ] ],
+      [ "l toe r", [ "l ball" ], [ "l toe r" ] ],
+      [ "r toe l", [ "r ball" ], [ "r toe l" ] ],
+      [ "r toe r", [ "r ball" ], [ "r toe r" ] ],
+
       [ "l hand sca", [ 2, 1, 1 ] ],
       [ "r hand sca", [ 2, 1, 1 ] ],
       [ "l ball sca", [ 2, 1, 1 ] ],
@@ -176,7 +186,7 @@ bhs =
 
 translate([ 0, dy, bpoint(bps, "z") + dz ]) {
   //color("cyan") _bal(bpoint(bps, "l wing 20"), 0.8, $fn=36);
-  draw_points(bps);
+  //draw_points(bps);
   draw_hulls(bps, bhs);
     }
 
