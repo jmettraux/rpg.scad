@@ -250,12 +250,14 @@ function rotfun(rv)=
 
 module support_point(point, rotation=undef) {
 
-  t = 0.4;
+  t = 0.6;
   l = 100;
   //p = rotfun(rotation == undef ? [ 0, 0, 0 ] : rotation) * point;
   p = (rotation == undef) ? point : rotfun(rotation) * point;
 
-  color("cyan") translate([ p.x, p.y, p.z - l ]) cube(size=[ t, t, l ]);
+  color("cyan")
+    translate([ p.x, p.y, p.z - l + l / 2 ])
+      cube(size=[ t, t, l ], center=true);
 }
 
 module support(points, point_name, rotation=undef) {
