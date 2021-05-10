@@ -146,8 +146,8 @@ bhs =
       [ "l basin diameter", 1.2 ],
       [ "r basin diameter", 1.2 ],
 
-      [ "l shoulder diameter", 1.9 ],
-      [ "r shoulder diameter", 1.9 ],
+      [ "l shoulder diameter", 2.1 ],
+      [ "r shoulder diameter", 2.1 ],
 
       [ "l back dia", 2.1 ],
       [ "r back dia", 2.1 ],
@@ -252,6 +252,8 @@ difference() {
       support(bps, "r hand r");
       support(bps, "l hip");
       support(bps, "r hip");
+
+      support(bps, "neck");
     }
 
     translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ]) {
@@ -261,12 +263,18 @@ difference() {
       r = [ -30, 0, 0 ];
       rotate(r) draw_hulls(hps, hhs);
 
+      support(hps, "front jaw", r);
       support(hps, "r front jaw", r);
       support(hps, "l front jaw", r);
+      support(hps, "center jaw", r);
       support(hps, "r center jaw", r);
       support(hps, "l center jaw", r);
+      support(hps, "back jaw", r);
       support(hps, "r back jaw", r);
       support(hps, "l back jaw", r);
+      support(hps, "r cheek", r);
+      support(hps, "l cheek", r);
+      support(hps, "tip 1", r);
     }
   }
 
