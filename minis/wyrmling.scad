@@ -17,6 +17,7 @@ bps =
     concat(quadruped_body_points, tail_2_points),
     [
       [ "side hip ratio", 0.5 ],
+      [ "side back ratio", 0.8 ],
 
       [ "l knee",    43,  40 ],
       [ "l ankle", -100,   0 ],
@@ -36,8 +37,10 @@ bps =
       [ "r toe l", -20, -50, 0.7, "r ball" ],
       [ "r toe r", -20, 30, 0.7, "r ball" ],
 
-      [ "l wrist",  -80,   0 ],
-      [ "r wrist",  -80,   0 ],
+      [ "l elbow", -120, -50 ],
+      [ "l wrist", -110,  20 ],
+      [ "r elbow", -120,  50 ],
+      [ "r wrist", -110, -20 ],
 
       [ "l hand",   -60,  40 ],
       [ "r hand",   -60, -40 ],
@@ -128,20 +131,26 @@ bhs =
         [ "r wing 2", undef, "hub" ] ],
 
       [ "abdomen",
-        [ "origin", 1.1 ],
+        [ "origin", 1.7 ],
         [ "waist", 1.5 ],
         [ "l waist", 1.2 ], [ "r waist", 1.2 ] ],
       [ "back",
         [ "l waist", 1.2 ], [ "r waist", 1.2 ],
         [ "back", 1.6 ],
-        [ "l back", 1.2 ], [ "r back", 1.2 ] ],
+        [ "l back" ], [ "r back" ] ],
       [ "shoulders",
-        [ "l back", 1.2 ], [ "r back", 1.2 ],
+        [ "l back" ], [ "r back" ],
         [ "shoulder", 1.7 ],
-        [ "l shoulder", 1.2 ], [ "r shoulder", 1.2 ] ],
+        [ "l shoulder" ], [ "r shoulder" ] ],
 
       [ "l basin diameter", 1.2 ],
       [ "r basin diameter", 1.2 ],
+
+      [ "l shoulder diameter", 1.9 ],
+      [ "r shoulder diameter", 1.9 ],
+
+      [ "l back dia", 2.1 ],
+      [ "r back dia", 2.1 ],
 
       [ "leg diameter", 3 ],
       [ "knee diameter", 2 ],
@@ -149,9 +158,9 @@ bhs =
       [ "ankle diameter", 1.4 ],
       [ "ball diameter", 1.2 ],
 
-      [ "shoulder diameter", 1.7 ],
-      [ "elbow diameter", 1.4 ],
-      [ "wrist diameter", 1.3 ],
+      [ "shoulder diameter", 1.9 ],
+      [ "elbow diameter", 1.5 ],
+      [ "wrist diameter", 1.4 ],
 
       [ "pelvis", [ "origin", 2.8 ] ],
 
