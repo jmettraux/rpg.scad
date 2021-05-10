@@ -10,7 +10,7 @@ dy = -7;
 dz = -1.7;
 
 
-#base(text=" W", font_size=5, font_spacing=0.95, $fn=12);
+#base(text="", font_size=5, font_spacing=0.95, $fn=12);
 
 bps =
   _merge_point_entries(
@@ -250,6 +250,8 @@ difference() {
       support(bps, "r hand");
       support(bps, "r hand l");
       support(bps, "r hand r");
+      support(bps, "l hip");
+      support(bps, "r hip");
     }
 
     translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ]) {
