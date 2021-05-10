@@ -257,7 +257,7 @@ module support_point(point, rotation=undef) {
 
   color("cyan")
     translate([ p.x, p.y, p.z - l + l / 2 ])
-      cube(size=[ t, t, l ], center=true);
+      cylinder(d=t, h=l, center=true, $fn=36);
 }
 
 module support(points, point_name, rotation=undef) {
