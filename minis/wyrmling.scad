@@ -253,7 +253,7 @@ difference() {
       support(bps, "l hip");
       support(bps, "r hip");
 
-      support(bps, "neck");
+      //support(bps, "neck");
     }
 
     translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ]) {
@@ -266,12 +266,12 @@ difference() {
       support(hps, "front jaw", r);
       support(hps, "r front jaw", r);
       support(hps, "l front jaw", r);
-      support(hps, "center jaw", r);
-      support(hps, "r center jaw", r);
-      support(hps, "l center jaw", r);
-      support(hps, "back jaw", r);
-      support(hps, "r back jaw", r);
-      support(hps, "l back jaw", r);
+      //support(hps, "center jaw", r);
+      //support(hps, "r center jaw", r);
+      //support(hps, "l center jaw", r);
+      //support(hps, "back jaw", r);
+      //support(hps, "r back jaw", r);
+      //support(hps, "l back jaw", r);
       support(hps, "r cheek", r);
       support(hps, "l cheek", r);
       support(hps, "tip 1", r);
