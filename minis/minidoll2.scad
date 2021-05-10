@@ -14,6 +14,8 @@ module _bal(p, d) {
 function bpoints(points)=
   [ for (p = points) if (len(p) > 2) bpoint(points, p[0]) ];
 
+function _bpoint_rz(points)=
+  min([ for (p = bpoints(points)) p.z ]);
 function _bpoint_z(points)=
   - min(concat([ 0 ], [ for (p = bpoints(points)) p.z ]));
 
@@ -88,6 +90,7 @@ function bpoint(points, name, default=undef)=
   s1 && len(p) > 4 ? _bpoint_cross(points, p) :
   s1 && s2 ? _bpoint_mid(points, p) :
   s1 ? _bpoint_lin(points, p) :
+  name == "rz" ? _bpoint_rz(points) :
   name == "z" ? _bpoint_z(points) :
   _bpoint_point(points, p);
 
@@ -237,4 +240,26 @@ function _merge_hull_entries(hulls, entries, i=0)=
 
 function make_humanoid_body_hulls(entries)=
   _merge_hull_entries(default_humanoid_body_hulls, entries);
+
+  // TODO move me to cadence.scad
+  //
+function rotfun(rv)=
+  [[1,0,0],[0,cos(rv.x),-sin(rv.x)],[0,sin(rv.x),cos(rv.x)]]
+   * [[cos(rv.y),0,sin(rv.y)],[0,1,0],[-sin(rv.y),0,cos(rv.y)]]
+   * [[cos(rv.z),-sin(rv.z),0],[sin(rv.z),cos(rv.z),0],[0,0,1]];
+
+module support_point(point, rotation=undef) {
+
+  t = 0.4;
+  l = 100;
+  //p = rotfun(rotation == undef ? [ 0, 0, 0 ] : rotation) * point;
+  p = (rotation == undef) ? point : rotfun(rotation) * point;
+
+  color("cyan") translate([ p.x, p.y, p.z - l ]) cube(size=[ t, t, l ]);
+}
+
+module support(points, point_name, rotation=undef) {
+
+  support_point(bpoint(points, point_name), rotation);
+}
 

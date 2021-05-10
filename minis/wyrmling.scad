@@ -203,18 +203,10 @@ bhs =
 
 //enumerate_points(bps);
 
-translate([ 0, dy, bpoint(bps, "z") + dz ]) {
-  //color("cyan") _bal(bpoint(bps, "l wing 20"), 0.8, $fn=36);
-  //draw_points(bps);
-  draw_hulls(bps, bhs);
-    }
-
 //translate([ 0, 0, bpoint(bps, "z") + dz ])
 //  color("cyan") _bal(bpoint(bps, "hip"), 1.4);
 
 ph = bpoint(bps, "head");
-//echo(ph);
-//echo(bpoint(bps, "neck"));
 
 hps = _merge_point_entries(
   default_head_points,
@@ -243,10 +235,40 @@ hhs = _merge_hull_entries(
 
 //enumerate_points(hps);
 
-translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ])
-  rotate([ -30, 0, 0 ]) {
-    //color("cyan") _bal(bpoint(hps, "crest"), 0.8, $fn=36);
-    //draw_points(hps);
-    draw_hulls(hps, hhs);
+difference() {
+
+  union() {
+
+    translate([ 0, dy, bpoint(bps, "z") + dz ]) {
+      //color("cyan") _bal(bpoint(bps, "l wing 20"), 0.8, $fn=36);
+      //draw_points(bps);
+      draw_hulls(bps, bhs);
+
+      support(bps, "l hand");
+      support(bps, "l hand l");
+      support(bps, "l hand r");
+      support(bps, "r hand");
+      support(bps, "r hand l");
+      support(bps, "r hand r");
+    }
+
+    translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ]) {
+
+      //color("cyan") _bal(bpoint(hps, "crest"), 0.8, $fn=36);
+      //draw_points(hps);
+      r = [ -30, 0, 0 ];
+      rotate(r) draw_hulls(hps, hhs);
+
+      support(hps, "r front jaw", r);
+      support(hps, "l front jaw", r);
+      support(hps, "r center jaw", r);
+      support(hps, "l center jaw", r);
+      support(hps, "r back jaw", r);
+      support(hps, "l back jaw", r);
+    }
   }
+
+  translate([ 0, 0, - 50 - 3 ])
+    cube(size=[ 100, 100, 100 ], center=true);
+}
 
