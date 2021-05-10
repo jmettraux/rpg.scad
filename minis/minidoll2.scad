@@ -241,19 +241,15 @@ function _merge_hull_entries(hulls, entries, i=0)=
 function make_humanoid_body_hulls(entries)=
   _merge_hull_entries(default_humanoid_body_hulls, entries);
 
-  // TODO move me to cadence.scad
-  //
-function rotfun(rv)=
-  [[1,0,0],[0,cos(rv.x),-sin(rv.x)],[0,sin(rv.x),cos(rv.x)]]
-   * [[cos(rv.y),0,sin(rv.y)],[0,1,0],[-sin(rv.y),0,cos(rv.y)]]
-   * [[cos(rv.z),-sin(rv.z),0],[sin(rv.z),cos(rv.z),0],[0,0,1]];
+
+//
+// supports
 
 module support_point(point, rotation=undef) {
 
   t = 0.6;
   l = 100;
-  //p = rotfun(rotation == undef ? [ 0, 0, 0 ] : rotation) * point;
-  p = (rotation == undef) ? point : rotfun(rotation) * point;
+  p = (rotation == undef) ? point : rotate_point(point, rotation);
 
   color("cyan")
     translate([ p.x, p.y, p.z - l + l / 2 ])

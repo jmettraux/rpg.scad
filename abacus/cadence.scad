@@ -1,5 +1,5 @@
 
-// cadence d109fd3.scad
+// cadence eaabadf.scad
 // https://github.com/jmettraux/cadence.scad
 
 
@@ -161,6 +161,19 @@ function _midpoint(p0, p1, ratio=0.5) =
 //  sqrt(pow(vector.x, 2) + pow(vector.y, 2) + pow(vector.z, 2));
   //
   // no, use norm(vector)
+
+
+// Like rotate(rotation) { x }, but as a function, applied to a single point
+//
+function rotate_point(point, rotation)=
+  let (
+    r = rotation,
+    m =
+      [ [ 1, 0, 0 ], [0, cos(r.x), -sin(r.x) ], [ 0, sin(r.x), cos(r.x) ] ] *
+      [ [ cos(r.y), 0, sin(r.y) ], [ 0, 1, 0 ], [ -sin(r.y), 0, cos(r.y) ] ] *
+      [ [ cos(r.z), -sin(r.z), 0 ], [ sin(r.z), cos(r.z), 0 ], [ 0, 0, 1 ] ]
+  )
+  m * point;
 
 
 // inspiration:
