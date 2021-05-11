@@ -169,6 +169,11 @@ bhs =
       [ "crest b diameter", 0.4 ],
       [ "crest s diameter", 0.4 ],
 
+      [ "l hip diameter", 3 ],
+      [ "l hip sca", [ 0.7, 1, 1.4 ] ],
+      [ "r hip diameter", 3 ],
+      [ "r hip sca", [ 0.7, 1, 1.4 ] ],
+
       [ "crest o 0",
         [ "crest origin 0" ], [ "crest origin" ], [ "origin" ] ],
       [ "crest o",
