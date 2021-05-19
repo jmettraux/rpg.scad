@@ -17,13 +17,14 @@ br2 = br * 2;
 
 
 module hex() {
-  //module cub() { cube(size=[ br2, br + o2, br + o2 ], center=true); }
+
   module balcyl() {
     cylinder(r=br + 2 * o2, h=br + 2 * o2, center=true, $fn=36);
   }
+
   difference() {
     translate([ 0, 0, h * -0.5 ])
-      //hull()
+      hull()
         for (a = [ 0 : 60 : 300 ]) {
           rotate([ 0, 0, a ]) {
             //translate([ 0, t - rr, 0 ]) cylinder(r=rr, h=h, $fn=12);
@@ -31,10 +32,9 @@ module hex() {
             translate([ 0, t - rr, rr ]) sphere(r=rr, $fn=12);
           }
         }
-    //#translate([ 0, br * 1.7, 0 ]) cub();
-    //#translate([ 0, -br * 1.7, 0 ]) cub();
-    #balcyl();
-    for (a = [ 30 : 120 : 270 ]) {
+    #balcyl(); // center ball
+    //for (a = [ 30 : 120 : 270 ]) {
+    for (a = [ 30 : 60 : 330 ]) {
       #rotate([ 0, 0, a ]) translate([ 0, r - br - 4 * o2, 0 ]) balcyl();
     }
   }
