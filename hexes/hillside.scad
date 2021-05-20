@@ -24,9 +24,8 @@ module hex(height=1) {
 
   hei = h * height;
 
-  module balcyl(h=-1) {
-    h = h > 0 ? h : br * 2 + 0.2;
-    cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
+  module balcyl() {
+    cylinder(r=br + 2 * o2, h=br * 2 + o2, center=true, $fn=36);
   }
 
   difference() {
@@ -43,11 +42,11 @@ module hex(height=1) {
     h0 = hei / 2 - h / 2;
     h1 = -hei / 2 + h / 2;
 
-    #balcyl(hei - 3 * o2); // center ball
-
+    #translate([ 0, 0, h0 ]) balcyl();
     for (a = [ 30 : 60 : 330 ]) {
       #rotate([ 0, 0, a ]) translate([ 0, r - br - 4 * o2, h0 ]) balcyl();
     }
+
     if (height > 1) {
       #translate([ 0, 0, h1 ]) balcyl(); // center ball
       for (a = [ 30 : 60 : 330 ]) {
