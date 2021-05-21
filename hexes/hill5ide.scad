@@ -23,16 +23,17 @@ l1 = 3 * t;
 module panel() {
 
   bar = br + 2 * o2;
-  baro2 = bar + 2 * o2;
+  baro2 = bar + 4 * o2;
 
   module balcyl() {
-    cylinder(r=bar, h=br * 2 + o2, center=true, $fn=36);
+    cylinder(r=bar, h=bd + 2 * o2, center=true, $fn=36);
   }
   module outcyl() {
-    cylinder(r=bar + 2 * o2, h=h, center=true, $fn=36);
+    cylinder(r=baro2, h=h, center=true, $fn=36);
   }
 
   difference() {
+  //union() {
 
     //cube(size=[ l0, l1, h ], center=true);
     hull() {
