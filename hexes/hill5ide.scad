@@ -23,15 +23,24 @@ l1 = 3 * t;
 module panel() {
 
   bar = br + 2 * o2;
-  baro2 = bar + o2;
+  baro2 = bar + 2 * o2;
 
   module balcyl() {
     cylinder(r=bar, h=br * 2 + o2, center=true, $fn=36);
   }
+  module outcyl() {
+    cylinder(r=bar + 2 * o2, h=h, center=true, $fn=36);
+  }
 
   difference() {
 
-    cube(size=[ l0, l1, h ], center=true);
+    //cube(size=[ l0, l1, h ], center=true);
+    hull() {
+      translate([ -l0 / 2 + baro2, -l1 / 2 + baro2, 0 ]) outcyl();
+      translate([ -l0 / 2 + baro2, l1 / 2 - baro2, 0 ]) outcyl();
+      translate([ l0 / 2 - baro2, -l1 / 2 + baro2, 0 ]) outcyl();
+      translate([ l0 / 2 - baro2, l1 / 2 - baro2, 0 ]) outcyl();
+    }
 
     translate([ -l0 / 2 + baro2, -l1 / 2 + baro2, 0 ]) balcyl();
     translate([ -l0 / 2 + baro2, l1 / 2 - baro2, 0 ]) balcyl();
