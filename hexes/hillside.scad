@@ -94,7 +94,8 @@ module tri(height=1) {
       }
 }
 
-th = 1 + 5;
+//th = 1 + 15 + 1; // 105 hexes (15 x 7)
+th = 1 + 3;
 flower();
 //for (a = [ 0 : 60 : 300 ])
 for (a = [ 0 : 120 : 300 ])
