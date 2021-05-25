@@ -54,6 +54,10 @@ module hex(height=1) {
   }
 }
 
+//hex();
+//translate([ inch * 1.1, 0, 0 ]) hex(3);
+//translate([ inch * 2.2, 0, 0 ]) hex(5);
+
 module square(height=1) {
 
   hei = h * height;
@@ -85,10 +89,6 @@ module square(height=1) {
     }
   }
 }
-
-//hex();
-//translate([ inch * 1.1, 0, 0 ]) hex(3);
-//translate([ inch * 2.2, 0, 0 ]) hex(5);
 
 module hgroup(x, y, height=1) {
 
@@ -132,6 +132,29 @@ module tri(height=1) {
 //    translate([ 0, -tr2 - t - 2 * o2, ((th - 1) * h) / 2 ])
 //      tri(th);
 
-square();
+//square();
 //translate([ inch, 0, 0 ]) square(3);
+
+module hexvar(height) {
+  hei = (height - 1) * h;
+  r2 = r / 2;
+  r4 = r / 4;
+  module tooth(thinner=false) {
+    //t = thinner ? 0 : o2;
+    t = 0;
+    translate([ 0, 0, h / 2 ])
+      cube(size=[ r2 - t, r2 - t, hei ], center=true);
+  }
+  difference() {
+    union() {
+      hex(height);
+    }
+    translate([ inch / 2, 0, h / 2 ])
+      cube(size=[ inch, inch * 2, hei ], center=true);
+    translate([ -r4, r4, 0 ]) tooth(false);
+  }
+  translate([ r4, -r4, 0 ]) tooth(false);
+}
+
+hexvar(5);
 
