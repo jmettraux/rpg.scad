@@ -90,6 +90,13 @@ module square(height=1) {
   }
 }
 
+module line(squares) {
+  d = inch - 0.1;
+  for (i = [ 0 : squares - 1 ])
+    translate([ i * d, 0, 0 ]) square();
+}
+line(3);
+
 module hgroup(x, y, height=1) {
 
   for (xx = [ 0 : x - 1 ]) {
@@ -156,5 +163,5 @@ module hexvar(height) {
   translate([ r4, -r4, 0 ]) tooth(false);
 }
 
-hexvar(5);
+//hexvar(5);
 
