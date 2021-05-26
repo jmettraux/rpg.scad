@@ -90,12 +90,24 @@ module square(height=1) {
   }
 }
 
-module line(squares) {
+module sqgroup(x, y, height=1) {
   d = inch - 0.1;
-  for (i = [ 0 : squares - 1 ])
-    translate([ i * d, 0, 0 ]) square();
+  //module filler(height) {
+  //  s = 5 * (br + 2 * o2);
+  //  h = br * 2 + o2 + 0.1;
+  //  #cube(size=[ s, s, h ], center=true);
+  //}
+  for (xx = [ 0 : x - 1 ])
+    for (yy = [ 0 : y - 1 ])
+      translate([ xx * d, yy * d, 0 ]) square(height);
+  //for (xx = [ 0 : x - 2 ])
+  //  for (yy = [ 0 : y - 1 ])
+  //    translate([ d / 2 + xx * d, yy * d, 0 ]) filler(height);
+  //for (xx = [ 0 : x - 1 ])
+  //  for (yy = [ 0 : y - 2 ])
+  //    translate([ xx * d, d / 2 + yy * d, 0 ]) filler(height);
 }
-line(3);
+sqgroup(3, 4);
 
 module hgroup(x, y, height=1) {
 
