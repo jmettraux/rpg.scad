@@ -18,7 +18,7 @@ k1 = 5 + td / 2 + 2 * o2;
 rr = inch / 20;
 
 module bal() { sphere(r=rr, $fn=12); }
-module notch() { paslice(k1, k0, slice=90); }
+module notch() { paslice(k1, k0, slice=60); }
 
 module trunk(height) {
 }
@@ -28,7 +28,7 @@ module pyramidal(diameter, height) {
   td1 = td + 3 * o2;
   h1 = height * 0.7;
   difference() {
-    hull()
+    //hull()
       union() {
         translate([ 0, 0, height ]) bal();
         for (a = [ 0 : 60 : 300 ]) {
@@ -38,15 +38,9 @@ module pyramidal(diameter, height) {
     #union() {
       translate([ 0, 0, -rr ]) cylinder(d=td1, h=h1, $fn=36);
       translate([ 0, -k0 / 2, -rr ]) cube(size=[ k1, k0, h1 ]);
-      for (h2 = [ in2 : inch : h1 ]) {
-        rotate([ 0, 0, 0 ])
+      for (h2 = [ 2 * o2 : in2 : h1 ])
+        rotate([ 0, 0, -30 ])
           translate([ 0, 0, h2 ]) notch();
-      }
-      for (h2 = [ inch : inch : h1 ]) {
-        //rotate([ 0, 0, -90 ])
-        rotate([ 0, 0, 0 ])
-          translate([ 0, 0, h2 ]) notch();
-      }
     }
   }
 }
