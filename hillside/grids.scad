@@ -20,7 +20,7 @@ tr2 = t + r / 2;
 //echo("bh", br + 2 * o2);
 //echo("br + 2 * o2", 5 + 2 * o2);
 
-module balcyl(deeper = false) {
+module balcyl(deeper=false) {
 
   h = deeper ? br * 2.8 + o2 : br * 2 + o2;
   dz = deeper ? -3 * o2 : 0;
@@ -62,11 +62,21 @@ module hex(height=1) {
             balcyl();
       }
     }
+
+    if (height > 5) {
+      h2 = (h0 + h1) / 2;
+      //#translate([ 0, 0, h2 ]) balcyl(deeper=true); // center ball // no need
+      for (a = [ 30 : 60 : 330 ]) {
+        #rotate([ 0, 0, a ])
+          translate([ 0, r - br - 4 * o2, h2 ])
+            balcyl(deeper=true);
+      }
+    }
   }
 }
 
 //hex();
-translate([ inch * 1.1, 0, 0 ]) hex(3);
+//translate([ inch * 1.1, 0, 0 ]) hex(3);
 //translate([ inch * 2.2, 0, 0 ]) hex(5);
 
 module square(height=1) {
@@ -126,6 +136,9 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 module hgroup(x, y, height=1) {
 
+  echo("x", x, x * inch);
+  echo("y", y, y * tr2);
+
   for (xx = [ 0 : x - 1 ]) {
     for (yy = [ 0 : y - 1 ]) {
       if (yy % 2 == 0) translate([ xx * inch, yy * tr2, 0 ]) hex(height);
@@ -169,6 +182,7 @@ module tri(height=1) {
 //square();
 //translate([ inch, 0, 0 ]) square(3);
 
+
 module hexvar(height) {
   hei = (height - 1) * h;
   r2 = r / 2;
@@ -191,4 +205,17 @@ module hexvar(height) {
 }
 
 //hexvar(5);
+
+
+module hexbox() {
+
+  hgroup(9, 9);
+    //
+  translate([ 0, 0, 10 * h / 2 ]) hgroup(9, 1, 9);
+  translate([ 0, 8 * tr2, 10 * h / 2 ]) hgroup(9, 1, 9);
+    //
+  translate([ 0, 0, 10 * h / 2 ]) hgroup(1, 9, 9);
+  translate([ 8 * inch, 0, 10 * h / 2 ]) hgroup(1, 9, 9);
+}
+hexbox();
 
