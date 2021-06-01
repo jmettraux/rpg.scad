@@ -136,10 +136,13 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 module hgroup(x, y, height=1, sx=0, sy=0) {
 
+  dx = inch;
+  dy = tr2 + rr;
+
   for (xx = [ sx : x - 1 ]) {
     for (yy = [ sy : y - 1 ]) {
-      if (yy % 2 == 0) translate([ xx * inch, yy * tr2, 0 ]) hex(height);
-      else translate([ r + xx * inch, yy * tr2, 0 ]) hex(height);
+      if (yy % 2 == 0) translate([ xx * dx, yy * dy, 0 ]) hex(height);
+      else translate([ r + xx * dx, yy * dy, 0 ]) hex(height);
     }
   }
 }
