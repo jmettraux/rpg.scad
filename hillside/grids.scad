@@ -134,13 +134,10 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 //sqgroup(3, 4, height=1, fillers=false);
 
-module hgroup(x, y, height=1) {
+module hgroup(x, y, height=1, sx=0, sy=0) {
 
-  echo("x", x, x * inch);
-  echo("y", y, y * tr2);
-
-  for (xx = [ 0 : x - 1 ]) {
-    for (yy = [ 0 : y - 1 ]) {
+  for (xx = [ sx : x - 1 ]) {
+    for (yy = [ sy : y - 1 ]) {
       if (yy % 2 == 0) translate([ xx * inch, yy * tr2, 0 ]) hex(height);
       else translate([ r + xx * inch, yy * tr2, 0 ]) hex(height);
     }
@@ -209,13 +206,13 @@ module hexvar(height) {
 
 module hexbox() {
 
-  hgroup(9, 9);
+  translate([ 0, 0, h / 2 ]) hgroup(8, 8, sx=1, sy=1);
     //
-  translate([ 0, 0, 10 * h / 2 ]) hgroup(9, 1, 9);
-  translate([ 0, 8 * tr2, 10 * h / 2 ]) hgroup(9, 1, 9);
+  translate([ 0, 0, 9 * h / 2 ]) hgroup(9, 1, 9);
+  translate([ 0, 8 * tr2, 9 * h / 2 ]) hgroup(9, 1, 9);
     //
-  translate([ 0, 0, 10 * h / 2 ]) hgroup(1, 9, 9);
-  translate([ 8 * inch, 0, 10 * h / 2 ]) hgroup(1, 9, 9);
+  translate([ 0, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
+  translate([ 8 * inch, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
 }
 hexbox();
 
