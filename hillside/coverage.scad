@@ -28,7 +28,7 @@ module pyramidal(diameter, height) {
   td1 = td + 3 * o2;
   h1 = height * 0.7;
   difference() {
-    //hull()
+    hull()
       union() {
         translate([ 0, 0, height ]) bal();
         for (a = [ 0 : 60 : 300 ]) {
