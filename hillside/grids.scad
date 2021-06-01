@@ -214,5 +214,7 @@ module hexbox() {
   translate([ 0, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
   translate([ 8 * inch, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
 }
-hexbox();
+//hexbox();
+
+hgroup(8, 5);
 
