@@ -15,8 +15,8 @@ r = inch / 2;
 t = r / cos(30);
 rr = r / 10;
 br2 = br * 2;
-tr2 = t + r / 2;
 
+echo(inch, r, t);
 //echo("bh", br + 2 * o2);
 //echo("br + 2 * o2", 5 + 2 * o2);
 
@@ -136,8 +136,8 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 module hgroup(x, y, height=1, sx=0, sy=0) {
 
-  dx = inch;
-  dy = tr2 + rr;
+  dx = inch + 1 * o2;
+  dy = 1.5 * t + 1 * o2;
 
   for (xx = [ sx : x - 1 ]) {
     for (yy = [ sy : y - 1 ]) {
@@ -147,14 +147,14 @@ module hgroup(x, y, height=1, sx=0, sy=0) {
   }
 }
 
-module hflower(height=1) {
-
-  r2 = r / 2;
-
-  translate([ -r, tr2, 0 ]) hgroup(2, 1, height);
-  translate([ -2 * r, 0, 0 ]) hgroup(3, 1, height);
-  translate([ -r, -tr2, 0 ]) hgroup(2, 1, height);
-}
+  // TODO replace with hgroup combos
+  //
+//module hflower(height=1) {
+//  r2 = r / 2;
+//  translate([ -r, 1.5 * t, 0 ]) hgroup(2, 1, height);
+//  translate([ -2 * r, 0, 0 ]) hgroup(3, 1, height);
+//  translate([ -r, -1.5 * t, 0 ]) hgroup(2, 1, height);
+//}
 
 module tri(height=1) {
 
@@ -207,16 +207,16 @@ module hexvar(height) {
 //hexvar(5);
 
 
-module hexbox() {
-
-  translate([ 0, 0, h / 2 ]) hgroup(8, 8, sx=1, sy=1);
-    //
-  translate([ 0, 0, 9 * h / 2 ]) hgroup(9, 1, 9);
-  translate([ 0, 8 * tr2, 9 * h / 2 ]) hgroup(9, 1, 9);
-    //
-  translate([ 0, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
-  translate([ 8 * inch, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
-}
+//module hexbox() {
+//
+//  translate([ 0, 0, h / 2 ]) hgroup(8, 8, sx=1, sy=1);
+//    //
+//  translate([ 0, 0, 9 * h / 2 ]) hgroup(9, 1, 9);
+//  translate([ 0, 8 * (1.5 * t), 9 * h / 2 ]) hgroup(9, 1, 9);
+//    //
+//  translate([ 0, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
+//  translate([ 8 * inch, 0, 9 * h / 2 ]) hgroup(1, 8, 9);
+//}
 //hexbox();
 
 hgroup(8, 5);
