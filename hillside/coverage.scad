@@ -68,9 +68,12 @@ module trunk(height, reach=inch / 2.1) {
 }
 
 module pyramidal(diameter, height, h1f=0.8) {
+
   r = diameter / 2;
   td1 = td + 3 * o2;
   h1 = h1f * height;
+  hcyl = 2.8 * br + o2;
+
   difference() {
     hull()
       union() {
@@ -79,17 +82,14 @@ module pyramidal(diameter, height, h1f=0.8) {
           rotate([ 0, 0, a ]) translate([ 0, r - rr, rr ]) bal();
         }
       }
-    #union() {
-      translate([ 0, 0, -rr ]) cylinder(d=td1, h=h1, $fn=36);
-      translate([ 0, -k0 / 2, -rr ]) cube(size=[ k1, k0, h1 ]);
-      for (h2 = [ 2 * o2 : in2 : h1 ])
-        rotate([ 0, 0, -30 ])
-          translate([ 0, 0, h2 ]) notch();
+    #translate([ 0, 0, -rr ]) cylinder(d=td1, h=h1, $fn=36);
+    for (h2 = [ 5 * o2 : hcyl + 3 * o2 : h1 - hcyl / 2 ]) {
+      #translate([ td1 / 2 + bd, 0, h2 ]) balcyl(true);
     }
   }
 }
 
-//pyramidal(2 * inch, 3.1 * inch, h1f=0.58);
+pyramidal(2 * inch, 3.5 * inch, h1f=0.42);
 
-translate([ 2 * inch, 0, 0 ]) trunk(5 * inch);
+//translate([ 2 * inch, 0, 0 ]) trunk(5 * inch);
 
