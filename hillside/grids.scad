@@ -219,5 +219,7 @@ module hexvar(height) {
 //}
 //hexbox();
 
-hgroup(8, 5);
+//hgroup(8, 5); // <-- ita :-)
+
+//hex(3);
 
