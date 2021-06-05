@@ -127,6 +127,13 @@ function _is_point_key(p0)=
   _sindex(p0, "height") == undef &&
   _sindex(p0, "length") == undef;
 
+function translate_points(points, suffix, point_names, vector)=
+  let(
+    v0 = vector[0], v1 = vector[1], v2 = vector[2]
+  )
+  [ for (i = [ 0 : len(point_names) - 1 ])
+    [ str(point_names[i], suffix), v0, v1, v2, point_names[i] ] ];
+
 module draw_points(points) {
 
   d = 0.7;

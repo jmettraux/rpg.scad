@@ -12,7 +12,7 @@ inch = 25.4;
 //ph = 60; // prow height
 
 
-default_clinker_points = [
+default_clinker_points0 = [
 
   [ "length", 12 * inch / 2 ],
   [ "length ratio", 1 / 8 ],
@@ -31,18 +31,27 @@ default_clinker_points = [
   [ "prow top", 110, 0, 1.8, "prow mid" ],
   [ "prow top c", 90, 0, 0.9, "prow mid" ],
 
-  [ "origin 1", 90, 0, "keel ratio", "origin" ],
-  [ "keel a 1", 90, 0, "keel ratio", "keel a" ],
-  [ "keel b 1", 90, 0, "keel ratio", "keel b" ],
-  [ "keel c 1", 90, 0, "keel ratio", "keel c" ],
-  [ "keel d 1", 90, 0, "keel ratio", "keel d" ],
-  [ "keel e 1", 90, 0, "keel ratio", "keel e" ],
-  [ "keel f 1", 90, 0, "keel ratio", "keel f" ],
-  [ "keel g 1", 90, 0, "keel ratio", "keel g" ],
-  [ "prow mid 1", -180, 0, "keel ratio", "prow mid" ],
-  [ "prow top 1", -90, 0, "keel ratio", "prow top" ]
+  //[ "origin 1", 90, 0, "keel ratio", "origin" ],
+  //[ "keel a 1", 90, 0, "keel ratio", "keel a" ],
+  //[ "keel b 1", 90, 0, "keel ratio", "keel b" ],
+  //[ "keel c 1", 90, 0, "keel ratio", "keel c" ],
+  //[ "keel d 1", 90, 0, "keel ratio", "keel d" ],
+  //[ "keel e 1", 90, 0, "keel ratio", "keel e" ],
+  //[ "keel f 1", 90, 0, "keel ratio", "keel f" ],
+  //[ "keel g 1", 90, 0, "keel ratio", "keel g" ],
+  //[ "prow mid 1", -180, 0, "keel ratio", "prow mid" ],
+  //[ "prow top 1", -90, 0, "keel ratio", "prow top" ]
 
     ];
+default_clinker_points =
+  concat(
+    default_clinker_points0,
+    translate_points(
+      default_clinker_points0,
+      " 1",
+      [ "origin", "keel a", "keel b", "keel c", "keel d", "keel e", "keel f",
+        "keel g" ],
+      [ 90, 0, "keel ratio" ]));
 
 default_clinker_hulls = [
   [ "keel a", [ "origin" ], [ "keel a" ], [ "origin 1" ], [ "keel a 1" ] ],
@@ -60,8 +69,8 @@ module snekja(length, width, prow_height, board_height) {
   ps = default_clinker_points;
   hs = default_clinker_hulls;
   //draw_points(ps);
-  draw_hulls(ps, hs);
   enumerate_points(ps);
+  draw_hulls(ps, hs);
 }
 
 snekja(12 * inch, 2 * inch, 2.1 * inch, 0.5 * inch);
