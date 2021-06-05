@@ -69,10 +69,10 @@ bps =
       [ "crest neck",
         "neck", -1, "neck", [ "l shoulder", "r shoulder" ] ],
 
-      [ "tail 0",    -47,   0 ],
-      [ "tail 0 c", -130, -10,  2.5, "origin" ],
-      [ "tail 1",      -2,  100 ],
-      [ "tail 1 c",    0,   0,  2, "tail 0" ],
+      [ "tail 0", -47, 0 ],
+      [ "tail 0 c", -130, -10, 2.5, "origin" ],
+      [ "tail 1", -2,  100 ],
+      [ "tail 1 c", 0, 0, 2, "tail 0" ],
 
       [ "l wing 1", 120, 10, 1, "l back" ],
       [ "l wing 10", 210, 10, 2.1, "l back" ],

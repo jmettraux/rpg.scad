@@ -112,8 +112,8 @@ quadruped_body_points = [
 
   [ "l waist",      0,  90, "side waist ratio", "waist" ],
   [ "r waist",      0, -90, "side waist ratio", "waist" ],
-  [ "l back",      0,  90, "side back ratio", "back" ],
-  [ "r back",      0, -90, "side back ratio", "back" ],
+  [ "l back",       0,  90, "side back ratio", "back" ],
+  [ "r back",       0, -90, "side back ratio", "back" ],
 
   [ "l hip",        0,  90, "side hip ratio", "origin" ],
   [ "l knee",     -20,   0, "knee ratio", "l hip" ],
@@ -127,11 +127,11 @@ quadruped_body_points = [
   [ "r ball",     -90,   0, "ball ratio", "r ankle" ],
   [ "r toe",      -30,   0, "toe ratio", "r ball" ],
 
-  [ "waist",       0,   0, "waist ratio", "origin" ],
-  [ "back",        0,   0, "back ratio", "waist" ],
-  [ "shoulder",    0,   0, "shoulder ratio", "back" ],
-  [ "neck",        0,   0, "neck ratio", "shoulder" ],
-  [ "head",        0,   0, "head ratio", "neck" ],
+  [ "waist",        0,   0, "waist ratio", "origin" ],
+  [ "back",         0,   0, "back ratio", "waist" ],
+  [ "shoulder",     0,   0, "shoulder ratio", "back" ],
+  [ "neck",         0,   0, "neck ratio", "shoulder" ],
+  [ "head",         0,   0, "head ratio", "neck" ],
 
   //[ "l waist",      0,  90, "side waist ratio", "waist" ],
   //[ "r waist",      0, -90, "side waist ratio", "waist" ],
