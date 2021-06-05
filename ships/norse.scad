@@ -12,7 +12,7 @@ inch = 25.4;
 //ph = 60; // prow height
 
 
-default_clinker_points0 = [
+dcps0 = [
 
   [ "length", 12 * inch / 2 ],
   [ "length ratio", 1 / 8 ],
@@ -43,15 +43,32 @@ default_clinker_points0 = [
   //[ "prow top 1", -90, 0, "keel ratio", "prow top" ]
 
     ];
-default_clinker_points =
+dcps1 =
   concat(
-    default_clinker_points0,
+    dcps0,
     translate_points(
-      default_clinker_points0,
-      " 1",
+      dcps0,
       [ "origin", "keel a", "keel b", "keel c", "keel d", "keel e", "keel f",
         "keel g" ],
+      " 1",
       [ 90, 0, "keel ratio" ]));
+dcps2 =
+  concat(
+    dcps1,
+    bezier_points(
+      dcps1,
+      [ "keel g", "prow mid c", "prow mid" ],
+      "prow lo bz",
+      6));
+dcps3 =
+  concat(
+    dcps2,
+    [
+      //[ "prow lo 1", "prow lo bz1", 0.4, "prow lo bz1", [ "prow lo bz1", "prow lo bz2" ] ]
+    ]);
+  // [ "sternum", "back", 0.4, "back", [ "l shoulder", "r shoulder" ] ],
+default_clinker_points =
+  dcps3;
 
 default_clinker_hulls = [
   [ "keel a", [ "origin" ], [ "keel a" ], [ "origin 1" ], [ "keel a 1" ] ],
@@ -60,15 +77,15 @@ default_clinker_hulls = [
   [ "keel d", [ "keel c" ], [ "keel d" ], [ "keel c 1" ], [ "keel d 1" ] ],
   [ "keel e", [ "keel d" ], [ "keel e" ], [ "keel d 1" ], [ "keel e 1" ] ],
   [ "keel f", [ "keel e" ], [ "keel f" ], [ "keel e 1" ], [ "keel f 1" ] ],
-  [ "keel g", [ "keel f" ], [ "keel g" ], [ "keel f 1" ], [ "keel g 1" ] ],
-  [ "prow lo", "bez", [ "keel g" ], [ "prow mid c" ], [ "prow mid" ] ],
-  [ "prow hi", "bez", [ "prow mid" ], [ "prow top c" ], [ "prow top" ] ],
+  [ "keel g", [ "keel f" ], [ "keel g" ], [ "keel f 1" ], [ "keel g 1" ] ]
+  //[ "prow lo", "bez", [ "keel g" ], [ "prow mid c" ], [ "prow mid" ] ],
+  //[ "prow hi", "bez", [ "prow mid" ], [ "prow top c" ], [ "prow top" ] ],
     ];
 
 module snekja(length, width, prow_height, board_height) {
   ps = default_clinker_points;
   hs = default_clinker_hulls;
-  //draw_points(ps);
+  draw_points(ps);
   enumerate_points(ps);
   draw_hulls(ps, hs);
 }

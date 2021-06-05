@@ -2,6 +2,7 @@
 //
 // X minidoll2.scad
 // O skeleton.scad
+//   what would be a better name? structure? lattice NO
 //
 
 include <cadence.scad>;
@@ -87,11 +88,13 @@ function _bpoint_point(points, p)=
 function bpoint(points, name, default=undef)=
   let(
     p = _assoc(points, name, default),
+    p1 = _is_point(p[1]),
     s1 = is_string(p[1]),
     s2 = is_string(p[2])
   )
   name == undef ? undef :
-  name == "origin" ? [ 0, 0, 0 ] :
+  name == "origin" ? [ 0, 0, 0 ] :              // origin
+  p1 ? p[1] :                                   // raw point
   s1 && len(p) > 4 ? _bpoint_cross(points, p) :
   s1 && s2 ? _bpoint_mid(points, p) :
   s1 ? _bpoint_lin(points, p) :
@@ -127,12 +130,20 @@ function _is_point_key(p0)=
   _sindex(p0, "height") == undef &&
   _sindex(p0, "length") == undef;
 
-function translate_points(points, suffix, point_names, vector)=
-  let(
+function translate_points(points, point_names, suffix, vector)=
+  let (
     v0 = vector[0], v1 = vector[1], v2 = vector[2]
   )
   [ for (i = [ 0 : len(point_names) - 1 ])
     [ str(point_names[i], suffix), v0, v1, v2, point_names[i] ] ];
+
+function bezier_points(points, point_names, prefix, sample_count=6)=
+  //ps1 = _bezier_points(ps, bsc);
+  let (
+    ps = [ for (pn = point_names) bpoint(points, pn) ],
+    bps = _bezier_points(ps, sample_count)
+  )
+  [ for (i = [ 0 : len(bps) - 1 ]) [ str(prefix, i), bps[i] ] ];
 
 module draw_points(points) {
 
