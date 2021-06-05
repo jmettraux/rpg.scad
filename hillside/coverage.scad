@@ -63,16 +63,14 @@ module trunk(height, reach=inch / 2.1) {
       cube(size=[ 2 * inch, 2 * inch, 10 ], center=true);
 
     translate([ 0, 0, 2 * o2 ]) balcyl();
-    translate([ 0, 0, height - br * 2.8 - 2 * o2 ]) balcyl(true);
+    //translate([ 0, 0, height - br * 2.8 - 2 * o2 ]) balcyl(true);
   }
 }
 
-module pyramidal(diameter, height, h1f=0.8) {
+module pyramidal(diameter, height) {
 
   r = diameter / 2;
   td1 = td + 3 * o2;
-  h1 = h1f * height;
-  hcyl = 2.8 * br + o2;
 
   difference() {
     hull()
@@ -82,14 +80,36 @@ module pyramidal(diameter, height, h1f=0.8) {
           rotate([ 0, 0, a ]) translate([ 0, r - rr, rr ]) bal();
         }
       }
-    #translate([ 0, 0, -rr ]) cylinder(d=td1, h=h1, $fn=36);
-    for (h2 = [ 5 * o2 : hcyl + 3 * o2 : h1 - hcyl / 2 ]) {
-      #translate([ td1 / 2 + bd, 0, h2 ]) balcyl(true);
-    }
+    #translate([ 0, 0, - o2 ]) cylinder(d=td1, h=inch + o2, $fn=36);
   }
 }
 
-pyramidal(2 * inch, 3.5 * inch, h1f=0.42);
+//pyramidal(1.4 * inch, 2.8 * inch);
 
-//translate([ 2 * inch, 0, 0 ]) trunk(5 * inch);
+module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
+
+  r = diameter / 2;
+  td1 = td + 3 * o2;
+  r0 = td1 / 2 + 2 * o2;
+  h1 = height * hratio1;
+  h2 = height * hratio2;
+
+  difference() {
+    hull()
+      union() {
+        for(a = [ 0 : 60 : 300 ]) {
+          rotate([ 0, 0, a ]) translate([ r0, 0, rr ]) bal();
+          rotate([ 0, 0, a ]) translate([ r, 0, h1 ]) bal();
+          if (h2 != h1) rotate([ 0, 0, a ]) translate([ r, 0, h2 ]) bal();
+        }
+        translate([ 0, 0, height ]) bal();
+      }
+    #translate([ 0, 0, - o2 ]) cylinder(d=td1, h=inch + o2, $fn=36);
+  }
+}
+
+//conical(1.4 * inch, 3.5 * inch, 0.14, 0.42);
+conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
+
+//trunk((3.5 + 1) * inch);
 
