@@ -138,12 +138,19 @@ function translate_points(points, point_names, suffix, vector)=
     [ str(point_names[i], suffix), v0, v1, v2, point_names[i] ] ];
 
 function bezier_points(points, point_names, prefix, sample_count=6)=
-  //ps1 = _bezier_points(ps, bsc);
   let (
     ps = [ for (pn = point_names) bpoint(points, pn) ],
     bps = _bezier_points(ps, sample_count)
   )
-  [ for (i = [ 0 : len(bps) - 1 ]) [ str(prefix, i), bps[i] ] ];
+  //[ for (i = [ 0 : len(bps) - 1 ]) [ str(prefix, i), bps[i] ] ];
+  [ for (i = [ 1 : len(bps) - 1 ])
+    let (
+      n0 = i == 1 ? point_names[0] : str(prefix, i - 1),
+      n = str(prefix, i),
+      led = _to_spherical_xyz(bps[i] - bps[i - 1]),
+      l = led[0] / _bpoint_hh(points)
+    )
+    [ n, led[1], led[2], l, n0 ] ];
 
 module draw_points(points) {
 

@@ -58,8 +58,7 @@ dcps2 =
     bezier_points(
       dcps1,
       [ "keel g", "prow mid c", "prow mid" ],
-      "prow lo bz",
-      6));
+      "prow lo bz"));
 dcps3 =
   concat(
     dcps2,
