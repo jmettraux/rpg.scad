@@ -109,7 +109,7 @@ module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
 }
 
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.42);
-conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
+//conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
 
-//trunk((3.5 + 1) * inch);
+trunk((-0.49 + 1) * inch);
 

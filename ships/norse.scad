@@ -26,21 +26,10 @@ dcps0 = [
   [ "keel e", 0, 0, "slice ratio", "keel d" ],
   [ "keel f", 0, 0, "slice ratio", "keel e" ],
   [ "keel g", 0, 0, "slice ratio", "keel f" ],
-  [ "prow mid", 45, 0, 2.1, "keel g" ],
-  [ "prow mid c", 0, 0, 1.7, "keel g" ],
-  [ "prow top", 110, 0, 1.8, "prow mid" ],
-  [ "prow top c", 90, 0, 0.9, "prow mid" ],
-
-  //[ "origin 1", 90, 0, "keel ratio", "origin" ],
-  //[ "keel a 1", 90, 0, "keel ratio", "keel a" ],
-  //[ "keel b 1", 90, 0, "keel ratio", "keel b" ],
-  //[ "keel c 1", 90, 0, "keel ratio", "keel c" ],
-  //[ "keel d 1", 90, 0, "keel ratio", "keel d" ],
-  //[ "keel e 1", 90, 0, "keel ratio", "keel e" ],
-  //[ "keel f 1", 90, 0, "keel ratio", "keel f" ],
-  //[ "keel g 1", 90, 0, "keel ratio", "keel g" ],
-  //[ "prow mid 1", -180, 0, "keel ratio", "prow mid" ],
-  //[ "prow top 1", -90, 0, "keel ratio", "prow top" ]
+  [ "prow con", 0, 0, 2.8, "keel g" ],
+  [ "prow top", 69, 0, 3.5, "keel g" ],
+  [ "prow con 1", 0, 0, 2.7, "keel g 1" ],
+  [ "prow top 1", 69, 0, 3.35, "keel g 1" ],
 
     ];
 dcps1 =
@@ -57,17 +46,16 @@ dcps2 =
     dcps1,
     bezier_points(
       dcps1,
-      [ "keel g", "prow mid c", "prow mid" ],
-      "prow lo bz"));
-dcps3 =
-  concat(
-    dcps2,
-    [
-      //[ "prow lo 1", "prow lo bz1", 0.4, "prow lo bz1", [ "prow lo bz1", "prow lo bz2" ] ]
-    ]);
-  // [ "sternum", "back", 0.4, "back", [ "l shoulder", "r shoulder" ] ],
+      //[ "keel g", "prow mid c", "prow mid" ],
+      [ "keel g", "prow con", "prow top" ],
+      "prow bz"),
+    bezier_points(
+      dcps1,
+      //[ "keel g", "prow mid c", "prow mid" ],
+      [ "keel g 1", "prow con 1", "prow top 1" ],
+      "prow 1 bz"));
 default_clinker_points =
-  dcps3;
+  dcps2;
 
 default_clinker_hulls = [
   [ "keel a", [ "origin" ], [ "keel a" ], [ "origin 1" ], [ "keel a 1" ] ],
@@ -76,9 +64,15 @@ default_clinker_hulls = [
   [ "keel d", [ "keel c" ], [ "keel d" ], [ "keel c 1" ], [ "keel d 1" ] ],
   [ "keel e", [ "keel d" ], [ "keel e" ], [ "keel d 1" ], [ "keel e 1" ] ],
   [ "keel f", [ "keel e" ], [ "keel f" ], [ "keel e 1" ], [ "keel f 1" ] ],
-  [ "keel g", [ "keel f" ], [ "keel g" ], [ "keel f 1" ], [ "keel g 1" ] ]
+  [ "keel g", [ "keel f" ], [ "keel g" ], [ "keel f 1" ], [ "keel g 1" ] ],
   //[ "prow lo", "bez", [ "keel g" ], [ "prow mid c" ], [ "prow mid" ] ],
   //[ "prow hi", "bez", [ "prow mid" ], [ "prow top c" ], [ "prow top" ] ],
+  [ "prow a", [ "keel g" ], [ "keel g 1" ], [ "prow bz1" ], [ "prow 1 bz1" ] ],
+  [ "prow b", [ "prow bz1" ], [ "prow 1 bz1" ], [ "prow bz2" ], [ "prow 1 bz2" ]],
+  [ "prow c", [ "prow bz2" ], [ "prow 1 bz2" ], [ "prow bz3" ], [ "prow 1 bz3" ]],
+  [ "prow d", [ "prow bz3" ], [ "prow 1 bz3" ], [ "prow bz4" ], [ "prow 1 bz4" ]],
+  [ "prow e", [ "prow bz4" ], [ "prow 1 bz4" ], [ "prow bz5" ], [ "prow 1 bz5" ]],
+  [ "prow f", [ "prow bz5" ], [ "prow 1 bz5" ], [ "prow top" ], [ "prow top 1" ]],
     ];
 
 module snekja(length, width, prow_height, board_height) {

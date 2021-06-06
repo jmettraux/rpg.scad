@@ -93,13 +93,13 @@ function bpoint(points, name, default=undef)=
     s2 = is_string(p[2])
   )
   name == undef ? undef :
-  name == "origin" ? [ 0, 0, 0 ] :              // origin
-  p1 ? p[1] :                                   // raw point
+  name == "origin" ? [ 0, 0, 0 ] :               // origin
+  p1 ? p[1] :                                    // raw point :-(
   s1 && len(p) > 4 ? _bpoint_cross(points, p) :
   s1 && s2 ? _bpoint_mid(points, p) :
   s1 ? _bpoint_lin(points, p) :
-  name == "rz" ? _bpoint_rz(points) :
-  name == "z" ? _bpoint_z(points) :
+  name == "rz" ? _bpoint_rz(points) :            // "rz" returns lowest z
+  name == "z" ? _bpoint_z(points) :              // "z" returns z delta
   _bpoint_point(points, p);
 
 function _rework_point_entry(points, entry)=
@@ -142,8 +142,7 @@ function bezier_points(points, point_names, prefix, sample_count=6)=
     ps = [ for (pn = point_names) bpoint(points, pn) ],
     bps = _bezier_points(ps, sample_count)
   )
-  //[ for (i = [ 0 : len(bps) - 1 ]) [ str(prefix, i), bps[i] ] ];
-  [ for (i = [ 1 : len(bps) - 1 ])
+  [ for (i = [ 1 : len(bps) - 2 ])
     let (
       n0 = i == 1 ? point_names[0] : str(prefix, i - 1),
       n = str(prefix, i),
