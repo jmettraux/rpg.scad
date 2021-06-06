@@ -111,5 +111,23 @@ module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.42);
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
 
-trunk((-0.49 + 1) * inch);
+//trunk((-0.49 + 1) * inch);
+
+module bush(height=1.2) {
+  bd = 3;
+  difference() {
+    rotate([ 0, -90, 0 ])
+      scale([ height, 1, 1 ])
+        cylinder(d=inch, h=bd + 8 * o2, $fn=36, center=true);
+    translate([ 0, 0, -inch / 2 ])
+      cube(size=[ inch, inch, inch ], center=true);
+    #translate([ 0, 0, (bd + 4 * o2) / 2 + 3 * o2 ])
+      cylinder(d=bd + 4 * o2, h=bd + 4 * o2, $fn=36, center=true);
+  }
+}
+
+//translate([ -2 * inch, 0, 0 ]) bush(0.9);
+//translate([ -inch, 0, 0 ]) bush(1.1);
+//bush();
+translate([ inch, 0, 0 ]) bush(1.4);
 
