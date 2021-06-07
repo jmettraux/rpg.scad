@@ -113,25 +113,33 @@ module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
 
 //trunk((-0.49 + 1) * inch);
 
-module bush(height=1.2) {
+module bush(height=0) {
+  h = 5;
   bd = 3;
   br = bd / 2;
   module balcyl() {
     cylinder(r=br + 2 * o2, h=br * 2 + o2, center=true, $fn=36);
   }
   difference() {
-    cylinder(d=inch, h=5, center=true, $fn=36);
-    translate([ 0, -inch / 2, 0 ])
-      cube(size=[ inch + o2, inch + o2, 5 + o2 ], center=true);
-    #translate([ 0, bd, 0 ]) balcyl();
-    #translate([ inch / 2 - bd, bd, 0 ]) balcyl();
-    #translate([ -inch / 2 + bd, bd, 0 ]) balcyl();
-    #translate([ 0, inch / 2 - br - 5 * o2, 0 ]) balcyl();
+    hull() {
+      for (a = [ 0 : 15 : 180 ])
+        rotate([ 0, 0, a ]) {
+          translate([ inch / 2 - rr, 0, -h/2 + rr ]) bal();
+          translate([ inch / 2 - rr, 0, h/2 - rr ]) bal();
+        }
+      translate([ inch / 2 - rr, -inch, -h/2 + rr ]) bal();
+      translate([ inch / 2 - rr, -inch, h/2 - rr ]) bal();
+      translate([ -inch / 2 + rr, -inch, -h/2 + rr ]) bal();
+      translate([ -inch / 2 + rr, -inch, h/2 - rr ]) bal();
+    }
+    translate([ 0, -inch - height, 0 ])
+      cube(size=[ inch + o2, 2 * inch + o2, 5 + o2 ], center=true);
+    #translate([ 0, br + 5 * o2 - height, 0 ]) balcyl();
   }
 }
 
 //translate([ -2 * inch, 0, 0 ]) bush(0.9);
 //translate([ -inch, 0, 0 ]) bush(1.1);
-bush();
-//translate([ inch, 0, 0 ]) bush(1.4);
+//bush();
+translate([ inch * 1.2, 0, 0 ]) bush(inch / 3);
 
