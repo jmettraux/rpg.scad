@@ -135,11 +135,15 @@ module bush(height=0) {
     translate([ 0, -inch - height, 0 ])
       cube(size=[ inch + o2, 2 * inch + o2, 5 + o2 ], center=true);
     #translate([ 0, br + 5 * o2 - height, 0 ]) balcyl();
+
+    if (height > 0) #translate([ 0, inch / 2 - bd, 0 ]) balcyl();
   }
 }
 
 //translate([ -2 * inch, 0, 0 ]) bush(0.9);
 //translate([ -inch, 0, 0 ]) bush(1.1);
 //bush();
-translate([ inch * 1.2, 0, 0 ]) bush(inch / 3);
+//translate([ inch * 1.2, 0, 0 ]) bush(inch / 3);
+//translate([ inch * 2.2, 0, 0 ]) bush(inch / 2);
+translate([ inch * 2.2, 0, 0 ]) bush(inch / 1);
 
