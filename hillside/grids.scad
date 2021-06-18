@@ -134,6 +134,43 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 //sqgroup(3, 4, height=1, fillers=false);
 
+module halfsquare(height=1) {
+
+  hei = h * height;
+  rm = r - rr;
+
+  difference() {
+    translate([ 0, 0, hei * -0.5 ])
+      hull()
+        for (hh = [ hei - rr, rr ]) {
+          translate([ rm, rm, hh ]) sphere(r=rr, $fn=12);
+          translate([ -rm, rm, hh ]) sphere(r=rr, $fn=12);
+          //translate([ -rm, -rm, hh ]) sphere(r=rr, $fn=12);
+          translate([ rm, -rm, hh ]) sphere(r=rr, $fn=12);
+        }
+
+    h0 = hei / 2 - h / 2;
+    h1 = -hei / 2 + h / 2;
+
+    #translate([ rr, rr, h0 ]) balcyl();
+    for (a = [ 0, 270 ]) {
+      #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h0 ]) balcyl();
+    }
+
+    //if (height > 1) {
+    //  #translate([ 0, 0, h1 ]) balcyl(); // center ball
+    //  for (a = [ 0 : 90 : 270 ]) {
+    //    #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h1 ]) balcyl();
+    //  }
+    //}
+  }
+}
+
+//union() {
+//  halfsquare();
+//  translate([ inch - o2, 0, 0 ]) square();
+//}
+
 module hgroup(x, y, height=1, sx=0, sy=0) {
 
   dx = inch + 1 * o2;
