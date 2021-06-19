@@ -20,6 +20,8 @@ echo(inch, r, t);
 //echo("bh", br + 2 * o2);
 //echo("br + 2 * o2", 5 + 2 * o2);
 
+module sphe() { sphere(r=rr, $fn=12); }
+
 module balcyl(deeper=false) {
 
   h = deeper ? br * 2.8 + o2 : br * 2 + o2;
@@ -39,8 +41,8 @@ module hex(height=1) {
         for (a = [ 0 : 60 : 300 ]) {
           rotate([ 0, 0, a ]) {
             //translate([ 0, t - rr, 0 ]) cylinder(r=rr, h=h, $fn=12);
-            translate([ 0, t - rr, hei - rr ]) sphere(r=rr, $fn=12);
-            translate([ 0, t - rr, rr ]) sphere(r=rr, $fn=12);
+            translate([ 0, t - rr, hei - rr ]) sphe();
+            translate([ 0, t - rr, rr ]) sphe();
           }
         }
 
@@ -88,10 +90,10 @@ module square(height=1) {
     translate([ 0, 0, hei * -0.5 ])
       hull()
         for (hh = [ hei - rr, rr ]) {
-          translate([ rm, rm, hh ]) sphere(r=rr, $fn=12);
-          translate([ -rm, rm, hh ]) sphere(r=rr, $fn=12);
-          translate([ -rm, -rm, hh ]) sphere(r=rr, $fn=12);
-          translate([ rm, -rm, hh ]) sphere(r=rr, $fn=12);
+          translate([ rm, rm, hh ]) sphe();
+          translate([ -rm, rm, hh ]) sphe();
+          translate([ -rm, -rm, hh ]) sphe();
+          translate([ rm, -rm, hh ]) sphe();
         }
 
     h0 = hei / 2 - h / 2;
@@ -143,10 +145,10 @@ module halfsquare(height=1) {
     translate([ 0, 0, hei * -0.5 ])
       hull()
         for (hh = [ hei - rr, rr ]) {
-          translate([ rm, rm, hh ]) sphere(r=rr, $fn=12);
-          translate([ -rm, rm, hh ]) sphere(r=rr, $fn=12);
-          //translate([ -rm, -rm, hh ]) sphere(r=rr, $fn=12);
-          translate([ rm, -rm, hh ]) sphere(r=rr, $fn=12);
+          translate([ rm, rm, hh ]) sphe();
+          translate([ -rm, rm, hh ]) sphe();
+          //translate([ -rm, -rm, hh ]) sphe();
+          translate([ rm, -rm, hh ]) sphe();
         }
 
     h0 = hei / 2 - h / 2;
@@ -165,6 +167,61 @@ module halfsquare(height=1) {
     //}
   }
 }
+
+module halfsquare2(height=1) {
+
+  b = sqrt(pow(inch, 2) / 2) / 2;
+
+  hei = h * height;
+  rm = r - rr;
+  rm2 = b - rr;
+
+  translate([ rm - rm2, rm - rm2, 0 ]) difference() {
+
+    translate([ 0, 0, hei * -0.5 ])
+      hull()
+        for (hh = [ hei - rr, rr ]) {
+          translate([ rm2, rm2, hh ]) sphe();
+          translate([ -rm2, rm2, hh ]) sphe();
+          //translate([ -rm2, -rm2, hh ]) sphe();
+          translate([ rm2, -rm2, hh ]) sphe();
+        }
+
+    h0 = hei / 2 - h / 2;
+    h1 = -hei / 2 + h / 2;
+
+    #translate([ rr, rr, h0 ]) balcyl(); // center ball
+    //for (a = [ 0, 270 ]) {
+    //  #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h0 ]) balcyl();
+    //}
+
+    //rm3 = rm2 - 5 * o2;
+
+    translate([ rm2 - rr - o2, rm2 - rr - o2, h0 ]) {
+      #translate([ -rm + rr, 0, 0 ]) balcyl();
+      #translate([ 0, -rm + rr, 0 ]) balcyl();
+    }
+  }
+}
+
+//halfsquare2();
+
+module hsq2_shoulder() {
+  halfsquare2();
+  translate([ inch - o2, 0, 0 ]) square();
+}
+
+module hsq2_hat() {
+  halfsquare2();
+  f = 0.235;
+  translate([ - inch * f, - inch * f, 0 ]) rotate([ 0, 0, 45 ]) square();
+}
+
+hsq2_hat();
+//translate([ inch, 0, 0 ]) hsq2_shoulder();
+
+
+//translate([ inch, 0, 0 ]) halfsquare();
 
 //union() {
 //  halfsquare();
@@ -201,8 +258,8 @@ module tri(height=1) {
     hull()
       for (a = [ -60, 0, 60 ]) {
         rotate([ 0, 0, a ]) {
-          translate([ 0, t - rr, hei - rr ]) sphere(r=rr, $fn=12);
-          translate([ 0, t - rr, rr ]) sphere(r=rr, $fn=12);
+          translate([ 0, t - rr, hei - rr ]) sphe();
+          translate([ 0, t - rr, rr ]) sphe();
         }
       }
 }
