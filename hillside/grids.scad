@@ -140,21 +140,25 @@ module halfsquare(height=1) {
 
   hei = h * height;
   rm = r - rr;
+  d = 1.4 * rr;
+//echo("o2", o2, "rr", rr, "d", d);
 
   difference() {
     translate([ 0, 0, hei * -0.5 ])
       hull()
         for (hh = [ hei - rr, rr ]) {
           translate([ rm, rm, hh ]) sphe();
-          translate([ -rm, rm, hh ]) sphe();
+          translate([ -rm + d, rm, hh ]) sphe();
           //translate([ -rm, -rm, hh ]) sphe();
-          translate([ rm, -rm, hh ]) sphe();
+          translate([ rm, -rm + d, hh ]) sphe();
         }
 
     h0 = hei / 2 - h / 2;
     h1 = -hei / 2 + h / 2;
 
-    #translate([ rr, rr, h0 ]) balcyl();
+    d2 = d + 2 * o2;
+
+    #translate([ d2, d2, h0 ]) balcyl(); // center ball
     for (a = [ 0, 270 ]) {
       #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h0 ]) balcyl();
     }
@@ -167,6 +171,16 @@ module halfsquare(height=1) {
     //}
   }
 }
+
+//halfsquare();
+
+union() {
+  halfsquare();
+  translate([ inch, 0, 0 ]) square();
+}
+  //rotate([ 0, 0, 180 ]) halfsquare();
+  //translate([ inch, inch + o2, 0 ]) square();
+  //translate([ 0, inch + o2, 0 ]) square();
 
 module halfsquare2(height=1) {
 
@@ -217,16 +231,9 @@ module hsq2_hat() {
   translate([ - inch * f, - inch * f, 0 ]) rotate([ 0, 0, 45 ]) square();
 }
 
-hsq2_hat();
+//hsq2_hat();
 //translate([ inch, 0, 0 ]) hsq2_shoulder();
 
-
-//translate([ inch, 0, 0 ]) halfsquare();
-
-//union() {
-//  halfsquare();
-//  translate([ inch - o2, 0, 0 ]) square();
-//}
 
 module hgroup(x, y, height=1, sx=0, sy=0) {
 
