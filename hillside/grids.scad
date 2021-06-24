@@ -174,10 +174,10 @@ module halfsquare(height=1) {
 
 //halfsquare();
 
-union() {
-  halfsquare();
-  translate([ inch, 0, 0 ]) square();
-}
+//union() {
+//  halfsquare();
+//  translate([ inch, 0, 0 ]) square();
+//}
   //rotate([ 0, 0, 180 ]) halfsquare();
   //translate([ inch, inch + o2, 0 ]) square();
   //translate([ 0, inch + o2, 0 ]) square();
@@ -321,6 +321,7 @@ module hexvar(height) {
 //hexbox();
 
 //hgroup(8, 5); // <-- ita :-)
+hgroup(4, 5); // <-- ita half :-)
 
 //hex(3);
 
