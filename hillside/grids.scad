@@ -321,7 +321,9 @@ module hexvar(height) {
 //hexbox();
 
 //hgroup(8, 5); // <-- ita :-)
-hgroup(4, 5); // <-- ita half :-)
+//hgroup(4, 5); // <-- ita half :-)
+//hgroup(2, 2); // <-- "unit"
+hgroup(2, 3); // <-- "arrow"
 
 //hex(3);
 
