@@ -50,6 +50,7 @@ module hex(height=1) {
     h1 = -hei / 2 + h / 2;
 
     #translate([ 0, 0, h0 ]) balcyl(deeper = height > 1);
+      // comment out for hexvar
     for (a = [ 30 : 60 : 330 ]) {
       #rotate([ 0, 0, a ])
         translate([ 0, r - br - 4 * o2, h0 ])
@@ -305,7 +306,8 @@ module hexvar(height) {
   translate([ r4, -r4, 0 ]) tooth(false);
 }
 
-//hexvar(5);
+//hexvar(5); // <-- mirror it ;-)
+//hexvar(10);
 
 
 //module hexbox() {
@@ -322,8 +324,8 @@ module hexvar(height) {
 
 //hgroup(8, 5); // <-- ita :-)
 //hgroup(4, 5); // <-- ita half :-)
-//hgroup(2, 2); // <-- "unit"
-hgroup(2, 3); // <-- "arrow"
+hgroup(2, 2); // <-- "unit"
+//hgroup(2, 3); // <-- "arrow"
 
 //hex(3);
 
