@@ -324,8 +324,13 @@ module hexvar(height) {
 
 //hgroup(8, 5); // <-- ita :-)
 //hgroup(4, 5); // <-- ita half :-)
-hgroup(2, 2); // <-- "unit"
+//hgroup(2, 2); // <-- "unit"
 //hgroup(2, 3); // <-- "arrow"
+
+union() { // <-- "small flower"
+  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
+  hgroup(1, 1);
+}
 
 //hex(3);
 
