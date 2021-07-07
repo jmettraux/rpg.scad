@@ -12,6 +12,9 @@ br = 1.7; // ball radius
 o2 = 0.2;
 m = inch / 1.5;
 
+bch = br * 2.8 + o2;
+bpr = br + 6 * o2;
+
 
 module balcyl(deeper=false) {
 
@@ -20,6 +23,20 @@ module balcyl(deeper=false) {
 
   translate([ 0, 0, dz ])
     cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
+}
+
+module balpole(height) {
+
+  difference() {
+    translate([ 0, 0, height / 2 ])
+      cylinder(r=bpr, h=height, center=true);
+      h0 = 5 * o2;
+      h1 = height;
+      //#translate([ 0, -5, 0 ]) {
+      translate([ 0, 0, bch / 2 + h0 ]) balcyl(true);
+      if (height > 2 * br) translate([ 0, 0, h1 - bch / 2 ]) balcyl(true);
+      //}
+  }
 }
 
 module celtic_base(diameter, height, width) {
@@ -37,22 +54,19 @@ module celtic_base(diameter, height, width) {
       cylinder(r=dw, h=w4, center=true, $fn=36);
     translate([ 0, -r + 2, 0 ])
       cube(size=[ dw * 2, w4, height / 1.4 ], center=true);
-
-    #translate([ 0, -0, 0 ]) {
-
-      h0 = br + 3.5 * o2;
-      h1 = height * 0.94 - o2;
-      l = r - w2 - o2;
-
-      for (a = [ -5 ]) {
-        rotate([ 0, 0, a ]) translate([ 0, l, h0 ]) balcyl(false);
-      }
-      for (a = [ -5, 185 ]) {
-        rotate([ 0, 0, a ]) translate([ 0, l, h1 ]) balcyl(true);
-      }
-    }
   }
+
+  translate([ bpr, r - bpr - 4 * o2, 0 ])
+    balpole(height, $fn=36);
+
+  translate([ r - bpr - 4 * o2, 0, 0 ])
+    balpole(height, $fn=36);
+
+  bph = 2 * br + 12 * o2;
+  translate([ bpr, - r + bpr + 4 * o2, height - bph ])
+    balpole(bph, $fn=36);
 }
 
-celtic_base(3 * inch, 2 * m, 5 + 4 * o2);
+//balpole(2 * m);
+celtic_base(3 * inch, 2 * m, 1);
 
