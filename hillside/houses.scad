@@ -96,20 +96,21 @@ module viking_aframe(length, width, height) {
   l = length * 0.7;
   w = width / 2;
   h = height;
-  wall = 2 * o2;
+  wall = 4 * o2;
+  tness = wall * 9;
 
-  bph = height * 0.84;
+  bph = height * 0.87;
 
   difference() {
     tprism(l0, w, h);
-    translate([ - l0 * 0.05, wall, - wall ]) tprism(l0 * 1.1, w, h);
+    translate([ - l0 * 0.05, tness, - wall ]) tprism(l0 * 1.1, w, h);
   }
 
   ld = (length - l) / 2;
 
   translate([ ld, 0, 0 ]) difference() {
     tprism(l, w, h);
-    translate([ wall / 2, wall / 2, - wall / 2 ])
+    translate([ wall, wall / 2, - wall / 2 ])
       tprism(l - wall * 2, w + wall, h - wall);
   }
 
@@ -121,9 +122,9 @@ module viking_aframe(length, width, height) {
   // door
 
   dw = inch / 2;
+  dh = 1.2 * inch; // 1.79 door height
 
-  #translate([ ld + l + wall, w - dw, 0 ])
-    cube(size=[ wall, dw, inch * 1.5 ]);
+  #translate([ ld + l, w - dw, 0 ]) cube(size=[ wall, dw, dh ]);
 }
 
 viking_aframe(4.2 * inch, 3.5 * inch, 2.4 * inch);
