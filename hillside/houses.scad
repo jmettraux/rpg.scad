@@ -67,6 +67,16 @@ module celtic_base(diameter, height, width) {
     balpole(bph, $fn=36);
 }
 
+module celtic_roof(diameter, height) {
+
+  difference() {
+    cylinder(d1=diameter, d2=0, h=height);
+    translate([ 0, 0, -5 * o2 ]) cylinder(d1=diameter, d2=0, h=height);
+  }
+}
+
 //balpole(2 * m);
-celtic_base(3 * inch, 2 * m, 1);
+//celtic_base(3 * inch, 2 * m, 1);
+
+celtic_roof(3.5 * inch, 2 * inch);
 
