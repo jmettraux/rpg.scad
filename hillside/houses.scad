@@ -75,8 +75,56 @@ module celtic_roof(diameter, height) {
   }
 }
 
-//balpole(2 * m);
 //celtic_base(3 * inch, 2 * m, 1);
+//celtic_roof(3.5 * inch, 2 * inch);
 
-celtic_roof(3.5 * inch, 2 * inch);
+module tprism(l, w, h) {
+
+  polyhedron(
+    points=[
+      [ 0, 0, 0 ], [ l, 0, 0 ], [ l, w, 0 ], [ 0, w, 0 ], [ 0, w, h ],
+      [ l, w, h ] ],
+    faces=[
+      [ 0, 1, 2, 3 ], [ 5, 4, 3, 2 ], [ 0, 4, 5, 1 ], [ 0, 3, 4 ], [ 5,2,1 ] ]
+  );
+}
+
+module viking_aframe(length, width, height) {
+
+  l0 = length;
+
+  l = length * 0.7;
+  w = width / 2;
+  h = height;
+  wall = 2 * o2;
+
+  bph = height * 0.84;
+
+  difference() {
+    tprism(l0, w, h);
+    translate([ - l0 * 0.05, wall, - wall ]) tprism(l0 * 1.1, w, h);
+  }
+
+  ld = (length - l) / 2;
+
+  translate([ ld, 0, 0 ]) difference() {
+    tprism(l, w, h);
+    translate([ wall / 2, wall / 2, - wall / 2 ])
+      tprism(l - wall * 2, w + wall, h - wall);
+  }
+
+  // magnet poles
+
+  translate([ ld + bpr, w - bpr, 0 ]) balpole(bph, $fn=36);
+  translate([ ld + l - bpr, w - bpr, 0 ]) balpole(bph, $fn=36);
+
+  // door
+
+  dw = inch / 2;
+
+  #translate([ ld + l + wall, w - dw, 0 ])
+    cube(size=[ wall, dw, inch * 1.5 ]);
+}
+
+viking_aframe(4.2 * inch, 3.5 * inch, 2.4 * inch);
 
