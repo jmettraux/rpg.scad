@@ -91,10 +91,10 @@ module square(height=1) {
     translate([ 0, 0, hei * -0.5 ])
       hull()
         for (hh = [ hei - rr, rr ]) {
-          translate([ rm, rm, hh ]) sphe();
-          translate([ -rm, rm, hh ]) sphe();
+          translate([  rm,  rm, hh ]) sphe();
+          translate([ -rm,  rm, hh ]) sphe();
           translate([ -rm, -rm, hh ]) sphe();
-          translate([ rm, -rm, hh ]) sphe();
+          translate([  rm, -rm, hh ]) sphe();
         }
 
     h0 = hei / 2 - h / 2;
@@ -135,7 +135,14 @@ module sqgroup(x, y, height=1, fillers=false) {
   }
 }
 
+//sqgroup(2, 2, height=1, fillers=false);
 //sqgroup(3, 4, height=1, fillers=false);
+
+module squareonetwo() {
+  sqgroup(1, 2, height=1, fillers=false);
+  translate([ inch - 0.1, 0, 0 ]) square(height=1);
+}
+squareonetwo();
 
 module halfsquare(height=1) {
 
@@ -327,10 +334,10 @@ module hexvar(height) {
 //hgroup(2, 2); // <-- "unit"
 //hgroup(2, 3); // <-- "arrow"
 
-union() { // <-- "small flower"
-  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
-  hgroup(1, 1);
-}
+//union() { // <-- "small flower"
+//  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
+//  hgroup(1, 1);
+//}
 
 //hex(3);
 
