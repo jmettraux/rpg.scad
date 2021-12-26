@@ -137,12 +137,14 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 //sqgroup(2, 2, height=1, fillers=false);
 //sqgroup(3, 4, height=1, fillers=false);
+sqgroup(1, 4, height=1, fillers=false);
 
 module squareonetwo() {
   sqgroup(1, 2, height=1, fillers=false);
   translate([ inch - 0.1, 0, 0 ]) square(height=1);
 }
-squareonetwo();
+
+//squareonetwo();
 
 module halfsquare(height=1) {
 
