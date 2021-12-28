@@ -39,6 +39,7 @@ translate([ 0, 0, bpoint(bps, "z") ])
   color("cyan") _bal(bpoint(bps, "tail in"), 1.1, $fn=12);
 
 hs = make_humanoid_body_hulls([
+  //[ "torso", "?" ], // <-- which removes the "torso" hull...
   [ "tail 1", "bez",
     [ "tailbase", "tail diameter" ],
     [ "tail 1c0" ],

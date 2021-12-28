@@ -231,8 +231,9 @@ module draw_hulls(points, body_hulls) {
 }
 
 function _merge_hull_entry(hulls, entry)=
-  entry[0] == "?" ? _del(hulls, entry[1]) :
-  _app(hulls, entry);
+  (entry[0] == "?" || entry[0] == "-") ?
+    _del(hulls, entry[1]) :
+    _app(hulls, entry);
 
 function _merge_hull_entries(hulls, entries, i=0)=
   entries[i] == undef ? hulls :
