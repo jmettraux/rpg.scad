@@ -3,7 +3,7 @@
 // wyrmling.scad
 //
 
-include <minidoll2.scad>;
+include <doll2.scad>;
 
 
 dy = -7;

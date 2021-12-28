@@ -1,10 +1,10 @@
 
 //
-// minidoll2.scad
+// doll2.scad
 //
 
 include <minilib.scad>;
-include <minidoll2_defaults.scad>;
+include <doll2_defaults.scad>;
 
 
 module _bal(p, d) {

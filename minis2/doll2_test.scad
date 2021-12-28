@@ -3,7 +3,7 @@
 // doll2_test.scad
 //
 
-include <minidoll2.scad>;
+include <doll2.scad>;
 
 
 //$fn=12;

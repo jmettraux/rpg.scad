@@ -1,6 +1,6 @@
 
 //
-// minidoll2_defaults.scad
+// doll2_defaults.scad
 //
 
 
