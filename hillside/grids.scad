@@ -137,7 +137,7 @@ module sqgroup(x, y, height=1, fillers=false) {
 
 //sqgroup(2, 2, height=1, fillers=false);
 //sqgroup(3, 4, height=1, fillers=false);
-sqgroup(1, 4, height=1, fillers=false);
+//sqgroup(1, 4, height=1, fillers=false);
 
 module squareonetwo() {
   sqgroup(1, 2, height=1, fillers=false);
@@ -335,6 +335,12 @@ module hexvar(height) {
 //hgroup(4, 5); // <-- ita half :-)
 //hgroup(2, 2); // <-- "unit"
 //hgroup(2, 3); // <-- "arrow"
+
+module hexcircumflex() {
+  hgroup(1, 2);
+  translate([ - inch, 0, 0 ]) hgroup(1, 1);
+}
+hexcircumflex();
 
 //union() { // <-- "small flower"
 //  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
