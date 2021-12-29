@@ -49,7 +49,7 @@ function _bpoint_v1(points, pname)= // when receiving one point name
     p = bpoint(points, pname)
   )
   p - p0;
-function _bpoint_v2(points, pnames)= // when receive two point names
+function _bpoint_v2(points, pnames)= // when receiving two point names
   let(
     pa = bpoint(points, pnames[0]),
     pb = bpoint(points, pnames[1])
@@ -62,10 +62,8 @@ function _bpoint_cross(points, p)=
   let(
     p0 = bpoint(points, p[1]),
     l = p[2] * _bpoint_hh(points),
-    v0 = is_string(p[3]) ?
-      _bpoint_v1(points, p[3]) : _bpoint_v2(points, p[3]),
-    v1 = is_string(p[4]) ?
-      _bpoint_v1(points, p[4]) : _bpoint_v2(points, p[4]),
+    v0 = is_string(p[3]) ? _bpoint_v1(points, p[3]) : _bpoint_v2(points, p[3]),
+    v1 = is_string(p[4]) ? _bpoint_v1(points, p[4]) : _bpoint_v2(points, p[4]),
     cro = cross(v0, v1),
     ele_dir = _to_spherical(cro)[1]
   )
@@ -127,11 +125,14 @@ module draw_points(points) {
   for (p = points) {
     p0 = p[0];
     if (_sindex(p0, "ratio") == undef && _sindex(p0, "height") == undef) {
-      c =
-        _sstr(p0, 0, 2) == "l " ? "#0000FF" :
-        _sstr(p0, 0, 2) == "r " ? "#FF0000" :
-        "yellow";
-      color(c) _bal(bpoint(points, p0), d);
+      xyz = bpoint(points, p0);
+      if (xyz) {
+        c =
+          _sstr(p0, 0, 2) == "l " ? "#0000FF" :
+          _sstr(p0, 0, 2) == "r " ? "#FF0000" :
+          "yellow";
+        color(c) _bal(xyz, d);
+      }
     }
   }
 }

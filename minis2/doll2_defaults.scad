@@ -346,6 +346,7 @@ default_humanoid_body_hulls = concat([
     [ "leg diameter", 1.2 ],
     [ "thigh diameter", 1.4 ],
     [ "hip diameter", 1.2 ],
+    [ "waist diameter", 1.0 ],
     [ "shoulder diameter", 1.3 ],
     [ "neck diameter", 1.1 ],
     [ "tail diameter", 1.2 ],
