@@ -262,3 +262,14 @@ module support(points, point_name, rotation=undef) {
   support_point(bpoint(points, point_name), rotation);
 }
 
+module supported(cube_side=100, base_thickness=3) {
+
+  difference() {
+
+    children();
+
+    translate([ 0, 0, - cube_side/2 - base_thickness ])
+      cube(size=cube_side, center=true);
+  }
+}
+

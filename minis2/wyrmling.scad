@@ -10,7 +10,8 @@ dy = -7;
 dz = -1.7;
 
 
-#base(text="", font_size=5, font_spacing=0.95, $fn=12);
+//#base(text="", font_size=5, font_spacing=0.95, $fn=12);
+#base(text="", $fn=12);
 
 bps =
   _merge_point_entries(
@@ -240,8 +241,7 @@ hhs = _merge_hull_entries(
 
 //enumerate_points(hps);
 
-difference() {
-
+supported()
   union() {
 
     translate([ 0, dy, bpoint(bps, "z") + dz ]) {
@@ -282,8 +282,4 @@ difference() {
       support(hps, "tip 1", r);
     }
   }
-
-  translate([ 0, 0, - 50 - 3 ])
-    cube(size=[ 100, 100, 100 ], center=true);
-}
 
