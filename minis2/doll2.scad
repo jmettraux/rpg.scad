@@ -243,6 +243,11 @@ function make_humanoid_body_hulls(entries)=
   _merge_hull_entries(default_humanoid_body_hulls, entries);
 
 
+module move_z(body_points) {
+
+  translate([ 0, 0, bpoint(body_points, "z") ]) children();
+}
+
 //
 // supports
 

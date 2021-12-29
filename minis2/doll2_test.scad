@@ -32,10 +32,12 @@ bps = make_humanoid_body_points([
   [ "tail in", 270 - 20, 0, 1.3, "tailbase" ],
     ]);
 
-translate([ 0, 0, bpoint(bps, "z") ])
+//translate([ 0, 0, bpoint(bps, "z") ])
+move_z(bps)
   draw_points(bps);
 
-translate([ 0, 0, bpoint(bps, "z") ])
+//translate([ 0, 0, bpoint(bps, "z") ])
+move_z(bps)
   color("cyan") _bal(bpoint(bps, "tail in"), 1.1, $fn=12);
 
 hs = make_humanoid_body_hulls([
@@ -45,9 +47,10 @@ hs = make_humanoid_body_hulls([
     [ "tail 1c0" ],
     [ "tail 1c1" ],
     [ "tail 1", "tail end diameter" ],
-    [ "tail in", 0.5, "hub" ] ], // <----- hub ;-)
-      ]);
+    [ "tail in", 0.5, "hub" ], // <----- hub ;-)
+      ] ]);
 
-translate([ 0, 0, bpoint(bps, "z") ])
+//translate([ 0, 0, bpoint(bps, "z") ])
+move_z(bps)
   draw_hulls(bps, hs);
 
