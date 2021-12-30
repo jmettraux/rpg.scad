@@ -4,6 +4,7 @@
 //
 
 include <doll2.scad>;
+include <weapons.scad>;
 
 
 //$fn=12;
@@ -23,11 +24,11 @@ bps = make_humanoid_body_points([
   [ "l waist", 90, 90, 0.3, "l hip" ],
   [ "r waist", 90, 90, 0.3, "r hip" ],
 
-  [ "l chop", 85, 90, 1.2, "l waist", "!" ], // <-- "!" enforces OVERWRITE...
-  [ "r chop", 95, 90, 1.2, "r waist", "!" ],
+  [ "l chop", 85, 90, 0.8, "l waist", "!" ], // <-- "!" enforces OVERWRITE...
+  [ "r chop", 95, 90, 0.8, "r waist", "!" ],
 
-  [ "l thorax", 85, 90, 1.1, "l chop" ],
-  [ "r thorax", 95, 90, 1.1, "r chop" ],
+  [ "l thorax", 85, 90, 1.4, "l chop" ],
+  [ "r thorax", 95, 90, 1.4, "r chop" ],
     ]);
 //enumerate_points(bps);
 
@@ -49,6 +50,9 @@ hs = make_humanoid_body_hulls([
   [ "column 2",
     [ "waist", "column diameter" ],
     [ "back", "column diameter" ] ],
+  [ "column 3",
+    [ "shoulder", "column diameter" ],
+    [ "neck", "column diameter" ] ],
 
   [ "l link",
     [ "l thorax", "column diameter" ],
@@ -60,6 +64,11 @@ hs = make_humanoid_body_hulls([
   [ "l forearm",
     [ "l elbow", "elbow diameter" ],
     [ "l wrist", "wrist diameter" ] ],
+
+  [ "l knee", [ "l knee", 1.1 ] ],
+  [ "r knee", [ "r knee", 1.1 ] ],
+  [ "l elbow", [ "l elbow", 0.9 ] ],
+  [ "r elbow", [ "r elbow", 0.9 ] ],
 
   [ "torso", "?" ], // <-- which removes the "torso" hull...
   [ "torso hi",
@@ -89,4 +98,11 @@ hs = make_humanoid_body_hulls([
       ]);
 
 move_z(bps) draw_hulls(bps, hs);
+
+hh = _bpoint_hh(bps);
+
+move_z(bps)
+  translate([ 4.5, 1.4, -3 ])
+    rotate([ 0, 160, 90 ])
+      long_sword(hh * 4.2, hh * 0.6); // scramax
 
