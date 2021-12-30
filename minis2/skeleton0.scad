@@ -20,30 +20,72 @@ bps = make_humanoid_body_points([
   [ "l shoulder", 0, 100 ],
   [ "r shoulder", 0, -80 ],
 
-  //[ "r chop", "r waist", "r shoulder", 0.5 ],
-  //[ "l chop", "l waist", "l shoulder", 0.5 ],
-    ]);
-enumerate_points(bps);
+  [ "l waist", 90, 90, 0.3, "l hip" ],
+  [ "r waist", 90, 90, 0.3, "r hip" ],
 
-move_z(bps) draw_points(bps);
+  [ "l chop", 85, 90, 1.2, "l waist", "!" ], // <-- "!" enforces OVERWRITE...
+  [ "r chop", 95, 90, 1.2, "r waist", "!" ],
+
+  [ "l thorax", 85, 90, 1.1, "l chop" ],
+  [ "r thorax", 95, 90, 1.1, "r chop" ],
+    ]);
+//enumerate_points(bps);
+
+//move_z(bps) draw_points(bps);
 
 hs = make_humanoid_body_hulls([
-  //[ "torso", "?" ], // <-- which removes the "torso" hull...
-  [ "neck diameter", 1.0 ],
-  [ "thigh diameter", 1.0 ],
-  [ "hip diameter", 1.0 ],
-  [ "waist diameter", 1.0 ],
-  [ "shoulder diameter", 1.0 ],
+  [ "neck diameter", 0.6 ],
+  [ "knee diameter", 0.9 ],
+  [ "leg diameter", 0.9 ],
+  [ "thigh diameter", 0.7 ],
+  [ "hip diameter", 0.7 ],
+  [ "waist diameter", 0.7 ],
+  [ "shoulder diameter", 0.7 ],
+  [ "column diameter", 0.6 ],
 
-  [ "torso",
-    [ "l waist", "waist diameter" ],
-    [ "r waist", "waist diameter" ],
-    [ "l shoulder", "shoulder diameter" ],
-    [ "r shoulder", "shoulder diameter" ],
-    //[ "sternum", "neck diameter" ],
-    [ "shoulder", "neck diameter" ],
-    [ "neck", "neck diameter" ]
-      ],
+  [ "column 1",
+    [ "origin", "column diameter" ],
+    [ "waist", "column diameter" ] ],
+  [ "column 2",
+    [ "waist", "column diameter" ],
+    [ "back", "column diameter" ] ],
+
+  [ "l link",
+    [ "l thorax", "column diameter" ],
+    [ "l shoulder", "column diameter" ] ],
+  [ "r link",
+    [ "r thorax", "column diameter" ],
+    [ "r shoulder", "column diameter" ] ],
+
+  [ "l forearm",
+    [ "l elbow", "elbow diameter" ],
+    [ "l wrist", "wrist diameter" ] ],
+
+  [ "torso", "?" ], // <-- which removes the "torso" hull...
+  [ "torso hi",
+    [ "l chop", "waist diameter" ],
+    [ "r chop", "waist diameter" ],
+    [ "sternum", "waist diameter" ],
+    [ "l thorax", "shoulder diameter" ],
+    [ "r thorax", "shoulder diameter" ] ],
+
+  //[ "basin",
+  //  [ "l hip", "hip diameter" ],
+  //  [ "r hip", "hip diameter" ],
+  //  [ "l waist", "waist diameter" ],
+  //  [ "r waist", "waist diameter" ] ],
+
+  //[ "torso",
+  //  [ "l waist", "waist diameter" ],
+  //  [ "r waist", "waist diameter" ],
+  //  [ "l chop", "waist diameter" ],
+  //  [ "r chop", "waist diameter" ],
+  //  [ "l shoulder", "shoulder diameter" ],
+  //  [ "r shoulder", "shoulder diameter" ],
+  //  //[ "sternum", "neck diameter" ],
+  //  [ "shoulder", "neck diameter" ],
+  //  [ "neck", "neck diameter" ]
+  //    ],
       ]);
 
 move_z(bps) draw_hulls(bps, hs);

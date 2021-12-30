@@ -95,8 +95,10 @@ function bpoint(points, name, default=undef)=
 function _rework_point_entry(points, entry)=
   let(
     k = entry[0],
-    v0 = _assoc(points, k)
+    v0 = _assoc(points, k),
+    el = entry[len(entry) - 1]
   )
+  el == "!" ? _slist(entry, 0, len(entry)-2) :
   [ for (i = [ 0 : len(v0) - 1 ]) entry[i] == undef ? v0[i] : entry[i] ];
 
 function _merge_point_entry(points, entry)=
@@ -126,6 +128,7 @@ module draw_points(points) {
     p0 = p[0];
     if (_sindex(p0, "ratio") == undef && _sindex(p0, "height") == undef) {
       xyz = bpoint(points, p0);
+      echo("draw_points", p, "-->", xyz);
       if (xyz) {
         c =
           _sstr(p0, 0, 2) == "l " ? "#0000FF" :
