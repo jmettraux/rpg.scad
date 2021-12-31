@@ -7,6 +7,29 @@ include <doll2.scad>;
 include <weapons.scad>;
 
 
+module skull(body_points) {
+
+  hp = bpoint(body_points, "head"); // head point
+  hh = _bpoint_hh(body_points); // head height
+
+  difference() {
+    union() {
+      translate([ hp.x, hp.y + hh / 10, hp.z - hh / 3 ])
+        cylinder(d=hh/1.3, h=hh/3, center=true);
+      translate([ 0, 0, hh / 7 ])
+        scale([ 0.8, 1, 1 ])
+          _bal(hp, hh * 0.6); // head
+    }
+    translate([ - hh / 3.7, hh / 2.1, hh / 7 ])
+      _bal(hp, hh * 0.16); // eyesocket
+    translate([ hh / 3.7, hh / 2.1, hh / 7 ])
+      _bal(hp, hh * 0.16); // eyesocket
+  }
+}
+
+
+#base(text="", $fn=12);
+
 //$fn=12;
 
   //[ "r thigh", "r knee", 0.4 ], // 0.4 between "r knee" and its parent "r hip"
@@ -98,6 +121,8 @@ hs = make_humanoid_body_hulls([
       ]);
 
 move_z(bps) draw_hulls(bps, hs);
+
+move_z(bps) skull(bps);
 
 hh = _bpoint_hh(bps);
 
