@@ -24,8 +24,13 @@ module sphe() { sphere(r=rr, $fn=12); }
 
 module balcyl(deeper=false) {
 
-  h = deeper ? br * 2.8 + o2 : br * 2 + o2;
-  dz = deeper ? -3 * o2 : 0;
+  hf =
+    is_num(deeper) ? deeper :
+    deeper == true ? 2.8 :
+    2;
+  h = br * hf + o2;
+
+  dz = hf > 2 ? -3 * o2 : 0;
 
   translate([ 0, 0, dz ])
     cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
@@ -102,7 +107,7 @@ module square(height=1) {
 
     dpr = height > 1;
 
-    #translate([ 0, 0, h0 ]) balcyl(deeper=dpr);
+    #translate([ 0, 0, h0 - 1.8 ]) balcyl(deeper=4.9);
     for (a = [ 0 : 90 : 270 ]) {
       #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h0 ])
         balcyl(deeper=dpr);
@@ -125,13 +130,13 @@ module square(height=1) {
   }
 }
 
-//square(inch / h); // hillside_cube.stl
+square(inch / h); // hillside_cube.stl
 
-difference() { // hillside_angle.stl
-  square(inch / h);
-  d = h + 0.3;
-  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
-}
+//difference() { // hillside_angle.stl
+//  square(inch / h);
+//  d = h + 0.3;
+//  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
+//}
 
 module sqgroup(x, y, height=1, fillers=false) {
   d = inch - 0.1;
