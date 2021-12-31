@@ -130,7 +130,20 @@ supported()
     skull(bps);
 
     translate([ 4.5, 1.4, -3 ])
-      rotate([ 0, 160, 90 ])
+      rotate([ 0, 155, 90 ])
         long_sword(hh * 4.2, hh * 0.6); // long sword
+
+    translate([ -5.3, 0, 0.5 ])
+      rotate([ 0, 20, 90 ])
+        tear_shield(hh * 4, hh * 2);
+
+    support(bps, "origin");
+    translate([ 0, 1.3, 0 ]) support(bps, "head", maxlen=6);
+
+    //support(bps, "l hand");
+    support(bps, "r hand");
+
+    support(bps, "l chop", maxlen=5);
+    support(bps, "r chop", maxlen=5);
   }
 

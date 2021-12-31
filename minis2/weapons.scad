@@ -3,6 +3,8 @@
 // weapons.scad
 //
 
+
+//
 // swords
 
 module long_sword(length, handle_length) {
@@ -35,4 +37,22 @@ module long_sword(length, handle_length) {
           [ [ -bw / 2, 0 ], [ 0, bd / 2 ], [ bw / 2, 0 ], [ 0, -bd / 2 ] ]);
   }
 }
+
+
+//
+// shields
+
+module tear_shield(height, width, thickness=1) {
+
+  t = thickness;
+  d = t * 2;
+
+  rotate([ 270, 0, 0 ])
+    hull() {
+      translate([ 0, 0, 0 ])
+        cylinder(d=width, h=t, center=true);
+      translate([ 0, height, 0 ])
+        cylinder(d=d, h=t, center=true, $fn=12);
+    }
+};
 

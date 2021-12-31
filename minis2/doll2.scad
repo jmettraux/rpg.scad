@@ -83,6 +83,7 @@ function bpoint(points, name, default=undef)=
     s1 = is_string(p[1]),
     s2 = is_string(p[2])
   )
+  _is_point(name) ? name :
   name == undef ? undef :
   name == "origin" ? [ 0, 0, 0 ] :
   s1 && len(p) > 4 ? _bpoint_cross(points, p) :
@@ -255,10 +256,10 @@ module move_z(body_points) {
 //
 // supports
 
-module support_point(point, rotation=undef) {
+module support_point(point, rotation=undef, maxlen=undef) {
 
   t = 0.6;
-  l = 100;
+  l = maxlen == undef ? 100 : maxlen;
   p = (rotation == undef) ? point : rotate_point(point, rotation);
 
   color("cyan")
@@ -266,9 +267,14 @@ module support_point(point, rotation=undef) {
       cylinder(d=t, h=l, center=true, $fn=36);
 }
 
-module support(points, point_name, rotation=undef) {
+module support(points, point_name, rotation=undef, maxlen=undef) {
 
-  support_point(bpoint(points, point_name), rotation);
+  support_point(bpoint(points, point_name), rotation, maxlen);
+}
+
+module support_at(x, y, z, maxlen=undef) {
+
+  support(undef, [ x, y, z ], maxlen);
 }
 
 module supported(cube_side=100, base_thickness=3) {
