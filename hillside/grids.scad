@@ -100,19 +100,33 @@ module square(height=1) {
     h0 = hei / 2 - h / 2;
     h1 = -hei / 2 + h / 2;
 
-    #translate([ 0, 0, h0 ]) balcyl();
+    dpr = height > 1;
+
+    #translate([ 0, 0, h0 ]) balcyl(deeper=dpr);
     for (a = [ 0 : 90 : 270 ]) {
-      #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h0 ]) balcyl();
+      #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h0 ])
+        balcyl(deeper=dpr);
     }
 
-    if (height > 1) {
+    if (hei >= inch) {
+      for (a = [ 0 : 90 : 270 ]) {
+        #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, 0 ])
+          balcyl(deeper=dpr);
+      }
+    }
+
+    if (dpr) {
       #translate([ 0, 0, h1 ]) balcyl(); // center ball
       for (a = [ 0 : 90 : 270 ]) {
-        #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h1 ]) balcyl();
+        #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, h1 ])
+          balcyl();
       }
     }
   }
 }
+
+square(inch / h); // hillside_cube.stl
+
 
 module sqgroup(x, y, height=1, fillers=false) {
   d = inch - 0.1;
@@ -340,7 +354,7 @@ module hexcircumflex() {
   hgroup(1, 2);
   translate([ - inch, 0, 0 ]) hgroup(1, 1);
 }
-hexcircumflex();
+//hexcircumflex();
 
 //union() { // <-- "small flower"
 //  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
