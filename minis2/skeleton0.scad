@@ -38,9 +38,11 @@ module skull(body_points) {
 bps = make_humanoid_body_points([
   [ "knee ratio", 2 ],
   [ "hand ratio", 0.5 ],
-  [ "r knee", -60 ],
-  [ "l knee", -100, -20 ],
-  [ "l ankle", -110, -10 ],
+
+  [ "l knee", -60 ],
+  [ "r knee", -100, -20 ],
+  [ "r ankle", -110, -10 ],
+
   [ "l shoulder", 0, 100 ],
   [ "r shoulder", 0, -80 ],
 
@@ -58,14 +60,17 @@ bps = make_humanoid_body_points([
 //move_z(bps) draw_points(bps);
 
 hs = make_humanoid_body_hulls([
-  [ "neck diameter", 0.6 ],
-  [ "knee diameter", 0.9 ],
-  [ "leg diameter", 0.9 ],
-  [ "thigh diameter", 0.7 ],
-  [ "hip diameter", 0.7 ],
-  [ "waist diameter", 0.7 ],
-  [ "shoulder diameter", 0.7 ],
-  [ "column diameter", 0.6 ],
+  [ "neck diameter", 0.9 ],
+  [ "knee diameter", 1.2 ],
+  [ "leg diameter", 1.2 ],
+  [ "thigh diameter", 1.0 ],
+  [ "hip diameter", 1.0 ],
+  [ "waist diameter", 1.0 ],
+  [ "shoulder diameter", 1.0 ],
+  [ "column diameter", 1.2 ],
+  [ "ankle diameter", 1.0 ],
+  [ "ball diameter", 1.0 ],
+  [ "toe diameter", 1.0 ],
 
   [ "column 1",
     [ "origin", "column diameter" ],
@@ -127,9 +132,9 @@ supported()
 
     draw_hulls(bps, hs);
 
-    skull(bps);
+    translate([ 0, -1, 0 ]) rotate([ -5, 0, 0 ]) skull(bps);
 
-    translate([ 4.5, 1.4, -3 ])
+    translate([ 4.5, 1.4, -3.7 ])
       rotate([ 0, 155, 90 ])
         long_sword(hh * 4.2, hh * 0.6); // long sword
 
@@ -137,13 +142,13 @@ supported()
       rotate([ 0, 20, 90 ])
         tear_shield(hh * 4, hh * 2);
 
-    support(bps, "origin");
-    translate([ 0, 1.3, 0 ]) support(bps, "head", maxlen=6);
+    //support(bps, "origin");
+    //translate([ 0, 1.3, 0 ]) support(bps, "head", maxlen=6);
 
     //support(bps, "l hand");
-    support(bps, "r hand");
+    //support(bps, "r hand");
 
-    support(bps, "l chop", maxlen=5);
-    support(bps, "r chop", maxlen=5);
+    translate([ 0.5, 0, 0 ]) support(bps, "l chop", maxlen=5);
+    translate([ -0.5, 0, 0 ]) support(bps, "r chop", maxlen=5);
   }
 
