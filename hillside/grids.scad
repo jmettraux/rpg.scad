@@ -125,8 +125,13 @@ module square(height=1) {
   }
 }
 
-square(inch / h); // hillside_cube.stl
+//square(inch / h); // hillside_cube.stl
 
+difference() { // hillside_angle.stl
+  square(inch / h);
+  d = h + 0.3;
+  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
+}
 
 module sqgroup(x, y, height=1, fillers=false) {
   d = inch - 0.1;
