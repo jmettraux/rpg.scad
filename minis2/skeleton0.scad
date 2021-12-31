@@ -120,14 +120,17 @@ hs = make_humanoid_body_hulls([
   //    ],
       ]);
 
-move_z(bps) draw_hulls(bps, hs);
-
-move_z(bps) skull(bps);
-
 hh = _bpoint_hh(bps);
 
-move_z(bps)
-  translate([ 4.5, 1.4, -3 ])
-    rotate([ 0, 160, 90 ])
-      long_sword(hh * 4.2, hh * 0.6); // scramax
+supported()
+  move_z(bps) {
+
+    draw_hulls(bps, hs);
+
+    skull(bps);
+
+    translate([ 4.5, 1.4, -3 ])
+      rotate([ 0, 160, 90 ])
+        long_sword(hh * 4.2, hh * 0.6); // long sword
+  }
 

@@ -242,9 +242,8 @@ hhs = _merge_hull_entries(
 //enumerate_points(hps);
 
 supported()
-  union() {
-
-    translate([ 0, dy, bpoint(bps, "z") + dz ]) {
+  move_z(bps) {
+    translate([ 0, dy, dz ]) {
       //color("cyan") _bal(bpoint(bps, "l wing 20"), 0.8, $fn=36);
       //draw_points(bps);
       draw_hulls(bps, bhs);
@@ -261,7 +260,7 @@ supported()
       //support(bps, "neck");
     }
 
-    translate([ 0, ph.y + dy - 7, bpoint(bps, "z") + ph.z + dz - 2 ]) {
+    translate([ 0, ph.y + dy - 7, ph.z + dz - 2 ]) {
 
       //color("cyan") _bal(bpoint(hps, "crest"), 0.8, $fn=36);
       //draw_points(hps);
