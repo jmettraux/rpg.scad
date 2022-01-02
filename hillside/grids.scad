@@ -114,6 +114,13 @@ module square(height=1) {
     }
 
     if (hei >= inch) {
+
+      dd = inch / 2 - br - 4 * o2;
+      #translate([ -dd,  dd, 0 ]) balcyl(deeper=dpr);
+      #translate([  dd, -dd, 0 ]) balcyl(deeper=dpr);
+      #translate([ -dd, -dd, 0 ]) balcyl(deeper=dpr);
+      #translate([  dd,  dd, 0 ]) balcyl(deeper=dpr);
+
       for (a = [ 0 : 90 : 270 ]) {
         #rotate([ 0, 0, a ]) translate([ 0, r - br - 5 * o2, 0 ])
           balcyl(deeper=dpr);
