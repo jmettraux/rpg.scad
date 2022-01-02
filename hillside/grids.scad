@@ -115,7 +115,7 @@ module square(height=1) {
 
     if (hei >= inch) {
 
-      dd = inch / 2 - br - 4 * o2;
+      dd = inch / 2 - br - 5 * o2;
       #translate([ -dd,  dd, 0 ]) balcyl(deeper=dpr);
       #translate([  dd, -dd, 0 ]) balcyl(deeper=dpr);
       #translate([ -dd, -dd, 0 ]) balcyl(deeper=dpr);
@@ -137,13 +137,13 @@ module square(height=1) {
   }
 }
 
-square(inch / h); // hillside_cube.stl
+//square(inch / h); // hillside_cube.stl
 
-//difference() { // hillside_angle.stl
-//  square(inch / h);
-//  d = h + 0.3;
-//  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
-//}
+difference() { // hillside_angle.stl
+  square(inch / h);
+  d = h + 0.3;
+  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
+}
 
 module sqgroup(x, y, height=1, fillers=false) {
   d = inch - 0.1;
