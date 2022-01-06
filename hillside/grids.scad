@@ -139,11 +139,11 @@ module square(height=1) {
 
 //square(inch / h); // hillside_cube.stl
 
-difference() { // hillside_angle.stl
-  square(inch / h);
-  d = h + 0.3;
-  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
-}
+//difference() { // hillside_angle.stl
+//  square(inch / h);
+//  d = h + 0.3;
+//  translate([ d, d, 0 ]) cube(size=[ inch, inch, inch * 2 ], center=true);
+//}
 
 module sqgroup(x, y, height=1, fillers=false) {
   d = inch - 0.1;
@@ -379,4 +379,45 @@ module hexcircumflex() {
 //}
 
 //hex(3);
+
+
+module column(height=1) {
+
+  hei = h * height;
+  rm = r - rr;
+
+  difference() {
+    translate([ 0, 0, hei * -0.5 ])
+      cylinder(hei, d=inch, true, $fn=18);
+
+    h0 = hei / 2 - h / 2;
+    h1 = -hei / 2 + h / 2;
+
+    dpr = height > 1;
+
+    #translate([ 0, 0, h0 - 1.8 ]) balcyl(deeper=4.9);
+    for (a = [ 0 : 90 : 270 ]) {
+      #rotate([ 0, 0, a ]) translate([ 0, r - br - 6 * o2, h0 ])
+        balcyl(deeper=dpr);
+    }
+
+    if (hei >= inch) {
+
+      for (a = [ 0 : 90 : 270 ]) {
+        #rotate([ 0, 0, a ]) translate([ 0, r - br - 6 * o2, 0 ])
+          balcyl(deeper=dpr);
+      }
+    }
+
+    if (dpr) {
+      #translate([ 0, 0, h1 ]) balcyl(); // center ball
+      for (a = [ 0 : 90 : 270 ]) {
+        #rotate([ 0, 0, a ]) translate([ 0, r - br - 6 * o2, h1 ])
+          balcyl();
+      }
+    }
+  }
+}
+
+column(inch/h);
 
