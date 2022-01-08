@@ -371,7 +371,7 @@ module hexcircumflex() {
   hgroup(1, 2);
   translate([ - inch, 0, 0 ]) hgroup(1, 1);
 }
-//hexcircumflex();
+hexcircumflex();
 
 //union() { // <-- "small flower"
 //  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
@@ -419,5 +419,5 @@ module column(height=1) {
   }
 }
 
-column(inch/h);
+//column(inch/h);
 

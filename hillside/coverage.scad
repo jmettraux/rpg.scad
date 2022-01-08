@@ -134,9 +134,16 @@ module bush(height=0) {
     }
     translate([ 0, -inch - height, 0 ])
       cube(size=[ inch + o2, 2 * inch + o2, 5 + o2 ], center=true);
+
     #translate([ 0, br + 5 * o2 - height, 0 ]) balcyl();
 
     if (height > 0) #translate([ 0, inch / 2 - bd, 0 ]) balcyl();
+
+    if (height >= inch) {
+      #translate([ 0, -inch / 2, 0 ]) balcyl();
+      #translate([ inch / 2 - bd, -inch / 2, 0 ]) balcyl();
+      #translate([ -inch / 2 + bd, -inch / 2, 0 ]) balcyl();
+    }
   }
 }
 
@@ -145,5 +152,5 @@ module bush(height=0) {
 //bush();
 //translate([ inch * 1.2, 0, 0 ]) bush(inch / 3);
 //translate([ inch * 2.2, 0, 0 ]) bush(inch / 2);
-translate([ inch * 2.2, 0, 0 ]) bush(inch / 1);
+translate([ inch * 2.2, 0, 0 ]) bush(inch / 1); // door ;-)
 
