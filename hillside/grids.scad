@@ -367,6 +367,9 @@ module hexvar(height) {
 //hgroup(2, 2); // <-- "unit"
 //hgroup(2, 3); // <-- "arrow"
 
+//hgroup(1, 1);
+//hgroup(1, 2);
+
 module hexcircumflex() {
   hgroup(1, 2);
   translate([ - inch, 0, 0 ]) hgroup(1, 1);
