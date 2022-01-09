@@ -384,10 +384,9 @@ module hexcircumflex() {
 //hex(3);
 
 
-module column(height=1, diameter=inch) {
+module column(height=1, diameter=inch, o2f=6) {
 
   hei = h * height;
-  o2f = diameter < inch ? 5.1 : 6;
   balrad = diameter / 2 - br - o2f * o2;
 
   difference() {
@@ -400,7 +399,8 @@ module column(height=1, diameter=inch) {
 
     dpr = height > 1;
 
-    #translate([ 0, 0, h0 - 1.8 ]) balcyl(deeper=4.9);
+    if (diameter > inch / 2)
+      #translate([ 0, 0, h0 - 1.8 ]) balcyl(deeper=4.9); // center ball
     for (a = [ 0 : 90 : 270 ]) {
       #rotate([ 0, 0, a ]) translate([ 0, balrad, h0 ])
         balcyl(deeper=dpr);
@@ -415,7 +415,8 @@ module column(height=1, diameter=inch) {
     }
 
     if (dpr) {
-      #translate([ 0, 0, h1 ]) balcyl(); // center ball
+      if (diameter > inch / 2)
+        #translate([ 0, 0, h1 ]) balcyl(); // center ball
       for (a = [ 0 : 90 : 270 ]) {
         #rotate([ 0, 0, a ]) translate([ 0, balrad, h1 ])
           balcyl();
@@ -425,5 +426,6 @@ module column(height=1, diameter=inch) {
 }
 
 //column(height=inch/h);
-column(height=inch/h, diameter=inch * 0.7);
+//column(height=inch/h, diameter=inch * 0.7, o2f=5.1); // halfcolumn 1.0 :-|
+column(height=inch/h, diameter=inch * 0.5, o2f=4.9);
 
