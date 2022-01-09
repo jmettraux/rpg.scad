@@ -374,7 +374,7 @@ module hexcircumflex() {
   hgroup(1, 2);
   translate([ - inch, 0, 0 ]) hgroup(1, 1);
 }
-hexcircumflex();
+//hexcircumflex();
 
 //union() { // <-- "small flower"
 //  translate([ - inch - o2, 0, 0 ]) hgroup(1, 2);
@@ -384,14 +384,16 @@ hexcircumflex();
 //hex(3);
 
 
-module column(height=1) {
+module column(height=1, diameter=inch) {
 
   hei = h * height;
-  rm = r - rr;
+  o2f = diameter < inch ? 5.1 : 6;
+  balrad = diameter / 2 - br - o2f * o2;
 
   difference() {
+
     translate([ 0, 0, hei * -0.5 ])
-      cylinder(hei, d=inch, true, $fn=18);
+      cylinder(hei, d=diameter, true, $fn=18);
 
     h0 = hei / 2 - h / 2;
     h1 = -hei / 2 + h / 2;
@@ -400,14 +402,14 @@ module column(height=1) {
 
     #translate([ 0, 0, h0 - 1.8 ]) balcyl(deeper=4.9);
     for (a = [ 0 : 90 : 270 ]) {
-      #rotate([ 0, 0, a ]) translate([ 0, r - br - 6 * o2, h0 ])
+      #rotate([ 0, 0, a ]) translate([ 0, balrad, h0 ])
         balcyl(deeper=dpr);
     }
 
     if (hei >= inch) {
 
       for (a = [ 0 : 90 : 270 ]) {
-        #rotate([ 0, 0, a ]) translate([ 0, r - br - 6 * o2, 0 ])
+        #rotate([ 0, 0, a ]) translate([ 0, balrad, 0 ])
           balcyl(deeper=dpr);
       }
     }
@@ -415,12 +417,13 @@ module column(height=1) {
     if (dpr) {
       #translate([ 0, 0, h1 ]) balcyl(); // center ball
       for (a = [ 0 : 90 : 270 ]) {
-        #rotate([ 0, 0, a ]) translate([ 0, r - br - 6 * o2, h1 ])
+        #rotate([ 0, 0, a ]) translate([ 0, balrad, h1 ])
           balcyl();
       }
     }
   }
 }
 
-//column(inch/h);
+//column(height=inch/h);
+column(height=inch/h, diameter=inch * 0.7);
 
