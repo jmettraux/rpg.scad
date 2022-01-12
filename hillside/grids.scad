@@ -169,6 +169,8 @@ module sqgroup(x, y, height=1, fillers=false) {
 //sqgroup(2, 2, height=1, fillers=false);
 //sqgroup(3, 4, height=1, fillers=false);
 //sqgroup(1, 4, height=1, fillers=false);
+//sqgroup(1, 2, height=1, fillers=false);
+//square(1);
 
 module squareonetwo() {
   sqgroup(1, 2, height=1, fillers=false);
@@ -215,10 +217,10 @@ module halfsquare(height=1) {
 
 //halfsquare();
 
-//union() {
-//  halfsquare();
-//  translate([ inch, 0, 0 ]) square();
-//}
+union() {
+  halfsquare();
+  translate([ inch, 0, 0 ]) square();
+}
   //rotate([ 0, 0, 180 ]) halfsquare();
   //translate([ inch, inch + o2, 0 ]) square();
   //translate([ 0, inch + o2, 0 ]) square();
@@ -384,7 +386,7 @@ module hexcircumflex() {
 //hex(3);
 
 
-module column(height=1, diameter=inch, o2f=6) {
+module column(height=1, diameter=inch, o2f=6, angles=[ 0 : 90 : 270 ]) {
 
   hei = h * height;
   balrad = diameter / 2 - br - o2f * o2;
@@ -401,14 +403,14 @@ module column(height=1, diameter=inch, o2f=6) {
 
     if (diameter > inch / 2)
       #translate([ 0, 0, h0 - 1.8 ]) balcyl(deeper=4.9); // center ball
-    for (a = [ 0 : 90 : 270 ]) {
+    for (a = angles) {
       #rotate([ 0, 0, a ]) translate([ 0, balrad, h0 ])
         balcyl(deeper=dpr);
     }
 
     if (hei >= inch) {
 
-      for (a = [ 0 : 90 : 270 ]) {
+      for (a = angles) {
         #rotate([ 0, 0, a ]) translate([ 0, balrad, 0 ])
           balcyl(deeper=dpr);
       }
@@ -417,7 +419,7 @@ module column(height=1, diameter=inch, o2f=6) {
     if (dpr) {
       if (diameter > inch / 2)
         #translate([ 0, 0, h1 ]) balcyl(); // center ball
-      for (a = [ 0 : 90 : 270 ]) {
+      for (a = angles) {
         #rotate([ 0, 0, a ]) translate([ 0, balrad, h1 ])
           balcyl();
       }
@@ -427,5 +429,5 @@ module column(height=1, diameter=inch, o2f=6) {
 
 //column(height=inch/h);
 //column(height=inch/h, diameter=inch * 0.7, o2f=5.1); // halfcolumn 1.0 :-|
-column(height=inch/h, diameter=inch * 0.5, o2f=4.9);
+//column(height=inch/h, diameter=inch * 0.5, o2f=4.9, angles=[0,180]);
 
