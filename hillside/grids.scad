@@ -169,7 +169,7 @@ module sqgroup(x, y, height=1, fillers=false) {
 //sqgroup(2, 2, height=1, fillers=false);
 //sqgroup(3, 4, height=1, fillers=false);
 //sqgroup(1, 4, height=1, fillers=false);
-sqgroup(1, 2, height=1, fillers=false);
+//sqgroup(1, 2, height=1, fillers=false);
 //square(1);
 
 module squareonetwo() {
@@ -217,10 +217,10 @@ module halfsquare(height=1) {
 
 //halfsquare();
 
-//union() {
-//  halfsquare();
-//  translate([ inch, 0, 0 ]) square();
-//}
+union() {
+  halfsquare();
+  translate([ inch, 0, 0 ]) square();
+}
   //rotate([ 0, 0, 180 ]) halfsquare();
   //translate([ inch, inch + o2, 0 ]) square();
   //translate([ 0, inch + o2, 0 ]) square();
