@@ -11,7 +11,10 @@ inch = 25.4;
 br = 1.7; // ball radius
 o2 = 0.2;
 h = 5; // height unit
+sr = inch / 20; // sphe radius
 
+
+module sphe() { sphere(r=sr, $fn=12); }
 
 module balcyl(deeper=false) {
 
@@ -27,19 +30,23 @@ module balcyl(deeper=false) {
     cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
 }
 
+
 module awall(base, side) {
 
   b2 = base / 2;
-  angle = asin(b2 / side);
-  height = b2 / tan(angle);
+  atop = asin(b2 / side);
+  abase = (180 - atop * 2) / 2;
+  height = b2 / tan(atop);
+
+  echo("atop", atop, "abase", abase, "total", 2 * atop + 2 * abase);
 
   //echo("awall height ft", height / inch * 5);
   //echo("awall height", height);
 
-  a14 = cos(angle) * 0.5 * (side - inch);
-  a34 = cos(angle) * 0.5 * (side + inch);
-  o14 = sin(angle) * 0.5 * (side - inch);
-  o34 = sin(angle) * 0.5 * (side + inch);
+  a14 = cos(atop) * 0.5 * (side - inch);
+  a34 = cos(atop) * 0.5 * (side + inch);
+  o14 = sin(atop) * 0.5 * (side - inch);
+  o34 = sin(atop) * 0.5 * (side + inch);
 
   //echo("awall side a14 a34", side, a14, a34);
   //echo("awall side o14 o34", side, o14, o34);
@@ -47,11 +54,24 @@ module awall(base, side) {
   d0 = br + 6 * o2;
   d1 = br + 6.5 * o2;
 
+  h0 = -0.5 * h + sr / 2;
+  h1 = 0.5 * h - sr / 2;
+  //echo("h0", h0, "h1", h1);
+
   difference() {
 
-    translate([ 0, 0, -0.5 * h ])
-      linear_extrude(h)
-        polygon([ [ -b2, 0 ], [ b2, 0 ], [ 0, height ] ]);
+    //%translate([ 0, 0, -0.5 * h ])
+    //  linear_extrude(h)
+    //    polygon([ [ -b2, 0 ], [ b2, 0 ], [ 0, height ] ]);
+    hull() {
+      dx = sr / tan(abase / 2);
+      dy = sr / sin(atop);
+      for (h = [ h0, h1 ]) {
+        translate([ b2 - dx, sr, h ]) sphe();
+        translate([ -b2 + dx, sr, h ]) sphe();
+        translate([ 0, height - dy, h ]) sphe();
+      }
+    }
 
     translate([ 0.25 * base, d0, 0 ]) balcyl();
     translate([ -0.25 * base, d0, 0 ]) balcyl();
@@ -64,5 +84,30 @@ module awall(base, side) {
   }
 }
 
-awall(2 * inch, 2.0 * inch);
+awall(2 * inch, 2 * inch);
+
+
+module plank(width, length) {
+
+  w2 = width / 2;
+  l2 = length / 2;
+
+  hei = 1 * h;
+
+  h0 = -0.5 * h + sr / 2;
+  h1 = 0.5 * h - sr / 2;
+  //echo("h0", h0, "h1", h1);
+
+  %hull() {
+
+    for (h = [ h0, h1 ]) {
+      translate([ w2, -l2, h ]) sphe();
+      translate([ -w2, -l2, h ]) sphe();
+      translate([ w2, l2, h ]) sphe();
+      translate([ -w2, l2, h ]) sphe();
+    }
+  }
+}
+
+//plank(3 * inch, 4 * inch);
 
