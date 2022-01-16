@@ -31,8 +31,11 @@ module balcyl(deeper=false) {
 }
 
 module line_balcyls(length, interval=inch) {
-  translate([ -length / 2 + inch - interval / 2, 0, 0 ])
-    for (x = [ 0 : interval : length - inch ]) translate([ x, 0, 0 ]) balcyl();
+  //odd = (length / interval) % 2;
+  #cube(br * 2, center=true);
+  translate([ -length / 2 + interval / 2, 0, 0 ])
+    for (x = [ 0 : interval : length - interval ])
+      translate([ x, 0, 0 ]) balcyl();
 }
 
 module awall(base, side) {
@@ -49,6 +52,7 @@ module awall(base, side) {
   echo("awall height in", height / inch);
   echo("awall height ft", height / inch * 5);
 
+  //d0 = br + 6 * o2;
   d1 = br + 6.5 * o2;
 
   h0 = -0.5 * h + sr;
@@ -57,9 +61,6 @@ module awall(base, side) {
 
   union() {
 
-    //%translate([ 0, 0, -0.5 * h ])
-    //  linear_extrude(h)
-    //    polygon([ [ -b2, 0 ], [ b2, 0 ], [ 0, height ] ]);
     %hull() {
       dx = sr / tan(abase / 2);
       dy = sr / sin(atop);
@@ -74,12 +75,17 @@ module awall(base, side) {
 
     x1 = sin(atop) * side / 2;
     y1 = cos(atop) * side / 2;
-    translate([ x1, y1, 0 ]) rotate([ 0, 0, -atop * 2 ]) line_balcyls(side);
-    translate([ -x1, y1, 0 ]) rotate([ 0, 0,  atop * 2 ]) line_balcyls(side);
+    //rx = sin(atop) * (br + 6 * o2);
+    //ry = cos(atop) * (br + 6 * o2);
+    translate([ x1, y1, 0 ]) rotate([ 0, 0, -(45 + atop) ])
+      line_balcyls(side);
+    translate([ -x1, y1, 0 ]) rotate([ 0, 0,  45 + atop ])
+      line_balcyls(side);
   }
 }
 
-awall(4 * inch, 4 * inch);
+awall(2 * inch, 3.0 * inch);
+
 
 module sq_balcyls() {
   balcyl();
