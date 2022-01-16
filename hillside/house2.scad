@@ -30,6 +30,10 @@ module balcyl(deeper=false) {
     cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
 }
 
+module line_balcyls(length, interval=inch) {
+  translate([ -length / 2 + inch - interval / 2, 0, 0 ])
+    for (x = [ 0 : interval : length - inch ]) translate([ x, 0, 0 ]) balcyl();
+}
 
 module awall(base, side) {
 
@@ -45,27 +49,18 @@ module awall(base, side) {
   echo("awall height in", height / inch);
   echo("awall height ft", height / inch * 5);
 
-  a14 = cos(atop) * 0.5 * (side - inch);
-  a34 = cos(atop) * 0.5 * (side + inch);
-  o14 = sin(atop) * 0.5 * (side - inch);
-  o34 = sin(atop) * 0.5 * (side + inch);
-
-  //echo("awall side a14 a34", side, a14, a34);
-  //echo("awall side o14 o34", side, o14, o34);
-
-  d0 = br + 6 * o2;
   d1 = br + 6.5 * o2;
 
-  h0 = -0.5 * h + sr / 2;
-  h1 = 0.5 * h - sr / 2;
+  h0 = -0.5 * h + sr;
+  h1 = 0.5 * h - sr;
   //echo("h0", h0, "h1", h1);
 
-  difference() {
+  union() {
 
     //%translate([ 0, 0, -0.5 * h ])
     //  linear_extrude(h)
     //    polygon([ [ -b2, 0 ], [ b2, 0 ], [ 0, height ] ]);
-    hull() {
+    %hull() {
       dx = sr / tan(abase / 2);
       dy = sr / sin(atop);
       for (h = [ h0, h1 ]) {
@@ -75,20 +70,18 @@ module awall(base, side) {
       }
     }
 
-    translate([ 0.25 * base, d0, 0 ]) balcyl();
-    translate([ -0.25 * base, d0, 0 ]) balcyl();
+    translate([ 0, br + 6 * o2, 0]) line_balcyls(base);
 
-    translate([ o14 - d1, height - a14, 0 ]) balcyl();
-    translate([ o34 - d1, height - a34, 0 ]) balcyl();
-
-    translate([ -o14 + d1, height - a14, 0 ]) balcyl();
-    translate([ -o34 + d1, height - a34, 0 ]) balcyl();
+    x1 = sin(atop) * side / 2;
+    y1 = cos(atop) * side / 2;
+    translate([ x1, y1, 0 ]) rotate([ 0, 0, -atop * 2 ]) line_balcyls(side);
+    translate([ -x1, y1, 0 ]) rotate([ 0, 0,  atop * 2 ]) line_balcyls(side);
   }
 }
 
-//awall(2.5 * inch, 3 * inch);
+awall(4 * inch, 4 * inch);
 
-module balcyls() {
+module sq_balcyls() {
   balcyl();
   for (a = [ 0 : 90 : 270 ]) {
     rotate([ 0, 0, a ]) translate([ 0, inch / 2 - br - 5 * o2, 0 ]) balcyl();
@@ -121,9 +114,9 @@ module plank(width, length) {
 
     for (x = [ 0 : inch : width - inch ])
       for (y = [ 0 : inch : length - inch ])
-        translate([ x - w2 + inch / 2, y - l2 + inch / 2, 0 ]) balcyls();
+        translate([ x - w2 + inch / 2, y - l2 + inch / 2, 0 ]) sq_balcyls();
   }
 }
 
-plank(2 * inch, 3 * inch);
+//plank(2 * inch, 3 * inch);
 
