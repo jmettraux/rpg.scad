@@ -40,8 +40,10 @@ module awall(base, side) {
 
   echo("atop", atop, "abase", abase, "total", 2 * atop + 2 * abase);
 
-  //echo("awall height ft", height / inch * 5);
-  //echo("awall height", height);
+  echo("awall", "base", base / inch, "side", side / inch);
+  echo("awall height", height);
+  echo("awall height in", height / inch);
+  echo("awall height ft", height / inch * 5);
 
   a14 = cos(atop) * 0.5 * (side - inch);
   a34 = cos(atop) * 0.5 * (side + inch);
@@ -84,8 +86,14 @@ module awall(base, side) {
   }
 }
 
-awall(2 * inch, 2 * inch);
+//awall(2.5 * inch, 3 * inch);
 
+module balcyls() {
+  balcyl();
+  for (a = [ 0 : 90 : 270 ]) {
+    rotate([ 0, 0, a ]) translate([ 0, inch / 2 - br - 5 * o2, 0 ]) balcyl();
+  }
+}
 
 module plank(width, length) {
 
@@ -94,20 +102,28 @@ module plank(width, length) {
 
   hei = 1 * h;
 
-  h0 = -0.5 * h + sr / 2;
-  h1 = 0.5 * h - sr / 2;
+  h0 = -0.5 * h + sr;
+  h1 = 0.5 * h - sr;
   //echo("h0", h0, "h1", h1);
 
-  %hull() {
+  d0 = br + o2;
 
-    for (h = [ h0, h1 ]) {
-      translate([ w2, -l2, h ]) sphe();
-      translate([ -w2, -l2, h ]) sphe();
-      translate([ w2, l2, h ]) sphe();
-      translate([ -w2, l2, h ]) sphe();
+  difference() {
+
+    hull() {
+      for (h = [ h0, h1 ]) {
+        translate([ w2, -l2, h ]) sphe();
+        translate([ -w2, -l2, h ]) sphe();
+        translate([ w2, l2, h ]) sphe();
+        translate([ -w2, l2, h ]) sphe();
+      }
     }
+
+    for (x = [ 0 : inch : width - inch ])
+      for (y = [ 0 : inch : length - inch ])
+        translate([ x - w2 + inch / 2, y - l2 + inch / 2, 0 ]) balcyls();
   }
 }
 
-//plank(3 * inch, 4 * inch);
+plank(2 * inch, 3 * inch);
 
