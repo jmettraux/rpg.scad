@@ -32,10 +32,11 @@ module balcyl(deeper=false) {
 
 module line_balcyls(length, interval=inch) {
   //odd = (length / interval) % 2;
+  i2 = interval / 2;
   #cube(br * 2, center=true);
-  translate([ -length / 2 + interval / 2, 0, 0 ])
-    for (x = [ 0 : interval : length - interval ])
-      translate([ x, 0, 0 ]) balcyl();
+  //translate([ -length / 2 + interval / 2, 0, 0 ])
+    for (x = [ 0 : interval : length - i2 ])
+      translate([ i2 + x, 0, 0 ]) balcyl();
 }
 
 module awall(base, side) {
@@ -59,11 +60,12 @@ module awall(base, side) {
   h1 = 0.5 * h - sr;
   //echo("h0", h0, "h1", h1);
 
+  dx = sr / tan(abase / 2);
+  dy = sr / sin(atop);
+
   union() {
 
     %hull() {
-      dx = sr / tan(abase / 2);
-      dy = sr / sin(atop);
       for (h = [ h0, h1 ]) {
         translate([ b2 - dx, sr, h ]) sphe();
         translate([ -b2 + dx, sr, h ]) sphe();
@@ -71,20 +73,17 @@ module awall(base, side) {
       }
     }
 
-    translate([ 0, br + 6 * o2, 0]) line_balcyls(base);
+    //translate([ 0, br + 6 * o2, 0]) line_balcyls(base);
+translate([ -b2, d1, 0 ]) line_balcyls(base);
 
-    x1 = sin(atop) * side / 2;
-    y1 = cos(atop) * side / 2;
-    //rx = sin(atop) * (br + 6 * o2);
-    //ry = cos(atop) * (br + 6 * o2);
-    translate([ x1, y1, 0 ]) rotate([ 0, 0, -(45 + atop) ])
-      line_balcyls(side);
-    translate([ -x1, y1, 0 ]) rotate([ 0, 0,  45 + atop ])
-      line_balcyls(side);
+    translate([ 0, height - dy - d1 * 2, 0 ])
+      rotate([ 0, 0, - 45 -atop ]) line_balcyls(side);
+    translate([ 0, height - dy - d1 * 2, 0 ])
+      rotate([ 0, 0, 180 + 45 + atop ]) line_balcyls(side);
   }
 }
 
-awall(2 * inch, 3.0 * inch);
+awall(3 * inch, 4 * inch);
 
 
 module sq_balcyls() {
