@@ -8,13 +8,7 @@ br = 1.7; // ball radius
 
 module balcyl() {
 
-  hf = 2;
-  h = br * hf + o2;
-
-  dz = hf > 2 ? -3 * o2 : 0;
-
-  translate([ 0, 0, dz ])
-    cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
+  cylinder(r=br + 2 * o2, h=br * 2 + o2, center=true, $fn=36);
 }
 
 module magbase0(rad, height) {
@@ -27,5 +21,17 @@ module magbase0(rad, height) {
   }
 }
 
-magbase0(25/2, 5, $fn=64);
+module magbase1(rad, height, scale=0.9) {
+  difference() {
+    translate([ 0, 0, -height / 2 ])
+      linear_extrude(height=height, scale=scale) {
+        translate([ rad/2, rad/2, 0 ]) square([ rad, rad ], center=true);
+        circle(r=rad);
+      }
+    balcyl();
+  }
+}
+
+//translate([ 30, 0, 0 ]) magbase0(25/2, 5, $fn=64);
+magbase1(25/2, 4, $fn=64);
 
