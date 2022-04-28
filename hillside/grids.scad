@@ -217,10 +217,10 @@ module halfsquare(height=1) {
 
 //halfsquare();
 
-union() {
-  halfsquare();
-  translate([ inch, 0, 0 ]) square();
-}
+//union() {
+//  halfsquare();
+//  translate([ inch, 0, 0 ]) square();
+//}
   //rotate([ 0, 0, 180 ]) halfsquare();
   //translate([ inch, inch + o2, 0 ]) square();
   //translate([ 0, inch + o2, 0 ]) square();
@@ -291,14 +291,21 @@ module hgroup(x, y, height=1, sx=0, sy=0) {
   }
 }
 
-  // TODO replace with hgroup combos
-  //
-//module hflower(height=1) {
-//  r2 = r / 2;
-//  translate([ -r, 1.5 * t, 0 ]) hgroup(2, 1, height);
-//  translate([ -2 * r, 0, 0 ]) hgroup(3, 1, height);
-//  translate([ -r, -1.5 * t, 0 ]) hgroup(2, 1, height);
-//}
+module hflower(height=1) {
+  ino2 = inch + o2;
+  translate([ -ino2 / 2, 1.5 * t + o2, 0 ]) hgroup(1, 1, height);
+  translate([ 0, 0, 0 ]) hgroup(1, 3, height);
+  translate([ ino2, 0, 0 ]) hgroup(1, 3, height);
+}
+//hflower();
+
+module hexhaustion(height=1) {
+  ino2 = inch + o2;
+  translate([ 0, 0, 0 ]) hgroup(1, 3, height);
+  translate([ ino2, 0, 0 ]) hgroup(1, 3, height);
+}
+hexhaustion();
+
 
 module tri(height=1) {
 
