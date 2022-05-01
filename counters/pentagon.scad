@@ -26,10 +26,10 @@ difference() {
   //%cylinder(h=h, r=r, center=true, $fn=n);
   cylinder(h=h, r=r, center=true, $fn=n);
   union() {
-    balcyl();
+    //balcyl();
     for(a = [ 360 / (n * 2) : 360 / n : 360 ]) {
       //echo(a);
-      rotate([ 0, 0, a ]) translate([ ro - br - 2 * o2, 0, 0 ]) balcyl();
+      rotate([ 0, 0, a ]) translate([ ro - br - 5 * o2, 0, 0 ]) balcyl();
     }
   }
 }
