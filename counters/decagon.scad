@@ -20,12 +20,13 @@ module balcyl(deeper=false) {
 }
 
 difference() {
+  //%cylinder(h=h, r=r, center=true, $fn=10);
   cylinder(h=h, r=r, center=true, $fn=10);
   union() {
     balcyl();
     for(a = [ 360/20 : 360/10 : 360 ]) {
       //echo(a);
-      rotate([ 0, 0, a ]) translate([ r - br * 2 - 2 * o2, 0, 0 ]) balcyl();
+      rotate([ 0, 0, a ]) translate([ r - br * 2 - 0 * o2, 0, 0 ]) balcyl();
     }
   }
 }
