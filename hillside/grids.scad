@@ -87,6 +87,14 @@ module hex(height=1) {
 //translate([ inch * 1.1, 0, 0 ]) hex(3);
 //translate([ inch * 2.2, 0, 0 ]) hex(5);
 
+difference() {
+  hex();
+  #translate([ -3, -7, 2.1 ])
+    linear_extrude(10)
+      text("\u2665", size=16); // heart
+}
+
+
 module square(height=1) {
 
   hei = h * height;
@@ -304,7 +312,7 @@ module hexhaustion(height=1) {
   translate([ 0, 0, 0 ]) hgroup(1, 3, height);
   translate([ ino2, 0, 0 ]) hgroup(1, 3, height);
 }
-hexhaustion();
+//hexhaustion();
 
 
 module tri(height=1) {
