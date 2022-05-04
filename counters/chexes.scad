@@ -59,7 +59,11 @@ module hex() {
 
 
 //a = 0; x = -3; y = -7; symbol = "\u2665", size=16); // heart
-a = 0; x = -7; y = -7; symbol = "\u25BC"; size = 16; // head down triangle
+//a = 0; x = -7; y = -7; symbol = "\u25BC"; size = 16; // head down triangle
+a = 0; x = -7; y = -7; symbol = "\u2192"; size = 16; // arrow right
+//a = 0; x = -7; y = -7; symbol = "\u2660"; size = 16; // spade
+//a = 0; x = -7; y = -7; symbol = "\u2663"; size = 16; // club
+//a = 0; x = -7; y = -7; symbol = "\u2666"; size = 16; // diamond
 
 
 difference() {
