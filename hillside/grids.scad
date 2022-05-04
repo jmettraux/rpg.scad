@@ -87,12 +87,15 @@ module hex(height=1) {
 //translate([ inch * 1.1, 0, 0 ]) hex(3);
 //translate([ inch * 2.2, 0, 0 ]) hex(5);
 
-difference() {
-  hex();
-  #translate([ -3, -7, 2.1 ])
-    linear_extrude(10)
-      text("\u2665", size=16); // heart
-}
+
+//difference() {
+//  hex();
+//  #translate([ -3, -7, 2.1 ])
+//    linear_extrude(10)
+//      text("\u2665", size=16); // heart
+//}
+  //
+  // moved to counters/chexes.scad
 
 
 module square(height=1) {
