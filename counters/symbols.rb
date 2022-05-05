@@ -10,8 +10,13 @@ sel = []
 #sel = [ 58, 59, 60, 64, 66, 96, 99, 101, 102, 106, 107, 111 ]
 #r = (0x2200..0x22FF) # mathematical operators
 #sel = [ 2, 6, 17, 18, 21, 25, 26, 30, 31, 41, 43, 72, 73, 96, 97, 98, 100, 101, 110, 111, 112, 113 ]
-r = (0x2300..0x23FF) # misc technical
-sel = [ 2, 16, 32, 33 ]
+#r = (0x2300..0x23FF) # misc technical
+#sel = [ 2, 16, 32, 33 ]
+#r = (0x2700..0x27BF) # dingbats
+#sel = []
+#r = (0x16A0..0x16FF) # runic
+#sel = []
+r = (0x16A0..0x16FF) # ...
 
 
 puts("symbols = [ " + r
