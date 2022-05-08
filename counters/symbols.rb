@@ -18,8 +18,10 @@ sel = []
 #sel = []
 #r = (0x2B00..0x2BFF) # misc symbols and arrows
 #sel = []
-r = (0x25A0..0x25FF) # geometric shapes
-sel = [ 0, 10, 11, 12, 18, 26, 28, 36, 42, 43, 44, 47, 56, 57, 70 ]
+#r = (0x25A0..0x25FF) # geometric shapes
+#sel = [ 0, 10, 11, 12, 18, 26, 28, 36, 42, 43, 44, 47, 56, 57, 70 ]
+#r = (0x0590..0x05FF) # hebrew
+r = (0x0590..0x05FF) # hebrew
 
 
 puts("symbols = [ " + r
