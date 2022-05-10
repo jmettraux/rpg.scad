@@ -91,7 +91,6 @@ module lens() {
   translate([ 4, 0, 0 ]) halflens();
   rotate([ 0, 0, 180 ]) translate([ 4, 0, 0 ]) halflens();
 }
-//lens();
 
 module lenspair() {
   union() {
@@ -112,5 +111,48 @@ module wheathex() {
     translate([ 0, inch * -0.3, -5 ]) lenspair();
   }
 }
-wheathex();
+//wheathex();
+
+
+module arrow() {
+  diameter = 20;
+  slit_width = 0.8;
+  arrow_base = 7;
+  ab_2 = arrow_base / 2;
+  diameter_2 = diameter / 2;
+  fs = 0.4 * arrow_base; // feather side
+  fs2 = 2 * fs;
+  h = 10;
+  union() {
+
+    translate([ 0, 0, 0 ])
+      cube([ slit_width, 0.7 * diameter, h ], center=true);
+
+    translate([ 0, diameter_2 - 1.2 * ab_2, -0.5 * h ])
+      linear_extrude(h)
+        polygon([
+          [ -ab_2, 0 ], [ 0, ab_2 ], [ ab_2, 0 ] ]);
+
+    translate([ 0, -0.84 * diameter_2, -0.5 * h ])
+      linear_extrude(h)
+        polygon([ [ 0, fs ], [ 0, fs2 ], [ fs, fs ], [ fs, 0 ] ]);
+    translate([ 0, -0.5 * diameter_2, -0.5 * h ])
+      linear_extrude(h)
+        polygon([ [ 0, fs ], [ 0, fs2 ], [ fs, fs ], [ fs, 0 ] ]);
+
+    translate([ 0, -0.84 * diameter_2, -0.5 * h ])
+      linear_extrude(h)
+        polygon([ [ 0, fs ], [ 0, fs2 ], [ -fs, fs ], [ -fs, 0 ] ]);
+    translate([ 0, -0.5 * diameter_2, -0.5 * h ])
+      linear_extrude(h)
+        polygon([ [ 0, fs ], [ 0, fs2 ], [ -fs, fs ], [ -fs, 0 ] ]);
+  }
+}
+module pointerhex() {
+  difference() {
+    hex();
+    rotate([ 0, 0, 30 ]) translate([ 0, -1, 0 ]) arrow();
+  }
+}
+pointerhex();
 
