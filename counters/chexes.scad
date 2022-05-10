@@ -84,7 +84,7 @@ module charhex() {
 module lens() {
   module halflens() {
     difference() {
-      circle(r=5, $fn=36);
+      circle(r=5.2, $fn=36);
       translate([ 6, 0, 0 ]) square(20, center=true);
     }
   }
@@ -107,9 +107,8 @@ module wheathex() {
     hex();
 
     translate([ 0, inch *  0.3, -5 ]) linear_extrude(10) lens();
-    translate([ 0, inch *  0.16, -5 ]) lenspair();
-    translate([ 0, inch * -0.00, -5 ]) lenspair();
-    translate([ 0, inch * -0.16, -5 ]) lenspair();
+    translate([ 0, inch *  0.1, -5 ]) lenspair();
+    translate([ 0, inch * -0.1, -5 ]) lenspair();
     translate([ 0, inch * -0.3, -5 ]) lenspair();
   }
 }
