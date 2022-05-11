@@ -120,7 +120,7 @@ module arrow() {
   arrow_base = 7;
   ab_2 = arrow_base / 2;
   diameter_2 = diameter / 2;
-  fs = 0.4 * arrow_base; // feather side
+  fs = 0.5 * arrow_base; // feather side
   fs2 = 2 * fs;
   h = 10;
   union() {
@@ -136,16 +136,16 @@ module arrow() {
     translate([ 0, -0.84 * diameter_2, -0.5 * h ])
       linear_extrude(h)
         polygon([ [ 0, fs ], [ 0, fs2 ], [ fs, fs ], [ fs, 0 ] ]);
-    translate([ 0, -0.5 * diameter_2, -0.5 * h ])
-      linear_extrude(h)
-        polygon([ [ 0, fs ], [ 0, fs2 ], [ fs, fs ], [ fs, 0 ] ]);
+    //translate([ 0, -0.5 * diameter_2, -0.5 * h ])
+    //  linear_extrude(h)
+    //    polygon([ [ 0, fs ], [ 0, fs2 ], [ fs, fs ], [ fs, 0 ] ]);
 
     translate([ 0, -0.84 * diameter_2, -0.5 * h ])
       linear_extrude(h)
         polygon([ [ 0, fs ], [ 0, fs2 ], [ -fs, fs ], [ -fs, 0 ] ]);
-    translate([ 0, -0.5 * diameter_2, -0.5 * h ])
-      linear_extrude(h)
-        polygon([ [ 0, fs ], [ 0, fs2 ], [ -fs, fs ], [ -fs, 0 ] ]);
+    //translate([ 0, -0.5 * diameter_2, -0.5 * h ])
+    //  linear_extrude(h)
+    //    polygon([ [ 0, fs ], [ 0, fs2 ], [ -fs, fs ], [ -fs, 0 ] ]);
   }
 }
 module pointerhex() {
