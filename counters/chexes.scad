@@ -63,22 +63,22 @@ module hex(center_ball) {
 
 module charhex() {
 
-  //a=0;x=-3;y=-7;z=1.9;c=true;symbol="\u2665",size=16;//heart
+  a=0;x=-4;y=-7;z=-4;c=false;symbol="\u2665";size=16;//heart
   //a=0;x=-7;y=-7;z=1.9;c=true;symbol="\u25BC";size=16;//headdowntriangle
   //a=0;x=-7;y=-7;z=1.9;c=true;symbol="\u2192";size=16;//arrowright
   //a=0;x=-7;y=-7;z=1.9;c=true;symbol="\u2660";size=16;//spade
   //a=0;x=-7;y=-7;z=1.9;c=true;symbol="\u2663";size=16;//club
   //a=0;x=-7;y=-7;z=1.9;c=true;symbol="\u2666";size=16;//diamond
   //a=0;x=-8.5;y=-9;z=-4;c=false;symbol="\u2191";size=24;//arrow
-  a=0;x=-11.4;y=-6.0;z=-4;c=false;symbol="\u263c";size=18;//sun
+  //a=0;x=-11.4;y=-6.0;z=-4;c=false;symbol="\u263c";size=18;//sun
 
   difference() {
     rotate([ 0, 0, a ]) hex(c);
     translate([ x, y, z ]) linear_extrude(7) text(symbol, size=size);
-    translate([ 0, 0, 0 ]) cylinder(r=4.4, h=20, center=true, $fn=60); // for sun
+    //translate([ 0, 0, 0 ]) cylinder(r=4.4, h=20, center=true, $fn=60); // for sun
   }
 }
-//charhex();
+charhex();
 
 
 module lens() {
@@ -154,5 +154,5 @@ module pointerhex() {
     rotate([ 0, 0, 30 ]) translate([ 0, -1, 0 ]) arrow();
   }
 }
-pointerhex();
+//pointerhex();
 
