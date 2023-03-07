@@ -37,13 +37,10 @@ hull_diameters = [
 
 module unit_base(front, depth, label=undef) {
 
-  //translate([ x, y, z ]) linear_extrude(7) text(symbol, size=size);
-  difference() {
-    cube([ front, depth, base_height ], true);
-    if ( ! is_undef(label)) {
-      translate([ -front * 0.47, -depth * 0.40, base_height * 0.3 ])
-        linear_extrude(4) text(label, size=5, font="Courier");
-    }
+  cube([ front, depth, base_height ], true);
+  if ( ! is_undef(label)) {
+    translate([ -front * 0.47, -depth * 0.40, base_height * 0.3 ])
+      linear_extrude(0.8) text(label, size=5, font="Courier");
   }
 }
 
