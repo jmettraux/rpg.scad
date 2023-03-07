@@ -2,6 +2,7 @@
 // units.scad
 
 include <../minis2/doll2.scad>;
+include <../minis2/weapons.scad>;
 
 
 // 15mm
@@ -22,28 +23,66 @@ include <../minis2/doll2.scad>;
 // | CP camp       | variable | 40x80mm |
 
 base_height = 2;
+mini_height = 15;
 
-module unit_base(front, depth) {
+hull_diameters = [
+  [ "knee diameter",      0.7 ],
+  [ "leg diameter",       0.9 ],
+  [ "thigh diameter",     0.9 ],
+  [ "hip diameter",       0.9 ],
+  [ "waist diameter",     0.7 ],
+  [ "shoulder diameter",  0.9 ],
+  [ "neck diameter",      0.6 ],
+];
 
+module unit_base(front, depth, label=undef) {
+
+  //translate([ x, y, z ]) linear_extrude(7) text(symbol, size=size);
   difference() {
     cube([ front, depth, base_height ], true);
-    %cylinder(
+    if ( ! is_undef(label)) {
+      translate([ -front * 0.47, -depth * 0.40, base_height * 0.3 ])
+        linear_extrude(4) text(label, size=5, font="Courier");
+    }
   }
 }
-//unit_base(40, 40, 3);
 
 module li_mini(i) {
+
   bps = make_humanoid_body_points([
-    [ "height", 17 ]
+    [ "height", mini_height ],
+    [ "r elbow", -70,  0, "elbow ratio", "r shoulder" ],
+    [ "r wrist", -60,  0, "wrist ratio", "r elbow" ],
+    [ "r hand",  -40,  0, "hand ratio", "r wrist" ],
+    [ "l hand",  -60, 10, "hand ratio", "l wrist" ]
   ]);
-  move_z(bps)
-    draw_points(bps);
+  hs = make_humanoid_body_hulls(hull_diameters);
+
+  supported(base_thickness=base_height) {
+
+    move_z(bps) draw_hulls(bps, hs);
+
+    translate([ 0, 0, mini_height * 0.99 ])
+      scale([ 0.8, 1, 1 ])
+        sphere(d=2.6, $fn=24);
+
+    translate([ -3, 0.4, mini_height * 0.5 ])
+      rotate([ 0, 0, 45 ])
+        color("lightblue") round_shield(7, 0.6);
+
+    support_at(-3, 0.4, mini_height * 0.5);
+
+    translate([ 2.1, 2.7, base_height * 0 ])
+      spear(length=15, diameter=0.6);
+  }
 }
 
 module li() {
-  unit_base(40, 20);
+
+  unit_base(40, 20, "LI");
+
   for (i = [ 0 : 1 ]) {
-    translate([ -10 + i * 20, 0, base_height ])
+    translate([ -10 + i * 20, 0, base_height * 0.5 ])
       li_mini(i);
   }
 }

@@ -40,6 +40,45 @@ module long_sword(length, handle_length) {
 
 
 //
+// spears
+
+module pyramid(width1, height, w2=0, inverted=false) {
+
+  w1 = width1 / 2;
+  w2 = w2 == 0 ? w1 / 2 : w2 / 2;
+
+  translate([ 0, 0, inverted ? height : 0 ])
+    rotate([ inverted ? 180 : 0, 0, 0 ])
+      linear_extrude(height, scale=0)
+        polygon([ [ -w1, 0 ], [ 0, w2 ], [ w1, 0 ], [ 0, -w2 ] ]);
+};
+
+module spear(length, diameter, head_ratio=0.2, d1r=2.1, d2r=1.7) {
+
+  // rod
+
+  translate([ 0, 0, length * 0.5 ])
+    cylinder(d=diameter, h=length, center=true, $fn=18);
+
+  // spearhead
+
+  hl = length * head_ratio;
+  rl = length - hl;
+  hl0 = 0.4 * hl;
+  hl1 = hl - hl0;
+
+  hd1 = d1r * diameter; // head width 1
+  hd2 = d2r * diameter; // head width 2
+
+  color("silver") {
+    translate([ 0, 0, rl + hl * 0.72 ])
+      pyramid(hd1, w2=hd2, hl0, inverted=true);
+    translate([ 0, 0, rl + hl * 0.72 + hl0 ])
+      pyramid(hd1, w2=hd2, hl1);
+  }
+}
+
+//
 // shields
 
 module tear_shield(height, width, thickness=1) {
@@ -54,5 +93,11 @@ module tear_shield(height, width, thickness=1) {
       translate([ 0, height, 0 ])
         cylinder(d=d, h=t, center=true, $fn=12);
     }
+};
+
+module round_shield(diameter, thickness=1) {
+
+  rotate([ 270, 0, 0 ])
+    cylinder(d=diameter, h=thickness, center=true, $fn=12);
 };
 
