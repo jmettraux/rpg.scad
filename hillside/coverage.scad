@@ -31,14 +31,16 @@ module balcyl(deeper=false) {
     cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
 }
 
-module trunk(height, reach=inch / 2.1) {
+module trunk(height, hreach=inch / 2.1, vreach=inch / 2.1) {
 
   module root() {
 
     translate([ 0, 0, -0.4 ]) {
 
       ps = [
-        [ reach, 0, 0 ], [ reach / 4, 0, reach/ 4 ], [ td / 2.8, 0, reach ] ];
+        [     hreach, 0,         0 ],
+        [ hreach / 4, 0, vreach/ 4 ],
+        [   td / 2.8, 0,    vreach ] ];
       ps1 = _bezier_points(ps, 8);
       polyhulls(ps1) { bal(); }
 
@@ -60,7 +62,7 @@ module trunk(height, reach=inch / 2.1) {
     }
 
     translate([ 0, 0, -10 / 2 ])
-      cube(size=[ 2 * inch, 2 * inch, 10 ], center=true);
+      cube(size=[ 3 * hreach, 3 * hreach, 10 ], center=true);
 
     translate([ 0, 0, 2 * o2 ]) balcyl();
     //translate([ 0, 0, height - br * 2.8 - 2 * o2 ]) balcyl(true);
@@ -111,7 +113,8 @@ module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.42);
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
 
-//trunk((-0.49 + 1) * inch);
+//trunk((-0.49 + 1) * inch); // stump
+trunk(3 * inch, inch, inch / 2);
 
 module bush(height=0) {
   h = 5;
@@ -152,5 +155,5 @@ module bush(height=0) {
 //bush();
 //translate([ inch * 1.2, 0, 0 ]) bush(inch / 3);
 //translate([ inch * 2.2, 0, 0 ]) bush(inch / 2);
-translate([ inch * 2.2, 0, 0 ]) bush(inch / 1); // door ;-)
+//translate([ inch * 2.2, 0, 0 ]) bush(inch / 1); // door ;-)
 
