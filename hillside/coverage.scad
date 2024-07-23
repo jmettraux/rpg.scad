@@ -114,7 +114,22 @@ module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
 
 //trunk((-0.49 + 1) * inch); // stump
-trunk(3 * inch, inch, inch / 2);
+//trunk(3 * inch, inch, inch / 2);
+
+module ballesque(max_diameter, height_scale) {
+
+  td1 = td + 3 * o2;
+
+  difference() {
+    scale([ 1, 1, height_scale ])
+      translate([ 0, 0, max_diameter / 2 ])
+        sphere(d=max_diameter);
+    #translate([ 0, 0, - o2 ]) cylinder(d=td1, h=inch + o2, $fn=36);
+  }
+}
+//ballesque(3.5 * inch, 1.2);
+
+
 
 module bush(height=0) {
   h = 5;
