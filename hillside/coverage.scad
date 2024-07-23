@@ -143,7 +143,30 @@ module ballesque(max_diameter, height_scale) {
 }
 //ballesque(3.5 * inch, 1.2);
 
-module cuboidal(corner_radius, side, height) {
+module cuboidal(corner_radius, side_a, side_b, height) {
+
+  a2 = side_a / 2;
+  b2 = side_b / 2;
+  td1 = td + 3 * o2;
+  fn = 24;
+
+  difference() {
+
+    translate([ 0, 0, corner_radius ]) hull() {
+
+      translate([ -a2, -b2, 0 ]) sphere(r=corner_radius, $fn=fn);
+      translate([ -a2, b2, 0 ]) sphere(r=corner_radius, $fn=fn);
+      translate([ a2, -b2, 0 ]) sphere(r=corner_radius, $fn=fn);
+      translate([ a2, b2, 0 ]) sphere(r=corner_radius, $fn=fn);
+
+      translate([ -a2, -b2, height ]) sphere(r=corner_radius, $fn=fn);
+      translate([ -a2, b2, height ]) sphere(r=corner_radius, $fn=fn);
+      translate([ a2, -b2, height ]) sphere(r=corner_radius, $fn=fn);
+      translate([ a2, b2, height ]) sphere(r=corner_radius, $fn=fn);
+    }
+
+    #translate([ 0, 0, - o2 ]) cylinder(d=td1, h=inch + o2, $fn=36);
+  }
 }
-//cuboidal(5, 2.5 * inch, 3 * inch);
+cuboidal(8, 2.5 * inch, 2.5 * inch, 1.5 * inch);
 
