@@ -9,15 +9,20 @@ use <cadence.scad>;
 
 inch = 25.4;
 o2 = 0.2;
-bd = 5; // ball diameter
+//bd = 5; // ball diameter (ball magnet)
+bd = 7; // ball diameter (Daiso 5mm pill magnet)
 
 br = bd / 2;
-td = 2 * bd; // trunk diameter
+//td = 2 * bd; // trunk diameter
+td = 10; // trunk diameter
 in2 = inch / 2;
 k0 = bd + 2 * o2;
 k1 = bd + td / 2 + 2 * o2;
 
 rr = inch / 20;
+
+//
+// tree trunk
 
 module bal() { sphere(r=rr, $fn=12); }
 //module notch() { paslice(k1, k0, slice=60); }
@@ -26,6 +31,7 @@ module balcyl(deeper=false) {
 
   h = deeper ? br * 2.8 + o2 : br * 2 + o2;
   dz = deeper ? -3 * o2 : 0;
+  //echo("br", br, br + 2 * 0.2, h);
 
   translate([ 0, 0, dz + h / 2  ])
     cylinder(r=br + 2 * o2, h=h, center=true, $fn=36);
@@ -56,10 +62,14 @@ module trunk(height, hreach=inch / 2.1, vreach=inch / 2.1) {
 
   difference() {
 
+    // ++
+
     union() {
       cylinder(d=td, h=height, $fn=8); // trunk
       for (a = [ 0 : 90 : 270 ]) rotate([ 0, 0, a ]) root();
     }
+
+    // --
 
     translate([ 0, 0, -10 / 2 ])
       cube(size=[ 3 * hreach, 3 * hreach, 10 ], center=true);
@@ -68,6 +78,13 @@ module trunk(height, hreach=inch / 2.1, vreach=inch / 2.1) {
     //translate([ 0, 0, height - br * 2.8 - 2 * o2 ]) balcyl(true);
   }
 }
+
+//trunk((-0.49 + 1) * inch); // stump
+//trunk(3.5 * inch, inch, inch / 2);
+
+
+//
+// tree shape / upper stage
 
 module pyramidal(diameter, height) {
 
@@ -113,9 +130,6 @@ module conical(diameter, height, hratio1=0.25, hratio2=0.25) {
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.42);
 //conical(1.4 * inch, 3.5 * inch, 0.14, 0.14);
 
-//trunk((-0.49 + 1) * inch); // stump
-//trunk(3 * inch, inch, inch / 2);
-
 module ballesque(max_diameter, height_scale) {
 
   td1 = td + 3 * o2;
@@ -129,46 +143,7 @@ module ballesque(max_diameter, height_scale) {
 }
 //ballesque(3.5 * inch, 1.2);
 
-
-
-module bush(height=0) {
-  h = 5;
-  bd = 3;
-  br = bd / 2;
-  module balcyl() {
-    cylinder(r=br + 2 * o2, h=br * 2 + o2, center=true, $fn=36);
-  }
-  difference() {
-    hull() {
-      for (a = [ 0 : 15 : 180 ])
-        rotate([ 0, 0, a ]) {
-          translate([ inch / 2 - rr, 0, -h/2 + rr ]) bal();
-          translate([ inch / 2 - rr, 0, h/2 - rr ]) bal();
-        }
-      translate([ inch / 2 - rr, -inch, -h/2 + rr ]) bal();
-      translate([ inch / 2 - rr, -inch, h/2 - rr ]) bal();
-      translate([ -inch / 2 + rr, -inch, -h/2 + rr ]) bal();
-      translate([ -inch / 2 + rr, -inch, h/2 - rr ]) bal();
-    }
-    translate([ 0, -inch - height, 0 ])
-      cube(size=[ inch + o2, 2 * inch + o2, 5 + o2 ], center=true);
-
-    #translate([ 0, br + 5 * o2 - height, 0 ]) balcyl();
-
-    if (height > 0) #translate([ 0, inch / 2 - bd, 0 ]) balcyl();
-
-    if (height >= inch) {
-      #translate([ 0, -inch / 2, 0 ]) balcyl();
-      #translate([ inch / 2 - bd, -inch / 2, 0 ]) balcyl();
-      #translate([ -inch / 2 + bd, -inch / 2, 0 ]) balcyl();
-    }
-  }
+module cuboidal(corner_radius, side, height) {
 }
-
-//translate([ -2 * inch, 0, 0 ]) bush(0.9);
-//translate([ -inch, 0, 0 ]) bush(1.1);
-//bush();
-//translate([ inch * 1.2, 0, 0 ]) bush(inch / 3);
-//translate([ inch * 2.2, 0, 0 ]) bush(inch / 2);
-//translate([ inch * 2.2, 0, 0 ]) bush(inch / 1); // door ;-)
+//cuboidal(5, 2.5 * inch, 3 * inch);
 
