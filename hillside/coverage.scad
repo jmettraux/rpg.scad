@@ -168,5 +168,40 @@ module cuboidal(corner_radius, side_a, side_b, height) {
     #translate([ 0, 0, - o2 ]) cylinder(d=td1, h=inch + o2, $fn=36);
   }
 }
-cuboidal(8, 2.5 * inch, 2.5 * inch, 1.5 * inch);
+//cuboidal(8, 2.5 * inch, 2.5 * inch, 1.5 * inch);
+
+module ovoidal(
+  lo_radius, lo_z_scale, lo_to_hi,
+  hi_radius, hi_z_scale
+) {
+  td1 = td + 3 * o2;
+  difference() {
+    // +++
+    translate([ 0, 0, lo_radius * lo_z_scale ]) hull() {
+      scale([ 1, 1, lo_z_scale ]) sphere(r=lo_radius);
+      translate([ 0, 0, lo_to_hi ])
+        scale([ 1, 1, hi_z_scale ]) sphere(r=hi_radius);
+    }
+    // ---
+    #translate([ 0, 0, - o2 ]) cylinder(d=td1, h=inch + o2, $fn=36);
+  }
+}
+
+//translate([ 0, 0, 0 ])
+//  ovoidal(
+//    1.5 * inch, 0.56,
+//    0.77 * inch, // lo_to_hi
+//    0.9 * inch, 1);
+//
+//translate([ 5 * inch, 0, 0 ])
+//  ovoidal(
+//    1.2 * inch, 0.56,
+//    1.4 * inch, // lo_to_hi
+//    0.9 * inch, 1);
+//
+//translate([ 5 * inch, 5 * inch, 0 ])
+//  ovoidal(
+//    1.2 * inch, 0.56,
+//    1.4 * inch, // lo_to_hi
+//    1.1 * inch, 1);
 
