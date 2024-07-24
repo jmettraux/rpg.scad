@@ -80,7 +80,7 @@ module trunk(height, hreach=inch / 2.1, vreach=inch / 2.1) {
 }
 
 //trunk((-0.49 + 1) * inch); // stump
-//trunk(3.5 * inch, inch, inch / 2);
+//trunk(4 * inch, inch, inch / 2);
 
 
 //
@@ -187,21 +187,27 @@ module ovoidal(
   }
 }
 
-//translate([ 0, 0, 0 ])
-//  ovoidal(
-//    1.5 * inch, 0.56,
-//    0.77 * inch, // lo_to_hi
-//    0.9 * inch, 1);
-//
-//translate([ 5 * inch, 0, 0 ])
-//  ovoidal(
-//    1.2 * inch, 0.56,
-//    1.4 * inch, // lo_to_hi
-//    0.9 * inch, 1);
-//
-//translate([ 5 * inch, 5 * inch, 0 ])
-//  ovoidal(
-//    1.2 * inch, 0.56,
-//    1.4 * inch, // lo_to_hi
-//    1.1 * inch, 1);
+translate([ 0, 0, 0 ])
+  ovoidal(
+    1.5 * inch, 0.56,
+    0.77 * inch, // lo_to_hi
+    0.9 * inch, 1);
+
+translate([ 5 * inch, 0, 0 ])
+  ovoidal(
+    1.2 * inch, 0.56,
+    1.4 * inch, // lo_to_hi
+    0.9 * inch, 1);
+
+translate([ 5 * inch, 5 * inch, 0 ])
+  ovoidal(
+    1.2 * inch, 0.56,
+    1.4 * inch, // lo_to_hi
+    1.1 * inch, 1);
+
+translate([ 0, 5 * inch, 0 ])
+  ovoidal(
+    1.4 * inch, 0.56,
+    1.4 * inch, // lo_to_hi
+    1.6 * inch, 0.6);
 
