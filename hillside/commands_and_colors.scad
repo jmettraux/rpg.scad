@@ -22,21 +22,24 @@ inch = 25.4;
 o2 = 0.2;
 bd = 5; // ball diameter
 br = bd / 2; // ball radius
+bh = bd;
 
 hr = 32.33;
 hr1 = 28;
-hh = br * 2 + o2 + 3 * o2;
+//hh = br * 2 + o2 + 3 * o2;
+hh = bh + 6 * o2;
+//echo("hh", hh);
 
 
 module hex() {
 
   module balcyl() {
-    cylinder(r=br + 2 * o2, h=br * 2 + o2, center=true, $fn=36);
+    cylinder(r=br + 2 * o2, h=bh + 2 * o2, center=true, $fn=36);
   }
 
   difference() {
-    %cylinder(r=hr, h=hh, center=true, $fn=6);
-    #union() {
+    cylinder(r=hr, h=hh, center=true, $fn=6);
+    union() {
       balcyl();
       for (a = [ 30 : 60 : 330 ]) {
         rotate([ 0, 0, a ])
